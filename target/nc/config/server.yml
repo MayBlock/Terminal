@@ -1,6 +1,0 @@
-server:
-  enable_plugin: true
-  debug: false
-  default_theme: white
-  max_input_cache: 10
-  port: 8888

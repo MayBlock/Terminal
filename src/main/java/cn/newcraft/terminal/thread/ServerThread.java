@@ -6,6 +6,8 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.plugin.Plugin;
 import com.google.common.collect.Lists;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -23,13 +25,8 @@ public class ServerThread extends Thread {
     private static Socket socket;
     private static boolean enable = false;
     public static HashMap<Integer, Sender> integerSocketHashMap = new HashMap<>();
-    public static List<Socket> socketList = Lists.newArrayList();
 
     private static ServerThread server;
-
-    public static int getConnects() {
-        return integerSocketHashMap.size();
-    }
 
     public static ServerThread getServer() {
         return server;
@@ -72,34 +69,12 @@ public class ServerThread extends Thread {
         public void run() {
             try {
                 InputStream inputStream = socket.getInputStream();
-                byte[] bytes;
-                int id = Sender.getNewId();
-                socketList.add(socket);
-                /* send HeartPacket */
-                Thread heart = new Thread(() -> {
-                    Integer i = id;
-                    while (true) {
-                        try {
-                            Thread.sleep(30 * 1000);
-                            integerSocketHashMap.get(i).sendPacket(new HeartbeatPacket());
-                            if (Terminal.getInstance().isDebug()) {
-                                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + integerSocketHashMap.get(i).getCanonicalName() + " 发送心跳包");
-                            }
-                        } catch (InterruptedException | IOException e) {
-                            try {
-                                integerSocketHashMap.get(i).disconnect(e.toString());
-                            } catch (IOException ignored) {
-                            }
-                            break;
-                        }
-                    }
-                });
-                /* send HeartPacket */
-                integerSocketHashMap.put(id, new Sender(socket, heart, id));
-                Sender sender = integerSocketHashMap.get(id);
-                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
+                /* Init Connect */
+                int id = Sender.spawnNewId();
+                //integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
                 socket.setKeepAlive(true);
-                heart.start();
+                /* Init Connect */
+                byte[] bytes;
                 while (true) {
                     int first = inputStream.read();
                     if (first == -1) {
@@ -107,68 +82,69 @@ public class ServerThread extends Thread {
                     }
                     bytes = new byte[first];
                     inputStream.read(bytes);
-                    for (Plugin plugin : ServerReceived.getReceivedLists()) {
-                        if (ServerReceived.getReceived().get(plugin) != null) {
-                            ServerReceived.getReceived().get(plugin).onMessageReceived(integerSocketHashMap.get(id), bytes);
+
+                    /*
+                    ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+                    int s = Integer.parseInt(in.readUTF().split("/")[1].split(":")[1].replace("]", ""));
+                    System.out.println("protocol: " + s);
+                     */
+
+                    if (!new String(bytes).contains("[TERMINAL/protocol:1]")) {
+                        try {
+                            if (Terminal.getInstance().isDebug()) {
+                                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD_WARN.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " 拒绝IP " + socket.getInetAddress().getHostAddress() + " 的连接，原因：协议不正确");
+                            }
+                            socket.close();
+                            break;
+                        } catch (IOException e) {
+                            Method.printException(this.getClass(), e);
                         }
-                    }
-                    if (Terminal.getInstance().isDebug()) {
-                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 的Socket交互信息：");
-                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");
-                        Terminal.getScreen().sendMessage(new String(bytes, StandardCharsets.UTF_8));
-                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " -------End-------");
+                    } else {
+                        Thread heart = getHeartThread(id);
+                        integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
+                        Sender sender = integerSocketHashMap.get(id);
+                        for (Plugin plugin : ServerReceived.getReceivedLists()) {
+                            if (ServerReceived.getReceived().get(plugin) != null) {
+                                ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);
+                                integerSocketHashMap.get(id).setFirstConnect(false);
+                            }
+                        }
+                        if (Terminal.getInstance().isDebug()) {
+                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 的Socket交互信息：");
+                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");
+                            Terminal.getScreen().sendMessage(new String(bytes, StandardCharsets.UTF_8));
+                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " -------End-------");
+                        }
                     }
                 }
             } catch (IOException e) {
-                if (e.getMessage().equals("Connection reset") || e.getMessage().equals("Socket closed")) {
-                    //closeSocket(integerSocketHashMap.get(socket));
+                if (e.getMessage().equalsIgnoreCase("Connection reset") || e.getMessage().equalsIgnoreCase("Socket closed")) {
                     return;
                 }
                 Method.printException(this.getClass(), e);
             }
-
-
-            /* Old Code
-            InputStream is = null;
-            OutputStream os = null;
-            try {
-                is = socket.getInputStream();
-                byte[] bytes = new byte[256];
-                int i;
-                while ((i = is.read(bytes)) != -1) {
-                    socket.shutdownInput();
-                    is.read(bytes, 0, i);
-                    os = socket.getOutputStream();
-                    for (Plugin plugin : ServerReceived.getReceivedLists()) {
-                        if (ServerReceived.getReceived().get(plugin) != null) {
-                            ServerReceived.getReceived().get(plugin).onMessageReceived(new Sender(socket, socket.getInetAddress().getHostAddress(), socket.getPort()), bytes);
-                        }
-                    }
-                    if (Terminal.getInstance().isDebug()){
-                        Terminal.getScreen().sendMessage(Prefix.DEBUG.getPrefix() + " 来自IP：" + socket.getInetAddress().getCanonicalHostName() + " 的Socket交互信息：");
-                        Terminal.getScreen().sendMessage(Prefix.DEBUG.getPrefix() + " ------Info------");
-                        Terminal.getScreen().sendMessage(new String(bytes));
-                        Terminal.getScreen().sendMessage(Prefix.DEBUG.getPrefix() + " -------End-------");
-                    }
-                }
-            } catch (Exception e) {
-                if (e.getMessage().equals("Connection reset")){
-                    return;
-                }
-                Method.printException(this.getClass(), e);
-            } finally {//最终将要执行的一些代码
-                try {
-                    if (os != null)
-                        os.close();
-                    if (is != null)
-                        is.close();
-                    if (socket != null)
-                        socket.close();
-                } catch (IOException e) {
-                    Method.printException(this.getClass(), e);
-                }
-            }
-             */
         }
     };
+
+    private Thread getHeartThread(Integer id) {
+        return new Thread(() -> {
+            int i = id;
+            Sender sender = integerSocketHashMap.get(i);
+            while (true) {
+                try {
+                    Thread.sleep(10 * 1000);
+                    sender.sendPacket(new HeartbeatPacket());
+                    if (Terminal.getInstance().isDebug()) {
+                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + integerSocketHashMap.get(i).getCanonicalName() + " 发送心跳包");
+                    }
+                } catch (InterruptedException | IOException e) {
+                    try {
+                        sender.disconnect(e.toString());
+                    } catch (IOException ignored) {
+                    }
+                    break;
+                }
+            }
+        });
+    }
 }

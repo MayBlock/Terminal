@@ -17,13 +17,15 @@ import java.net.Socket;
 public class Sender {
 
     private int id;
-    private Thread thread;
+    private Thread heartThread;
     private Socket socket;
+    private boolean firstConnect;
 
-    public Sender(Socket socket, Thread thread, int id) {
+    public Sender(Socket socket, Thread heartThread, int id, boolean firstConnect) {
         this.id = id;
-        this.thread = thread;
+        this.heartThread = heartThread;
         this.socket = socket;
+        this.firstConnect = firstConnect;
     }
 
     public int getId() {
@@ -34,8 +36,8 @@ public class Sender {
         return socket;
     }
 
-    public Thread getThread() {
-        return thread;
+    public Thread getHeartThread() {
+        return heartThread;
     }
 
     public String getCanonicalName() {
@@ -48,6 +50,15 @@ public class Sender {
 
     public void disconnect(String reason) throws IOException {
         sendPacket(new DisconnectPacket(reason));
+        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( " + reason + " )");
+    }
+
+    public boolean isFirstConnect() {
+        return firstConnect;
+    }
+
+    protected void setFirstConnect(boolean b) {
+        firstConnect = b;
     }
 
     public void sendMessage(String str) {
@@ -75,10 +86,10 @@ public class Sender {
         return socket.getPort();
     }
 
-    public static int getNewId() {
+    public static int spawnNewId() {
         int id = 0;
         while (true) {
-            if (ServerThread.socketList.isEmpty()) {
+            if (ServerThread.integerSocketHashMap.isEmpty()) {
                 return id;
             }
             if (ServerThread.integerSocketHashMap.get(id) != null) {

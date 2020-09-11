@@ -24,14 +24,12 @@ public class DisconnectPacket implements Packet {
     @Override
     public void onPacket(Sender sender) throws IOException {
         Socket socket = sender.getSocket();
-        ServerThread.socketList.remove(socket);
-        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 断开连接！ ( " + reason + " )");
 
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("DISCONNECT");
         b.writeUTF(reason);
         sender.sendByte(b.toByteArray(), false);
-        sender.getThread().stop();
+        sender.getHeartThread().stop();
         socket.close();
         ServerThread.integerSocketHashMap.remove(sender.getId());
     }

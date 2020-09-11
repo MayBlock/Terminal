@@ -9,6 +9,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -17,8 +18,10 @@ public class Server extends ServerReceived {
     @Override
     public void onMessageReceived(Sender sender, byte[] bytes) {
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+        in.readUTF();
         String chancel = in.readUTF();
-        if (chancel.equals("GET / TERMINAL")) {
+        if (chancel.equals("GET")) {
+            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             String subChancel = in.readUTF();
             try {

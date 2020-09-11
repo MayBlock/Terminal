@@ -14,6 +14,7 @@ import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Terminal {
 
@@ -87,10 +88,17 @@ public class Terminal {
         }
     }
 
-    public static void stopTerminal() {
+    public static void shutdown() {
         screen.sendMessage("Terminal Stopping...");
         new PluginManager(PluginEnum.DISABLE);
         if (ServerThread.isServer()) {
+            for (int i = 0; i < ServerThread.integerSocketHashMap.size(); i++) {
+                try {
+                    ServerThread.integerSocketHashMap.get(i).disconnect("Server Closed");
+                } catch (IOException e) {
+                    Method.printException(Terminal.class, e);
+                }
+            }
             ServerThread.getServer().stopServer();
         }
         screen = null;

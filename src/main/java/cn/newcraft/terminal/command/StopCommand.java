@@ -11,6 +11,6 @@ public class StopCommand extends CommandManager {
 
     @Override
     public void onCommand(Screen screen, String[] args) {
-        Terminal.stopTerminal();
+        Terminal.shutdown();
     }
 }

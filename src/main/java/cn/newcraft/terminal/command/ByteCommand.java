@@ -30,7 +30,8 @@ public class ByteCommand extends CommandManager {
                     Socket socket = null;
                     screen.sendMessage(Prefix.CLIENT_THREAD.getPrefix() + " 尝试对远程服务器发送连接请求，这可能需要一段时间... [" + args[1] + "/" + args[2] + "]");
                     try {
-                        bytes.writeUTF("GET / TERMINAL");
+                        bytes.writeUTF("[TERMINAL/protocol:1]");
+                        bytes.writeUTF("GET");
                         bytes.writeUTF("INFO");
                         socket = new Socket(args[1], Integer.parseInt(args[2]));
                         socket.setKeepAlive(true);
@@ -47,7 +48,7 @@ public class ByteCommand extends CommandManager {
                                 String reason = in.readUTF();
                                 screen.sendMessage(Prefix.CLIENT_THREAD.getPrefix() + " 远程主机强制关闭了一个现有的连接 " + reason);
                                 socket.close();
-                                return;
+                                break;
                             }
                             if (chancel.equals("TEST_CONNECT")) {
                                 ByteArrayDataOutput connect = ByteStreams.newDataOutput();

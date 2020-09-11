@@ -276,7 +276,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             }
             int jOptionPane = JOptionPane.showConfirmDialog(null, "确定要关闭控制台吗？\n关闭后尚未执行完毕的操作将会丢失！", "警告", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (jOptionPane == 0) {
-                Terminal.stopTerminal();
+                Terminal.shutdown();
             }
             return;
         }

@@ -1,0 +1,386 @@
+[INFO] 2020/09/01 21:50:15: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 21:50:15: Terminal Starting... 
+[INFO] 2020/09/01 21:50:16: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 21:50:16: [TestPlugin.d] Loading... 
+[INFO] 2020/09/01 21:50:16: 
+[PluginSystem ERROR] 插件 TestPlugin.d 加载失败，该报错非为Terminal问题，请联系该插件开发者 
+[INFO] 2020/09/01 21:50:16: 
+[PluginSystem ERROR] 请检查插件内是否包含 plugin.yml 文件且保证语法正确 
+[INFO] 2020/09/01 21:50:16: 
+ ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓=== 
+[INFO] 2020/09/01 21:50:16: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月01日 21:50:16
+
+[Terminal ERROR] 异常输出：
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:78)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:74)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+Caused by: java.lang.NoSuchMethodError: cn.newcraft.testplugin.Main.getGui()Lcn/newcraft/terminal/gui/MainGui;
+	at cn.newcraft.testplugin.Main.onLoad(Main.java:21)
+	... 7 more
+ 
+[INFO] 2020/09/01 21:50:16: 
+ ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑=== 
+[INFO] 2020/09/01 21:50:17: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 21:50:17: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 21:50:17: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 21:50:17: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 21:50:17: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 21:50:25: Terminal Stopping... 
+[INFO] 2020/09/01 21:57:12: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 21:57:12: Terminal Starting... 
+[INFO] 2020/09/01 21:57:14: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 21:57:14: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 21:57:14: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 21:57:14: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 21:57:14: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 21:57:22: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/01 21:57:22: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/01 21:57:25: #---------- 命令 'help' 的帮助 ----------# 
+[INFO] 2020/09/01 21:57:25: 主命令：help 
+[INFO] 2020/09/01 21:57:25: 说明：获取所有命令帮助 
+[INFO] 2020/09/01 21:57:25: 用法：help <Command> 
+[INFO] 2020/09/01 21:57:32: 查询失败，命令 testplugin 不存在！ 
+[INFO] 2020/09/01 21:57:34: 查询失败，命令 testplugins 不存在！ 
+[INFO] 2020/09/01 21:57:35: 查询失败，命令 testplugin 不存在！ 
+[INFO] 2020/09/01 21:57:39: #---------- 命令 'plugins' 的帮助 ----------# 
+[INFO] 2020/09/01 21:57:39: 主命令：plugins 
+[INFO] 2020/09/01 21:57:39: 说明：查看当前所有已加载插件 
+[INFO] 2020/09/01 21:57:39: 用法：plugins 
+[INFO] 2020/09/01 21:57:42: #---------- 命令 'system' 的帮助 ----------# 
+[INFO] 2020/09/01 21:57:42: 主命令：system 
+[INFO] 2020/09/01 21:57:42: 说明：对系统进行操作 
+[INFO] 2020/09/01 21:57:42: 用法：system <help/info/changepassword> 
+[INFO] 2020/09/01 21:57:48: Terminal Stopping... 
+[INFO] 2020/09/01 22:21:06: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 22:21:06: Terminal Starting... 
+[INFO] 2020/09/01 22:21:07: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 22:21:07: [TestPlugin] Loading... 
+[INFO] 2020/09/01 22:21:07: 
+[PluginSystem ERROR] 插件 TestPlugin 加载失败，该报错非为Terminal问题，请联系该插件开发者 
+[INFO] 2020/09/01 22:21:07: 
+[PluginSystem ERROR] 请检查插件内是否包含 plugin.yml 文件且保证语法正确 
+[INFO] 2020/09/01 22:21:07: 
+ ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓=== 
+[INFO] 2020/09/01 22:21:07: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月01日 22:21:07
+
+[Terminal ERROR] 异常输出：
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:81)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:74)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+Caused by: java.lang.NoSuchMethodError: cn.newcraft.testplugin.Main.getScreen()Lcn/newcraft/terminal/gui/Screen;
+	at cn.newcraft.testplugin.Main.onLoad(Main.java:21)
+	... 7 more
+ 
+[INFO] 2020/09/01 22:21:07: 
+ ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑=== 
+[INFO] 2020/09/01 22:21:07: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 22:21:07: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 22:21:07: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 22:21:07: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 22:21:07: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 22:22:52: Terminal Stopping... 
+[INFO] 2020/09/01 22:30:11: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 22:30:11: Terminal Starting... 
+[INFO] 2020/09/01 22:30:12: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 22:30:12: [TestPlugin] Loading... 
+[INFO] 2020/09/01 22:30:12: 
+[PluginSystem ERROR] 插件 TestPlugin 加载失败，该报错非为Terminal问题，请联系该插件开发者 
+[INFO] 2020/09/01 22:30:12: 
+[PluginSystem ERROR] 请检查插件内是否包含 plugin.yml 文件且保证语法正确 
+[INFO] 2020/09/01 22:30:12: 
+ ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓=== 
+[INFO] 2020/09/01 22:30:12: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月01日 22:30:12
+
+[Terminal ERROR] 异常输出：
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:81)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:74)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+Caused by: java.lang.NoSuchMethodError: cn.newcraft.testplugin.Main.getScreen()Lcn/newcraft/terminal/gui/Screen;
+	at cn.newcraft.testplugin.Main.onLoad(Main.java:21)
+	... 7 more
+ 
+[INFO] 2020/09/01 22:30:12: 
+ ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑=== 
+[INFO] 2020/09/01 22:30:12: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 22:30:12: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 22:30:12: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 22:30:12: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 22:30:12: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 22:30:15: [Terminal] 已切换主题 羊毛白 
+[INFO] 2020/09/01 22:30:17: [Terminal] 已切换主题 深空灰 
+[INFO] 2020/09/01 22:30:19: Terminal Stopping... 
+[INFO] 2020/09/01 22:32:51: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 22:32:51: Terminal Starting... 
+[INFO] 2020/09/01 22:32:53: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 22:32:53: [TestPlugin] Loading... 
+[INFO] 2020/09/01 22:32:53: 
+[PluginSystem ERROR] 插件 TestPlugin 加载失败，该报错非为Terminal问题，请联系该插件开发者 
+[INFO] 2020/09/01 22:32:53: 
+[PluginSystem ERROR] 请检查插件内是否包含 plugin.yml 文件且保证语法正确 
+[INFO] 2020/09/01 22:32:53: 
+ ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓=== 
+[INFO] 2020/09/01 22:32:53: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月01日 22:32:53
+
+[Terminal ERROR] 异常输出：
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:81)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:74)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+Caused by: java.lang.NoSuchMethodError: cn.newcraft.testplugin.Main.getScreen()Lcn/newcraft/terminal/gui/Screen;
+	at cn.newcraft.testplugin.Main.onLoad(Main.java:21)
+	... 7 more
+ 
+[INFO] 2020/09/01 22:32:53: 
+ ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑=== 
+[INFO] 2020/09/01 22:32:53: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 22:32:53: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 22:32:53: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 22:32:53: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 22:32:53: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 22:32:54: Terminal Stopping... 
+[INFO] 2020/09/01 23:51:49: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:51:49: Terminal Starting... 
+[INFO] 2020/09/01 23:51:51: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:51:51: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:51:51: 加载中... 
+[INFO] 2020/09/01 23:51:51: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:51:51: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:51:51: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:51:51: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:51:51: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:51:51: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:51:51: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:51:54: [Terminal] 已切换主题 羊毛白 
+[INFO] 2020/09/01 23:51:56: [Terminal] 已切换主题 深空灰 
+[INFO] 2020/09/01 23:52:12: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/01 23:52:12: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/01 23:52:12: help - 获取所有命令帮助 
+[INFO] 2020/09/01 23:52:12: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/01 23:52:12: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/01 23:52:12: stop - 关闭终端并退出 
+[INFO] 2020/09/01 23:52:12: system - 对系统进行操作 
+[INFO] 2020/09/01 23:52:12: byte - Test Socket Command 
+[INFO] 2020/09/01 23:52:12: testplugin - testplugin command 
+[INFO] 2020/09/01 23:52:12: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/01 23:52:16: Hello World! 
+[INFO] 2020/09/01 23:52:16: Args: 1 
+[INFO] 2020/09/01 23:52:19: PluginName: TestPlugin 
+[INFO] 2020/09/01 23:52:19: Main Class: cn.newcraft.testplugin.Main 
+[INFO] 2020/09/01 23:52:19: Version: 1.0 
+[INFO] 2020/09/01 23:52:19: Author: May_Block 
+[INFO] 2020/09/01 23:52:19: Msg Prefix: TestPlugin 
+[INFO] 2020/09/01 23:52:19: Path: .\plugins\TestPlugin.jar 
+[INFO] 2020/09/01 23:52:55: Terminal Stopping... 
+[INFO] 2020/09/01 23:52:55: 已卸载！ author by May_Block 
+[INFO] 2020/09/01 23:52:55: [TestPlugin] Disabled! 
+[INFO] 2020/09/01 23:53:30: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:53:30: Terminal Starting... 
+[INFO] 2020/09/01 23:53:32: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:53:32: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:53:32: 加载中... 
+[INFO] 2020/09/01 23:53:32: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:53:32: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:53:32: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:53:32: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:53:32: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:53:32: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:53:32: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:53:37: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/01 23:53:37: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/01 23:53:37: help - 获取所有命令帮助 
+[INFO] 2020/09/01 23:53:37: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/01 23:53:37: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/01 23:53:37: stop - 关闭终端并退出 
+[INFO] 2020/09/01 23:53:37: system - 对系统进行操作 
+[INFO] 2020/09/01 23:53:37: byte - Test Socket Command 
+[INFO] 2020/09/01 23:53:37: testplugin - testplugin command 
+[INFO] 2020/09/01 23:53:37: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/01 23:53:39: Terminal Stopping... 
+[INFO] 2020/09/01 23:53:39: 已卸载！ author by May_Block 
+[INFO] 2020/09/01 23:53:39: [TestPlugin] Disabled! 
+[INFO] 2020/09/01 23:54:24: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:54:24: Terminal Starting... 
+[INFO] 2020/09/01 23:54:25: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:54:25: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:54:25: 加载中... 
+[INFO] 2020/09/01 23:54:25: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:54:25: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:54:25: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:54:25: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:54:25: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:54:25: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:54:25: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:54:25: -------------------------
+公告：该软件仅供学习用途，请在24小时内删除！
+------------------------- 
+[INFO] 2020/09/01 23:56:48: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:56:48: Terminal Starting... 
+[INFO] 2020/09/01 23:56:49: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:56:50: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:56:50: 加载中... 
+[INFO] 2020/09/01 23:56:50: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:56:50: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:56:50: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:56:50: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:56:50: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:56:50: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:56:50: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:56:50: -------------------------
+公告：该软件仅供学习用途，请在24小时内删除！
+------------------------- 
+[INFO] 2020/09/01 23:57:52: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:57:52: Terminal Starting... 
+[INFO] 2020/09/01 23:57:54: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:57:54: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:57:54: 加载中... 
+[INFO] 2020/09/01 23:57:54: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:57:54: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:57:54: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:57:54: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:57:54: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:57:54: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:57:54: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:57:54: -------------------------
+公告：该软件仅供学习用途，请在24小时内删除！
+------------------------- 
+[INFO] 2020/09/01 23:58:22: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/01 23:58:22: Terminal Starting... 
+[INFO] 2020/09/01 23:58:23: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/01 23:58:23: [TestPlugin] Loading... 
+[INFO] 2020/09/01 23:58:23: 加载中... 
+[INFO] 2020/09/01 23:58:23: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/01 23:58:23: 加载完毕！ author by May_Block 
+[INFO] 2020/09/01 23:58:23: [TestPlugin] Loaded! 
+[INFO] 2020/09/01 23:58:23: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/01 23:58:23: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/01 23:58:23: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:58:23: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/01 23:59:10: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:59:13: 已开启 DEBUG 模式 
+[INFO] 2020/09/01 23:59:13: [DEBUG] 执行了命令：debug 
+[INFO] 2020/09/01 23:59:17: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:59:17: [DEBUG] 执行了命令：fuck 
+[INFO] 2020/09/01 23:59:23: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/01 23:59:23: [DEBUG] 执行了命令：操你妈 
+[INFO] 2020/09/01 23:59:43: [Terminal] 已切换主题 羊毛白 
+[INFO] 2020/09/01 23:59:46: [Terminal] 已切换主题 深空灰 

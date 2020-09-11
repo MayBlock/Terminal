@@ -1,0 +1,61 @@
+[INFO] 2020/09/06 21:59:45: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/06 21:59:45: Terminal Starting... 
+[INFO] 2020/09/06 21:59:46: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/06 21:59:47: [TestPlugin] Loading... 
+[INFO] 2020/09/06 21:59:47: 
+[PluginSystem ERROR] 插件 TestPlugin 加载失败，该报错非为Terminal问题，请联系该插件开发者 
+[INFO] 2020/09/06 21:59:47: 
+[PluginSystem ERROR] 请检查插件内是否包含 plugin.yml 文件且保证语法正确 
+[INFO] 2020/09/06 21:59:47: 
+ ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓=== 
+[INFO] 2020/09/06 21:59:47: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月06日 21:59:47
+
+[Terminal ERROR] 异常输出：
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:76)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:75)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.exe4j.runtime.LauncherEngine.launch(Unknown Source)
+	at com.exe4j.runtime.WinLauncher.main(Unknown Source)
+Caused by: java.lang.NoSuchMethodError: cn.newcraft.terminal.screen.Screen.sendMessage(Ljava/lang/String;)V
+	at cn.newcraft.testplugin.Main.onLoad(Main.java:21)
+	... 13 more
+ 
+[INFO] 2020/09/06 21:59:47: 
+ ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑=== 
+[INFO] 2020/09/06 21:59:47: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/06 21:59:47: [Terminal] 终端已全部初始化完毕！ (Version: 0.1.0)
+  
+[INFO] 2020/09/06 21:59:47: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/06 21:59:47: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/06 22:01:19: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/06 22:01:19: byte - Test Socket Command 
+[INFO] 2020/09/06 22:01:19: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/06 22:01:19: help - 获取所有命令帮助 
+[INFO] 2020/09/06 22:01:19: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/06 22:01:19: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/06 22:01:19: stop - 关闭终端并退出 
+[INFO] 2020/09/06 22:01:19: system - 对系统进行操作 
+[INFO] 2020/09/06 22:01:19: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/06 22:01:23: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/06 22:01:26: Terminal Stopping... 

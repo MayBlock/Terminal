@@ -1,0 +1,1813 @@
+[INFO] 2020/09/04 20:10:48: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:10:48: Terminal Starting... 
+[INFO] 2020/09/04 20:10:50: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:10:50: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:10:50: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月04日 20:10:50
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:62)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:74)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+ 
+[INFO] 2020/09/04 20:10:50: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:10:50: 
+[PluginSystem] 所有插件已加载且启用完毕，0 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:10:50: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:10:50: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:10:50: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:12:10: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:12:10: Terminal Starting... 
+[INFO] 2020/09/04 20:12:12: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:12:12: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:12:12: 加载中... 
+[INFO] 2020/09/04 20:12:12: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:12:12: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:12:12: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 20:12:12: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 20:12:12: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 20:12:12: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:12:12: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:12:12: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:12:12: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:12:25: Hello World! 
+[INFO] 2020/09/04 20:12:25: Args: 1 
+[INFO] 2020/09/04 20:12:25: [DEBUG] 执行了命令：testplugin 
+[INFO] 2020/09/04 20:12:29: PluginName: TestPlugin 
+[INFO] 2020/09/04 20:12:29: Main Class: cn.newcraft.testplugin.Main 
+[INFO] 2020/09/04 20:12:29: Version: 1.0 
+[INFO] 2020/09/04 20:12:29: Author: May_Block 
+[INFO] 2020/09/04 20:12:29: Msg Prefix: TestPlugin 
+[INFO] 2020/09/04 20:12:29: Path: .\plugins\TestPlugin.jar 
+[INFO] 2020/09/04 20:12:29: [DEBUG] 执行了命令：testplugin info 
+[INFO] 2020/09/04 20:14:13: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:14:13: Terminal Starting... 
+[INFO] 2020/09/04 20:14:15: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:14:15: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:14:15: 加载中... 
+[INFO] 2020/09/04 20:14:15: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:14:15: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:14:15: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 20:14:15: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 20:14:15: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 20:14:15: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:14:15: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:14:15: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:14:15: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:14:34: Terminal Stopping... 
+[INFO] 2020/09/04 20:14:34: 已卸载！ author by May_Block 
+[INFO] 2020/09/04 20:14:34: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已从终端卸载！ 
+[INFO] 2020/09/04 20:14:34: [TestPlugin] Disabled! 
+[INFO] 2020/09/04 20:14:43: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:14:43: Terminal Starting... 
+[INFO] 2020/09/04 20:14:44: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:14:44: [TestPlugin - 副本] Loading... 
+[INFO] 2020/09/04 20:14:44: 加载中... 
+[INFO] 2020/09/04 20:14:44: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:14:44: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:14:44: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:14:44: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:14:44: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:14:44: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 20:14:44: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 20:14:44: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 20:14:44: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:14:44: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:14:44: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:14:44: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:14:53: 已加载插件 (1个) 
+[INFO] 2020/09/04 20:14:53: [TestPlugin] 
+[INFO] 2020/09/04 20:14:53: [DEBUG] 执行了命令：plugins 
+[INFO] 2020/09/04 20:18:45: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:18:45: Terminal Starting... 
+[INFO] 2020/09/04 20:18:46: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:18:46: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:18:46: 加载中... 
+[INFO] 2020/09/04 20:18:46: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:18:46: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:18:46: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:18:46: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:18:46: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 20:18:46: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 20:18:46: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 20:18:46: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:18:46: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:18:46: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:18:46: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:19:41: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:19:43: Terminal Stopping... 
+[INFO] 2020/09/04 20:19:43: 已卸载！ author by May_Block 
+[INFO] 2020/09/04 20:19:43: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已从终端卸载！ 
+[INFO] 2020/09/04 20:19:43: [TestPlugin] Disabled! 
+[INFO] 2020/09/04 20:19:59: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:19:59: Terminal Starting... 
+[INFO] 2020/09/04 20:20:01: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:20:01: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:20:01: 加载中... 
+[INFO] 2020/09/04 20:20:01: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:20:01: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:20:01: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:20:01: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:20:01: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 20:20:01: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 20:20:01: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 20:20:01: 
+[PluginSystem] 所有插件已加载且启用完毕，1 个加载完毕，0 个加载失败 
+[INFO] 2020/09/04 20:20:01: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:20:01: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:20:01: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:20:04: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:20:06: Terminal Stopping... 
+[INFO] 2020/09/04 20:20:06: 已卸载！ author by May_Block 
+[INFO] 2020/09/04 20:20:06: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已从终端卸载！ 
+[INFO] 2020/09/04 20:20:06: [TestPlugin] Disabled! 
+[INFO] 2020/09/04 20:23:08: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:23:08: Terminal Starting... 
+[INFO] 2020/09/04 20:23:10: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:23:10: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:23:10: 加载中... 
+[INFO] 2020/09/04 20:23:10: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:23:10: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:23:10: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:23:10: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:23:10: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：Index: 0, Size: 0
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月04日 20:23:10
+
+[Terminal ERROR] 异常输出：
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:97)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:92)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+ 
+[INFO] 2020/09/04 20:23:10: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:23:10: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:23:10: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:23:19: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:26:16: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:26:17: Terminal Stopping... 
+[INFO] 2020/09/04 20:26:17: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：Index: 0, Size: 0
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月04日 20:26:17
+
+[Terminal ERROR] 异常输出：
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:129)
+	at cn.newcraft.terminal.Terminal.stopTerminal(Terminal.java:91)
+	at cn.newcraft.terminal.screen.GraphicalScreen.processWindowEvent(GraphicalScreen.java:279)
+	at java.awt.Window.processEvent(Window.java:2013)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:26:28: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:26:28: Terminal Starting... 
+[INFO] 2020/09/04 20:26:30: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:26:30: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:26:30: 加载中... 
+[INFO] 2020/09/04 20:26:30: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:26:30: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:26:30: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：Index: 0, Size: 0
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月04日 20:26:30
+
+[Terminal ERROR] 异常输出：
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:97)
+	at cn.newcraft.terminal.console.Initialization.onTerminal(Initialization.java:92)
+	at cn.newcraft.terminal.Terminal.main(Terminal.java:82)
+ 
+[INFO] 2020/09/04 20:26:30: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:26:30: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:26:30: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:27:17: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:27:17: Terminal Starting... 
+[INFO] 2020/09/04 20:27:18: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:27:18: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:27:18: 加载中... 
+[INFO] 2020/09/04 20:27:18: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:27:18: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:27:18: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:27:18: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:27:18: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:27:19: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:27:20: Terminal Stopping... 
+[INFO] 2020/09/04 20:27:32: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:27:32: Terminal Starting... 
+[INFO] 2020/09/04 20:27:33: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:27:33: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:27:33: 加载中... 
+[INFO] 2020/09/04 20:27:33: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:27:33: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:27:33: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:27:33: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:27:33: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:27:33: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:27:33: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:28:00: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:28:01: Terminal Stopping... 
+[INFO] 2020/09/04 20:28:18: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:28:18: Terminal Starting... 
+[INFO] 2020/09/04 20:28:19: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:28:19: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:28:19: 加载中... 
+[INFO] 2020/09/04 20:28:19: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:28:19: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:28:19: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:28:19: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:28:19: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:28:19: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:28:19: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:28:22: 已加载插件 (1个) 
+[INFO] 2020/09/04 20:28:22: [TestPlugin] 
+[INFO] 2020/09/04 20:28:22: [DEBUG] 执行了命令：plugins 
+[INFO] 2020/09/04 20:38:04: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:38:04: Terminal Starting... 
+[INFO] 2020/09/04 20:38:06: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:38:06: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:38:06: 加载中... 
+[INFO] 2020/09/04 20:38:06: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:38:06: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:38:06: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:38:06: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:38:06: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:38:06: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:38:06: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:38:12: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:38:12: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:38:12
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:38:12: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:40:34: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:40:34: Terminal Starting... 
+[INFO] 2020/09/04 20:40:35: 
+[PluginSystem] 当前终端已安装了 2 个插件，初始化中... 
+[INFO] 2020/09/04 20:40:35: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:40:35: 加载中... 
+[INFO] 2020/09/04 20:40:35: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:40:35: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:40:35: 
+[PluginSystem ERROR] 加载失败，插件 TestPlugin 名字与其他插件相同！ 
+[INFO] 2020/09/04 20:40:35: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:40:35: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:40:35: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:40:35: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:40:38: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:40:38: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:40:38
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:40:38: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:42:07: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:42:07: [DEBUG] 执行了命令：plugin 
+[INFO] 2020/09/04 20:42:10: 已加载插件 (1个) 
+[INFO] 2020/09/04 20:42:10: [TestPlugin] 
+[INFO] 2020/09/04 20:42:10: [DEBUG] 执行了命令：plugins 
+[INFO] 2020/09/04 20:42:14: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:42:14: [DEBUG] 执行了命令：name 
+[INFO] 2020/09/04 20:42:16: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/04 20:42:16: Address: 127.0.0.1 
+[INFO] 2020/09/04 20:42:16: [DEBUG] 执行了命令：byte 
+[INFO] 2020/09/04 20:42:16: Port: 58274 
+[INFO] 2020/09/04 20:42:16: Message (1): BACK_LOBBY 
+[INFO] 2020/09/04 20:42:16: Message (2): hhh 
+[INFO] 2020/09/04 20:42:16: Message (3): 3 
+[INFO] 2020/09/04 20:42:16: Message (4):  
+[INFO] 2020/09/04 20:42:16: [DEBUG] 来自IP：127.0.0.1 的Socket交互信息： 
+[INFO] 2020/09/04 20:42:16: [DEBUG] ------Info------ 
+[INFO] 2020/09/04 20:42:16:  
+BACK_LOBBY hhh 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[INFO] 2020/09/04 20:42:16: [DEBUG] -------End------- 
+[INFO] 2020/09/04 20:43:19: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:43:20: Terminal Stopping... 
+[INFO] 2020/09/04 20:43:34: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:43:34: Terminal Starting... 
+[INFO] 2020/09/04 20:43:36: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:43:36: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:43:36: 加载中... 
+[INFO] 2020/09/04 20:43:36: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:43:36: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:43:36: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:43:36: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:43:36: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:43:41: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:43:41: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:43:41
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:43:41: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:44:19: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:44:19: Terminal Starting... 
+[INFO] 2020/09/04 20:44:20: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:44:20: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:44:20: 加载中... 
+[INFO] 2020/09/04 20:44:20: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:44:20: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:44:20: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:44:20: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:44:20: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:44:30: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:44:30: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:44:30
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:44:30: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:44:47: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:44:47: Terminal Starting... 
+[INFO] 2020/09/04 20:44:49: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:44:49: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:44:49: 加载中... 
+[INFO] 2020/09/04 20:44:49: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:44:49: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:44:49: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:44:49: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:44:49: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:45:01: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:45:01: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:45:01
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:45:01: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:45:18: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:45:18: [DEBUG] 执行了命令：testplugin 
+[INFO] 2020/09/04 20:45:21: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:45:22: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:45:57: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:45:57: Terminal Starting... 
+[INFO] 2020/09/04 20:45:59: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:45:59: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:45:59: 加载中... 
+[INFO] 2020/09/04 20:45:59: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:45:59: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:45:59: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:45:59: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:45:59: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:46:04: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:46:04: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:46:04
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:46:04: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:46:55: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:46:55: Terminal Starting... 
+[INFO] 2020/09/04 20:46:56: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:46:56: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:46:56: 加载中... 
+[INFO] 2020/09/04 20:46:56: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:46:56: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:46:56: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:46:56: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:46:56: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:46:59: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:46:59: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:46:59
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:46:59: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:47:53: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:47:53: Terminal Starting... 
+[INFO] 2020/09/04 20:47:55: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:47:55: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:47:55: 加载中... 
+[INFO] 2020/09/04 20:47:55: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:47:55: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:47:55: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:47:55: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:47:55: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:47:59: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 20:47:59: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 20:47:59
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 20:47:59: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 20:48:20: 已加载插件 (1个) 
+[INFO] 2020/09/04 20:48:20: [TestPlugin] 
+[INFO] 2020/09/04 20:48:20: [DEBUG] 执行了命令：plugins 
+[INFO] 2020/09/04 20:57:31: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 20:57:31: Terminal Starting... 
+[INFO] 2020/09/04 20:57:33: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 20:57:33: [TestPlugin] Loading... 
+[INFO] 2020/09/04 20:57:33: 加载中... 
+[INFO] 2020/09/04 20:57:33: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 20:57:33: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 20:57:33: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 20:57:33: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 20:57:33: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 20:57:38: 执行了系统命令 ping  
+[INFO] 2020/09/04 20:57:38: [DEBUG] 执行了命令：system runcmd ping 
+[INFO] 2020/09/04 20:57:38:  
+[INFO] 2020/09/04 20:57:38: �÷�: ping [-t] [-a] [-n count] [-l size] [-f] [-i TTL] [-v TOS] 
+[INFO] 2020/09/04 20:57:38:             [-r count] [-s count] [[-j host-list] | [-k host-list]] 
+[INFO] 2020/09/04 20:57:38:             [-w timeout] [-R] [-S srcaddr] [-c compartment] [-p] 
+[INFO] 2020/09/04 20:57:38:             [-4] [-6] target_name 
+[INFO] 2020/09/04 20:57:38:  
+[INFO] 2020/09/04 20:57:38: ѡ��: 
+[INFO] 2020/09/04 20:57:39:     -t             Ping ָ����������ֱ��ֹͣ�� 
+[INFO] 2020/09/04 20:57:39:                    ��Ҫ�鿴ͳ����Ϣ����������������� Ctrl+Break�� 
+[INFO] 2020/09/04 20:57:39:                    ��Ҫֹͣ������� Ctrl+C�� 
+[INFO] 2020/09/04 20:57:39:     -a             ����ַ����Ϊ�������� 
+[INFO] 2020/09/04 20:57:39:     -n count       Ҫ���͵Ļ����������� 
+[INFO] 2020/09/04 20:57:39:     -l size        ���ͻ�������С�� 
+[INFO] 2020/09/04 20:57:39:     -f             �����ݰ������á����ֶΡ����(�������� IPv4)�� 
+[INFO] 2020/09/04 20:57:39:     -i TTL         ����ʱ�䡣 
+[INFO] 2020/09/04 20:57:39:     -v TOS         ��������(�������� IPv4���������ѱ����ã� 
+[INFO] 2020/09/04 20:57:39:                    �� IP ��ͷ�еķ��������ֶ�û���κ� 
+[INFO] 2020/09/04 20:57:39:                    Ӱ��)�� 
+[INFO] 2020/09/04 20:57:39:     -r count       ��¼����Ծ���·��(�������� IPv4)�� 
+[INFO] 2020/09/04 20:57:39:     -s count       ����Ծ���ʱ���(�������� IPv4)�� 
+[INFO] 2020/09/04 20:57:39:     -j host-list   �������б�һ��ʹ�õ���ɢԴ·��(�������� IPv4)�� 
+[INFO] 2020/09/04 20:57:39:     -k host-list    �������б�һ��ʹ�õ��ϸ�Դ·��(�������� IPv4)�� 
+[INFO] 2020/09/04 20:57:39:     -w timeout     �ȴ�ÿ�λظ��ĳ�ʱʱ��(����)�� 
+[INFO] 2020/09/04 20:57:39:     -R             ͬ��ʹ��·�ɱ�ͷ���Է���·��(�������� IPv6)�� 
+[INFO] 2020/09/04 20:57:39:                    ���� RFC 5095�������ô�·�ɱ�ͷ�� 
+[INFO] 2020/09/04 20:57:39:                    ���ʹ�ô˱�ͷ��ĳЩϵͳ���ܶ��� 
+[INFO] 2020/09/04 20:57:39:                    �������� 
+[INFO] 2020/09/04 20:57:39:     -S srcaddr     Ҫʹ�õ�Դ��ַ�� 
+[INFO] 2020/09/04 20:57:39:     -c compartment ·�ɸ���ձ�ʶ���� 
+[INFO] 2020/09/04 20:57:39:     -p             Ping Hyper-V �������⻯�ṩ�����ַ�� 
+[INFO] 2020/09/04 20:57:39:     -4             ǿ��ʹ�� IPv4�� 
+[INFO] 2020/09/04 20:57:39:     -6             ǿ��ʹ�� IPv6�� 
+[INFO] 2020/09/04 20:57:39:  
+[INFO] 2020/09/04 20:57:43: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 20:57:44: Terminal Stopping... 
+[INFO] 2020/09/04 21:01:05: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:01:05: Terminal Starting... 
+[INFO] 2020/09/04 21:01:07: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:01:07: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:01:07: 加载中... 
+[INFO] 2020/09/04 21:01:07: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:01:07: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:01:07: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:01:07: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:01:07: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:01:12: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:01:12: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 21:01:12
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:01:12: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:03:41: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:03:41: Terminal Starting... 
+[INFO] 2020/09/04 21:03:42: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:03:42: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:03:42: 加载中... 
+[INFO] 2020/09/04 21:03:42: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:03:42: TestPlugin 
+[INFO] 2020/09/04 21:03:42: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:03:42: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:03:42: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:03:42: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:05:25: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:05:25: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 21:05:25
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:31)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:05:25: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:06:13: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:06:13: Terminal Starting... 
+[INFO] 2020/09/04 21:06:14: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:06:14: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:06:14: 加载中... 
+[INFO] 2020/09/04 21:06:14: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:06:14: TestPlugin 
+[INFO] 2020/09/04 21:06:14: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:06:14: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:06:14: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:06:14: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:06:24: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:06:24: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 21:06:24
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:06:24: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:07:10: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:07:10: Terminal Starting... 
+[INFO] 2020/09/04 21:07:12: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:07:12: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:07:12: 加载中... 
+[INFO] 2020/09/04 21:07:12: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:07:12: TestPlugin 
+[INFO] 2020/09/04 21:07:12: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:07:12: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:07:12: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:07:12: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:07:24: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:07:24: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 21:07:24
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:07:24: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:11:02: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:11:02: Terminal Starting... 
+[INFO] 2020/09/04 21:11:04: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:11:04: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:11:04: 加载中... 
+[INFO] 2020/09/04 21:11:04: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:11:04: TestPlugin 
+[INFO] 2020/09/04 21:11:04: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:11:04: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:11:04: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:11:04: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:14:49: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:14:49: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：null
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.console.SendCommand
+[Terminal ERROR] 发生时间：2020年09月04日 21:14:49
+
+[Terminal ERROR] 异常输出：
+java.lang.NullPointerException
+	at cn.newcraft.terminal.command.HelpCommand.onCommand(HelpCommand.java:32)
+	at cn.newcraft.terminal.console.SendCommand.<init>(SendCommand.java:15)
+	at cn.newcraft.terminal.screen.GraphicalScreen.lambda$onScreen$0(GraphicalScreen.java:105)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1668)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2882)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2929)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2845)
+	at java.awt.Component.processEvent(Component.java:6316)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:835)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1103)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:974)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:800)
+	at java.awt.Component.dispatchEventImpl(Component.java:4760)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:14:49: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:18:20: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:18:20: [DEBUG] 执行了命令：testplugin 
+[INFO] 2020/09/04 21:20:53: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:20:53: Terminal Starting... 
+[INFO] 2020/09/04 21:20:55: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:20:55: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:20:55: 加载中... 
+[INFO] 2020/09/04 21:20:55: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:20:55: TestPlugin 
+[INFO] 2020/09/04 21:20:55: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:20:55: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:20:55: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:20:55: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:21:30: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:21:30: Terminal Starting... 
+[INFO] 2020/09/04 21:21:32: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:21:32: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:21:32: 加载中... 
+[INFO] 2020/09/04 21:21:32: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:21:32: TestPlugin 
+[INFO] 2020/09/04 21:21:32: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:21:32: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:21:32: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:21:32: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:22:07: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:22:07: Terminal Starting... 
+[INFO] 2020/09/04 21:22:08: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:22:08: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:22:08: 加载中... 
+[INFO] 2020/09/04 21:22:08: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:22:08: TestPlugin 
+[INFO] 2020/09/04 21:22:08: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:22:08: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:22:08: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:22:08: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:23:01: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:23:01: Terminal Starting... 
+[INFO] 2020/09/04 21:23:03: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:23:03: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:23:03: 加载中... 
+[INFO] 2020/09/04 21:23:03: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:23:03: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:23:03: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:23:03: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:23:03: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:24:44: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 21:24:45: Terminal Stopping... 
+[INFO] 2020/09/04 21:25:05: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:25:05: Terminal Starting... 
+[INFO] 2020/09/04 21:25:07: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:25:07: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:25:07: 加载中... 
+[INFO] 2020/09/04 21:25:07: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:25:07: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:25:07: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:25:07: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:25:07: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:25:10: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 21:25:15: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:25:15: [DEBUG] 执行了命令：testplugin 
+[INFO] 2020/09/04 21:25:42: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:25:42: Terminal Starting... 
+[INFO] 2020/09/04 21:25:43: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:25:43: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:25:43: 加载中... 
+[INFO] 2020/09/04 21:25:43: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:25:43: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:25:43: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:25:43: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:25:43: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:28:16: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:28:16: Terminal Starting... 
+[INFO] 2020/09/04 21:28:18: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:28:18: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:28:18: 加载中... 
+[INFO] 2020/09/04 21:28:18: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:28:18: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:28:18: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:28:18: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:28:18: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:28:49: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:28:49: Terminal Starting... 
+[INFO] 2020/09/04 21:28:51: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:28:51: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:28:51: 加载中... 
+[INFO] 2020/09/04 21:28:51: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:28:51: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:28:51: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:28:51: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:28:51: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:29:45: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:29:45: Terminal Starting... 
+[INFO] 2020/09/04 21:29:47: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:29:47: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:29:47: 加载中... 
+[INFO] 2020/09/04 21:29:47: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:29:47: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:29:47: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:29:47: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:29:47: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:30:22: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:30:22: Terminal Starting... 
+[INFO] 2020/09/04 21:30:23: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:30:23: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:30:23: 加载中... 
+[INFO] 2020/09/04 21:30:23: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:30:23: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:30:23: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:30:23: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:30:23: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:30:58: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:30:58: Terminal Starting... 
+[INFO] 2020/09/04 21:31:01: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:31:01: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:31:01: 加载中... 
+[INFO] 2020/09/04 21:31:01: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:31:01: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:31:01: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:31:01: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:31:01: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:39:57: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:39:57: Terminal Starting... 
+[INFO] 2020/09/04 21:39:59: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:39:59: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:39:59: 加载中... 
+[INFO] 2020/09/04 21:39:59: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:39:59: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:39:59: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:39:59: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:39:59: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:39:59: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:39:59: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:39:59: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:40:12: Hello World! 
+[INFO] 2020/09/04 21:40:12: Args: 1 
+[INFO] 2020/09/04 21:40:12: [DEBUG] 执行了命令：testplugin 
+[INFO] 2020/09/04 21:40:18: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:40:18: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/04 21:40:18: help - 获取所有命令帮助 
+[INFO] 2020/09/04 21:40:18: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/04 21:40:18: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/04 21:40:18: stop - 关闭终端并退出 
+[INFO] 2020/09/04 21:40:18: system - 对系统进行操作 
+[INFO] 2020/09/04 21:40:18: byte - Test Socket Command 
+[INFO] 2020/09/04 21:40:18: testplugin - testplugin command 
+[INFO] 2020/09/04 21:40:18: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/04 21:40:18: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:42:24: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:42:24: Terminal Starting... 
+[INFO] 2020/09/04 21:42:25: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:42:25: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:42:25: 加载中... 
+[INFO] 2020/09/04 21:42:25: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:42:25: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:42:25: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:42:25: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:42:25: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:42:25: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:42:25: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:42:25: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:42:28: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 21:42:53: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:42:53: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/04 21:42:53: help - 获取所有命令帮助 
+[INFO] 2020/09/04 21:42:53: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/04 21:42:53: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/04 21:42:53: stop - 关闭终端并退出 
+[INFO] 2020/09/04 21:42:53: system - 对系统进行操作 
+[INFO] 2020/09/04 21:42:53: byte - Test Socket Command 
+[INFO] 2020/09/04 21:42:53: testplugin - testplugin command 
+[INFO] 2020/09/04 21:42:53: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/04 21:42:53: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:43:24: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:43:24: Terminal Starting... 
+[INFO] 2020/09/04 21:43:25: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:43:25: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:43:25: 加载中... 
+[INFO] 2020/09/04 21:43:25: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:43:25: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:43:25: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:43:25: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:43:25: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:43:25: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:43:25: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:43:25: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:43:33: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:43:33: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/04 21:43:33: help - 获取所有命令帮助 
+[INFO] 2020/09/04 21:43:33: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/04 21:43:33: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/04 21:43:33: stop - 关闭终端并退出 
+[INFO] 2020/09/04 21:43:33: system - 对系统进行操作 
+[INFO] 2020/09/04 21:43:33: byte - Test Socket Command 
+[INFO] 2020/09/04 21:43:33: testplugin - testplugin command 
+[INFO] 2020/09/04 21:43:33: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/04 21:43:33: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:43:38: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/04 21:43:38: [DEBUG] 执行了命令：byte 
+[INFO] 2020/09/04 21:43:38: Address: 127.0.0.1 
+[INFO] 2020/09/04 21:43:38: Port: 58964 
+[INFO] 2020/09/04 21:43:38: Message (1): BACK_LOBBY 
+[INFO] 2020/09/04 21:43:38: Message (2): hhh 
+[INFO] 2020/09/04 21:43:38: Message (3): 3 
+[INFO] 2020/09/04 21:43:38: Message (4):  
+[INFO] 2020/09/04 21:43:38: [DEBUG] 来自IP：127.0.0.1 的Socket交互信息： 
+[INFO] 2020/09/04 21:43:38: [DEBUG] ------Info------ 
+[INFO] 2020/09/04 21:43:38:  
+BACK_LOBBY hhh 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[INFO] 2020/09/04 21:43:38: [DEBUG] -------End------- 
+[INFO] 2020/09/04 21:45:47: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:45:47: Terminal Starting... 
+[INFO] 2020/09/04 21:45:48: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:45:48: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:45:48: 加载中... 
+[INFO] 2020/09/04 21:45:48: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:45:48: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:45:48: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:45:48: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:45:48: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:45:48: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:45:48: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:45:48: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:45:59: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/04 21:45:59: [DEBUG] 执行了命令：byte 
+[INFO] 2020/09/04 21:45:59: Address: 127.0.0.1 
+[INFO] 2020/09/04 21:45:59: Port: 58996 
+[INFO] 2020/09/04 21:45:59: Message (1): BACK_LOBBY 
+[INFO] 2020/09/04 21:45:59: Message (2): hhh 
+[INFO] 2020/09/04 21:45:59: Message (3): 3 
+[INFO] 2020/09/04 21:45:59: Message (4):  
+[INFO] 2020/09/04 21:45:59: [DEBUG] 来自IP：127.0.0.1 的Socket交互信息： 
+[INFO] 2020/09/04 21:45:59: [DEBUG] ------Info------ 
+[INFO] 2020/09/04 21:45:59:  
+BACK_LOBBY hhh 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[INFO] 2020/09/04 21:45:59: [DEBUG] -------End------- 
+[INFO] 2020/09/04 21:46:22: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:46:22: Terminal Starting... 
+[INFO] 2020/09/04 21:46:24: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:46:24: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:46:24: 加载中... 
+[INFO] 2020/09/04 21:46:24: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:46:24: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:46:24: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:46:24: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:46:24: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:46:24: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:46:24: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:46:24: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:46:31: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/04 21:46:31: [DEBUG] 执行了命令：byte 
+[INFO] 2020/09/04 21:46:31: Address: 127.0.0.1 
+[INFO] 2020/09/04 21:46:31: Port: 59022 
+[INFO] 2020/09/04 21:46:31: Address: 127.0.0.1 
+[INFO] 2020/09/04 21:46:31: Port: 59022 
+[INFO] 2020/09/04 21:46:31: Message (1):   
+[INFO] 2020/09/04 21:46:31: [DEBUG] 来自IP：127.0.0.1 的Socket交互信息： 
+[INFO] 2020/09/04 21:46:31: [DEBUG] ------Info------ 
+[INFO] 2020/09/04 21:46:31:   
+[INFO] 2020/09/04 21:46:31: [DEBUG] -------End------- 
+[INFO] 2020/09/04 21:47:25: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:47:25: Terminal Starting... 
+[INFO] 2020/09/04 21:47:27: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:47:27: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:47:27: 加载中... 
+[INFO] 2020/09/04 21:47:27: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:47:27: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:47:27: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:47:27: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:47:27: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:47:27: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:47:27: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:47:27: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:47:29: 发送了连接请求... 等待服务器回应 
+[INFO] 2020/09/04 21:47:29: [DEBUG] 执行了命令：byte 
+[INFO] 2020/09/04 21:47:29: Address: 127.0.0.1 
+[INFO] 2020/09/04 21:47:29: Port: 59035 
+[INFO] 2020/09/04 21:47:29: Message (1): BACK_LOBBY 
+[INFO] 2020/09/04 21:47:29: Message (2): hhh 
+[INFO] 2020/09/04 21:47:29: Message (3): 3 
+[INFO] 2020/09/04 21:47:29: Message (4):  
+[INFO] 2020/09/04 21:47:29: [DEBUG] 来自IP：127.0.0.1 的Socket交互信息： 
+[INFO] 2020/09/04 21:47:29: [DEBUG] ------Info------ 
+[INFO] 2020/09/04 21:47:29:  
+BACK_LOBBY hhh 3                                                                                                                                                                                                                                             
+[INFO] 2020/09/04 21:47:29: [DEBUG] -------End------- 
+[INFO] 2020/09/04 21:47:55: [DEBUG] 尝试关闭终端 
+[INFO] 2020/09/04 21:47:56: Terminal Stopping... 
+[INFO] 2020/09/04 21:47:56: 已卸载！ author by May_Block 
+[INFO] 2020/09/04 21:47:56: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已从终端卸载！ 
+[INFO] 2020/09/04 21:47:56: 
+[Terminal ERROR] 发生错误，以下为错误报告
+[Terminal ERROR] 错误名称：Index: 0, Size: 0
+[Terminal ERROR] 发生的类：cn.newcraft.terminal.plugin.PluginManager
+[Terminal ERROR] 发生时间：2020年09月04日 21:47:56
+
+[Terminal ERROR] 异常输出：
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at cn.newcraft.terminal.plugin.PluginManager.<init>(PluginManager.java:150)
+	at cn.newcraft.terminal.Terminal.stopTerminal(Terminal.java:91)
+	at cn.newcraft.terminal.screen.GraphicalScreen.processWindowEvent(GraphicalScreen.java:279)
+	at java.awt.Window.processEvent(Window.java:2013)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+ 
+[INFO] 2020/09/04 21:48:43: ---------------------------------
+Terminal
+       Welcome!
+---------------------------------
+  
+[INFO] 2020/09/04 21:48:43: Terminal Starting... 
+[INFO] 2020/09/04 21:48:44: 
+[PluginSystem] 当前终端已安装了 1 个插件，初始化中... 
+[INFO] 2020/09/04 21:48:44: [TestPlugin] Loading... 
+[INFO] 2020/09/04 21:48:44: 加载中... 
+[INFO] 2020/09/04 21:48:44: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已加载至终端！ 
+[INFO] 2020/09/04 21:48:44: [Terminal] 创建监听连接进程完毕！ 
+[INFO] 2020/09/04 21:48:44: 加载完毕！ author by May_Block 
+[INFO] 2020/09/04 21:48:44: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已启用！ 
+[INFO] 2020/09/04 21:48:44: [TestPlugin] Loaded! 
+[INFO] 2020/09/04 21:48:44: [Terminal] 终端已全部初始化完毕！ (Version: 0.0.1)
+  
+[INFO] 2020/09/04 21:48:44: [Terminal] 你可输入命令 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:48:44: [Terminal] 输入命令 "stop" 可以安全关闭Terminal！ 
+[INFO] 2020/09/04 21:48:49: 
+#---------- 所有命令帮助 ----------# 
+[INFO] 2020/09/04 21:48:49: debug - 打开/关闭DEBUG模式 
+[INFO] 2020/09/04 21:48:49: help - 获取所有命令帮助 
+[INFO] 2020/09/04 21:48:49: plugins - 查看当前所有已加载插件 
+[INFO] 2020/09/04 21:48:49: reload - 重载所有配置文件（部分配置需要重启终端才能生效） 
+[INFO] 2020/09/04 21:48:49: stop - 关闭终端并退出 
+[INFO] 2020/09/04 21:48:49: system - 对系统进行操作 
+[INFO] 2020/09/04 21:48:49: byte - Test Socket Command 
+[INFO] 2020/09/04 21:48:49: testplugin - testplugin command 
+[INFO] 2020/09/04 21:48:49: 
+小提示：输入"help <命令>"可以查看该命令的详细用法哦
+ 
+[INFO] 2020/09/04 21:48:49: [DEBUG] 执行了命令：help 
+[INFO] 2020/09/04 21:48:51: 命令不存在，输入 "help" 获取命令帮助 
+[INFO] 2020/09/04 21:48:51: [DEBUG] 执行了命令：stio 
+[INFO] 2020/09/04 21:48:52: Terminal Stopping... 
+[INFO] 2020/09/04 21:48:52: 已卸载！ author by May_Block 
+[INFO] 2020/09/04 21:48:52: [DEBUG] 插件 TestPlugin Version: 1.0 MainClass: cn.newcraft.testplugin.Main 已从终端卸载！ 
+[INFO] 2020/09/04 21:48:52: [TestPlugin] Disabled! 

@@ -1,0 +1,7 @@
+server:
+  enable_plugin: true
+  debug: false
+  timezone: Asia/Shanghai
+  default_theme: gray
+  max_input_cache: 10
+  port: 8889

@@ -18,7 +18,6 @@ public class Server extends ServerReceived {
     @Override
     public void onMessageReceived(Sender sender, byte[] bytes) {
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
-        in.readUTF();
         String chancel = in.readUTF();
         if (chancel.equals("GET")) {
             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");

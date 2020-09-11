@@ -18,6 +18,8 @@ public class ThemeConfig extends ConfigManager {
 
         cfg.getYml().addDefault("theme.white.text.background", "#FFFFFF");
         cfg.getYml().addDefault("theme.white.text.foreground", "#000000");
+        cfg.getYml().addDefault("theme.white.text.selection", "#C2E0FF");
+        cfg.getYml().addDefault("theme.white.text.selectedText", "#000000");
         cfg.getYml().addDefault("theme.white.text.border", "#FFFFFF:1");
 
         cfg.getYml().addDefault("theme.white.input.background", "#FFFFFF");
@@ -30,6 +32,8 @@ public class ThemeConfig extends ConfigManager {
 
         cfg.getYml().addDefault("theme.gray.text.background", "#404040");
         cfg.getYml().addDefault("theme.gray.text.foreground", "#00FF00");
+        cfg.getYml().addDefault("theme.gray.text.selection", "#6666CC");
+        cfg.getYml().addDefault("theme.gray.text.selectedText", "#33CCFF");
         cfg.getYml().addDefault("theme.gray.text.border", "#000000:1");
 
         cfg.getYml().addDefault("theme.gray.input.background", "#404040");

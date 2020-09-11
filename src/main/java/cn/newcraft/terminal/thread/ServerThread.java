@@ -24,9 +24,19 @@ public class ServerThread extends Thread {
 
     private static Socket socket;
     private static boolean enable = false;
-    public static HashMap<Integer, Sender> integerSocketHashMap = new HashMap<>();
+    private static HashMap<Integer, Sender> integerSocketHashMap = new HashMap<>();
+    private static HashMap<Integer, Boolean> init = new HashMap<>();
 
     private static ServerThread server;
+
+
+    public static HashMap<Integer, Sender> getIntegerSocketHashMap() {
+        return integerSocketHashMap;
+    }
+
+    public static void removeHashInit(int id) {
+        init.remove(id);
+    }
 
     public static ServerThread getServer() {
         return server;
@@ -73,35 +83,29 @@ public class ServerThread extends Thread {
                 int id = Sender.spawnNewId();
                 //integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
                 socket.setKeepAlive(true);
+                init.put(id, true);
                 /* Init Connect */
+                byte[] chancel;
                 byte[] bytes;
                 while (true) {
                     int first = inputStream.read();
                     if (first == -1) {
                         break;
                     }
+                    int second = inputStream.read();
+                    chancel = new byte[second];
+                    inputStream.read(chancel);
+
                     bytes = new byte[first];
                     inputStream.read(bytes);
 
-                    /*
-                    ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
-                    int s = Integer.parseInt(in.readUTF().split("/")[1].split(":")[1].replace("]", ""));
-                    System.out.println("protocol: " + s);
-                     */
-
-                    if (!new String(bytes).contains("[TERMINAL/protocol:1]")) {
-                        try {
-                            if (Terminal.getInstance().isDebug()) {
-                                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD_WARN.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " 拒绝IP " + socket.getInetAddress().getHostAddress() + " 的连接，原因：协议不正确");
-                            }
-                            socket.close();
-                            break;
-                        } catch (IOException e) {
-                            Method.printException(this.getClass(), e);
+                    if (new String(chancel).equals("TERMINAL")) {
+                        if (init.get(id)) {
+                            init.put(id, false);
+                            Thread heart = getHeartThread(id);
+                            integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
+                            heart.start();
                         }
-                    } else {
-                        Thread heart = getHeartThread(id);
-                        integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
                         Sender sender = integerSocketHashMap.get(id);
                         for (Plugin plugin : ServerReceived.getReceivedLists()) {
                             if (ServerReceived.getReceived().get(plugin) != null) {
@@ -115,10 +119,13 @@ public class ServerThread extends Thread {
                             Terminal.getScreen().sendMessage(new String(bytes, StandardCharsets.UTF_8));
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " -------End-------");
                         }
+                    } else {
+                        socket.close();
+                        break;
                     }
                 }
             } catch (IOException e) {
-                if (e.getMessage().equalsIgnoreCase("Connection reset") || e.getMessage().equalsIgnoreCase("Socket closed")) {
+                if (e.getMessage().equalsIgnoreCase("Connection reset") || e.getMessage().equalsIgnoreCase("Socket closed") || e.getMessage().equalsIgnoreCase("Socket is closed")) {
                     return;
                 }
                 Method.printException(this.getClass(), e);

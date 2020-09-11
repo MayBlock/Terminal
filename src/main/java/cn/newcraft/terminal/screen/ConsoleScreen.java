@@ -7,7 +7,6 @@ import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.util.JsonUtils;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class ConsoleScreen extends Thread implements Screen {

@@ -20,17 +20,12 @@ import java.util.List;
 
 public class GraphicalScreen extends JFrame implements Screen {
 
-    private static GraphicalScreen gui = new GraphicalScreen();
     private static JTextArea text;
     private static JTextField input;
     private static JButton execute, clearLog, theme;
     private List<String> cache = Lists.newArrayList();
     private int max_cache;
     private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
-
-    public static GraphicalScreen getGui() {
-        return gui;
-    }
 
     public JTextField getInput() {
         return input;
@@ -69,8 +64,6 @@ public class GraphicalScreen extends JFrame implements Screen {
             text.setLineWrap(true);
             text.setWrapStyleWord(true);
             text.setEditable(false);
-            text.setBackground(Color.WHITE);
-            text.setForeground(Color.BLACK);
             add(text);
 
             JLabel title = new JLabel("控制台日志");
@@ -83,8 +76,8 @@ public class GraphicalScreen extends JFrame implements Screen {
             str.setBounds(180, 5, 500, 20);
             add(str);
 
-            JLabel version = new JLabel("Version: " + Terminal.getInstance().getSetting().getVersion());
-            int[] versionLogOffset = {100, 60};
+            JLabel version = new JLabel("Version:  " + Terminal.getInstance().getSetting().getCanonicalVersion());
+            int[] versionLogOffset = {185, 60};
             add(version);
 
             JScrollPane jsp = new JScrollPane(text);
@@ -217,6 +210,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 }
             });
             add(theme);
+            text.setCaretColor(Color.RED);
 
             /* Default Theme */
             Theme.changeTheme(ServerConfig.cfg.getYml().getString("server.default_theme"));
@@ -229,17 +223,17 @@ public class GraphicalScreen extends JFrame implements Screen {
                     text.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     jsp.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
-                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 100, 20);
+                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 170, 20);
                     execute.setBounds(d.width - executeLogOffset[0], d.height - executeLogOffset[1], 41, 30);
                     clearLog.setBounds(d.width - clearLogOffset[0], 40, 125, 30);
                     theme.setBounds(d.width - themeOffset[0], 80, 125, 30);
                 }
             });
-            gui.getExecute().setEnabled(false);
-            gui.getClearLog().setEnabled(false);
-            gui.getTheme().setEnabled(false);
-            gui.getInput().setEnabled(false);
-            gui.getInput().setBackground(Color.LIGHT_GRAY);
+            this.getExecute().setEnabled(false);
+            this.getClearLog().setEnabled(false);
+            this.getTheme().setEnabled(false);
+            this.getInput().setEnabled(false);
+            this.getInput().setBackground(Color.LIGHT_GRAY);
             setVisible(true);
         } catch (Exception e) {
             Method.printException(this.getClass(), e);
@@ -254,17 +248,17 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void setComponentEnabled(boolean b) {
         if (b) {
-            gui.getExecute().setEnabled(true);
-            gui.getClearLog().setEnabled(true);
-            gui.getTheme().setEnabled(true);
-            gui.getInput().setEnabled(true);
-            gui.getInput().setBackground(Color.decode(ThemeConfig.cfg.getYml().getString("theme." + ServerConfig.cfg.getYml().getString("server.default_theme") + ".input.background")));
+            this.getExecute().setEnabled(true);
+            this.getClearLog().setEnabled(true);
+            this.getTheme().setEnabled(true);
+            this.getInput().setEnabled(true);
+            this.getInput().setBackground(Color.decode(ThemeConfig.cfg.getYml().getString("theme." + ServerConfig.cfg.getYml().getString("server.default_theme") + ".input.background")));
         } else {
-            gui.getExecute().setEnabled(false);
-            gui.getClearLog().setEnabled(false);
-            gui.getTheme().setEnabled(false);
-            gui.getInput().setEnabled(false);
-            gui.getInput().setBackground(Color.LIGHT_GRAY);
+            this.getExecute().setEnabled(false);
+            this.getClearLog().setEnabled(false);
+            this.getTheme().setEnabled(false);
+            this.getInput().setEnabled(false);
+            this.getInput().setBackground(Color.LIGHT_GRAY);
         }
     }
 

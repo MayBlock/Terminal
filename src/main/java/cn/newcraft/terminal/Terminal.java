@@ -92,9 +92,9 @@ public class Terminal {
         screen.sendMessage("Terminal Stopping...");
         new PluginManager(PluginEnum.DISABLE);
         if (ServerThread.isServer()) {
-            for (int i = 0; i < ServerThread.integerSocketHashMap.size(); i++) {
+            for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
                 try {
-                    ServerThread.integerSocketHashMap.get(i).disconnect("Server Closed");
+                    ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
                 } catch (IOException e) {
                     Method.printException(Terminal.class, e);
                 }

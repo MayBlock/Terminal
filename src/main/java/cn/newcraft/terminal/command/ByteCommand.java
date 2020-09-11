@@ -30,12 +30,11 @@ public class ByteCommand extends CommandManager {
                     Socket socket = null;
                     screen.sendMessage(Prefix.CLIENT_THREAD.getPrefix() + " 尝试对远程服务器发送连接请求，这可能需要一段时间... [" + args[1] + "/" + args[2] + "]");
                     try {
-                        bytes.writeUTF("[TERMINAL/protocol:1]");
                         bytes.writeUTF("GET");
                         bytes.writeUTF("INFO");
                         socket = new Socket(args[1], Integer.parseInt(args[2]));
                         socket.setKeepAlive(true);
-                        Method.sendByte(socket, bytes.toByteArray());
+                        Method.sendByte(socket, "TERMINAL", bytes.toByteArray());
                         screen.sendMessage(Prefix.CLIENT_THREAD.getPrefix() + " 已成功发送了连接请求！ Byte数组长度：" + bytes.toByteArray().length);
                         bytes = ByteStreams.newDataOutput();
 
@@ -53,7 +52,7 @@ public class ByteCommand extends CommandManager {
                             if (chancel.equals("TEST_CONNECT")) {
                                 ByteArrayDataOutput connect = ByteStreams.newDataOutput();
                                 connect.writeUTF("REGULAR");
-                                Method.sendByte(socket, connect.toByteArray());
+                                Method.sendByte(socket, "TERMINAL", connect.toByteArray());
                             }
                             if (chancel.equals("RETURN")) {
                                 screen.sendMessage(Prefix.CLIENT_THREAD.getPrefix() + " 远程服务器返回信息");

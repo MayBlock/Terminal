@@ -99,9 +99,11 @@ public class Method {
         return list.subList(fromIndex, toIndex);
     }
 
-    public static void sendByte(Socket socket, byte[] b) throws IOException {
+    public static void sendByte(Socket socket, String chancel, byte[] b) throws IOException {
         OutputStream out = socket.getOutputStream();
         out.write(b.length);
+        out.write(chancel.getBytes().length);
+        out.write(chancel.getBytes());
         out.write(b);
         out.flush();
     }

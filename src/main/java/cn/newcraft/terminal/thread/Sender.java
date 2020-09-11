@@ -48,6 +48,11 @@ public class Sender {
         packet.onPacket(this);
     }
 
+    public void disconnect() throws IOException {
+        sendPacket(new DisconnectPacket());
+        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( disconnect )");
+    }
+
     public void disconnect(String reason) throws IOException {
         sendPacket(new DisconnectPacket(reason));
         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( " + reason + " )");
@@ -89,10 +94,10 @@ public class Sender {
     public static int spawnNewId() {
         int id = 0;
         while (true) {
-            if (ServerThread.integerSocketHashMap.isEmpty()) {
+            if (ServerThread.getIntegerSocketHashMap().isEmpty()) {
                 return id;
             }
-            if (ServerThread.integerSocketHashMap.get(id) != null) {
+            if (ServerThread.getIntegerSocketHashMap().get(id) != null) {
                 id++;
             } else {
                 return id;

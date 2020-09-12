@@ -9,6 +9,7 @@ public class Setting {
     private int port;
     private String version = "0.2.3";
     private String canonicalVersion = "0.2.3.200912_alpha";
+    private int apiVersion = 1;
     private TimeZone timeZone = TimeZone.getDefault();
 
     public int getPort() {
@@ -21,6 +22,10 @@ public class Setting {
 
     public String getVersion() {
         return version;
+    }
+
+    public int getApiVersion() {
+        return apiVersion;
     }
 
     public String getCanonicalVersion() {

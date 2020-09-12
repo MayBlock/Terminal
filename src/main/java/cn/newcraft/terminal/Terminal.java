@@ -4,15 +4,14 @@ import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.console.Initialization;
 import cn.newcraft.terminal.console.Setting;
-import cn.newcraft.terminal.screen.ConsoleScreen;
-import cn.newcraft.terminal.screen.GraphicalScreen;
+import cn.newcraft.terminal.screen.console.ConsoleScreen;
+import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginEnum;
 import cn.newcraft.terminal.plugin.PluginManager;
+import cn.newcraft.terminal.screen.graphical.PromptScreen;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.util.Method;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;

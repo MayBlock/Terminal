@@ -1,5 +1,7 @@
-package cn.newcraft.terminal.screen;
+package cn.newcraft.terminal.screen.graphical;
 
+import cn.newcraft.terminal.screen.console.ConsoleScreen;
+import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
@@ -22,6 +24,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     private static JTextArea text;
     private static JTextField input;
+    private static TrayIcon trayIcon = null;
     private static JButton execute, clearLog, theme;
     private List<String> cache = Lists.newArrayList();
     private int max_cache;
@@ -236,10 +239,15 @@ public class GraphicalScreen extends JFrame implements Screen {
             this.getTheme().setEnabled(false);
             this.getInput().setEnabled(false);
             this.getInput().setBackground(Color.LIGHT_GRAY);
+            minimize(this);
             setVisible(true);
         } catch (Exception e) {
             Method.printException(this.getClass(), e);
         }
+    }
+
+    public void showPromptScreen(String title, String message) {
+        new PromptScreen().show(title, message);
     }
 
     public void setJOptionPane(int i) {
@@ -257,7 +265,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public int showMessagePane(String title, String message) {
-        return JOptionPane.showConfirmDialog(null, message, title, jOptionPane, messageType);
+        return JOptionPane.showOptionDialog(this, message, title, jOptionPane, messageType, null, null, null);
     }
 
     @Override
@@ -280,12 +288,14 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Terminal.getInstance().isDebug()) {
-                sendMessage(Prefix.DEBUG.getPrefix() + " 尝试关闭终端");
-            }
-            int jOptionPane = JOptionPane.showConfirmDialog(null, "确定要关闭控制台吗？\n关闭后尚未执行完毕的操作将会丢失！", "警告", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            String[] buttons = {"关闭终端", "隐藏至任务栏", "取消"};
+            int jOptionPane = JOptionPane.showOptionDialog(this, "确定要关闭终端吗？\n关闭后尚未执行完毕的操作将会丢失！", "警告", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, buttons, buttons[2]);
             if (jOptionPane == 0) {
                 Terminal.shutdown();
+            }
+            if (jOptionPane == 1) {
+                showPromptScreen("提示", "已隐藏至任务栏\n终端仍在运行，如需唤出界面请双击任务栏图标");
+                setVisible(false);
             }
             return;
         }
@@ -307,5 +317,28 @@ public class GraphicalScreen extends JFrame implements Screen {
         text.append(str + "\n");
         Logger.getLogger(Terminal.class).info(str);
         System.out.println(str);
+    }
+
+    private void minimize(JFrame jFrame) {
+        SystemTray tray = SystemTray.getSystemTray();
+        ImageIcon trayImg = new ImageIcon(this.getClass().getResource("/console.png"));// 托盘图标
+        trayIcon = new TrayIcon(trayImg.getImage(), "Terminal", new PopupMenu());
+        trayIcon.setImageAutoSize(true);
+        trayIcon.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    jFrame.setVisible(true);
+                    jFrame.setExtendedState(JFrame.NORMAL);
+                    jFrame.toFront();
+                }
+            }
+        });
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e1) {
+            e1.printStackTrace();
+        }
     }
 }

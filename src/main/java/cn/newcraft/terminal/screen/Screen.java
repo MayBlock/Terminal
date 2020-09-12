@@ -1,5 +1,8 @@
 package cn.newcraft.terminal.screen;
 
+import cn.newcraft.terminal.screen.console.ConsoleScreen;
+import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
+
 public interface Screen {
 
     GraphicalScreen getGraphicalScreen();

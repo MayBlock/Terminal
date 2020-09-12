@@ -1,9 +1,11 @@
-package cn.newcraft.terminal.screen;
+package cn.newcraft.terminal.screen.console;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
+import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
 import org.apache.log4j.Logger;
 

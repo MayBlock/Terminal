@@ -45,7 +45,6 @@ public class ShellCommand extends CommandManager {
             screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
             screen.sendMessage(getCommand() + " <id> send - 添加自定义String数据");
             screen.sendMessage("");
-            screen.sendMessage("注：在添加Byte数据时，符号\"##\"代表空格！");
             return;
         }
         if (args.length >= 3) {

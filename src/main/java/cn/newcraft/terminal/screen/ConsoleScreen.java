@@ -47,6 +47,7 @@ public class ConsoleScreen extends Thread implements Screen {
     }
 
     @Override
+    @Deprecated
     public int showMessagePane(String title, String message) {
         System.out.println(title);
         System.out.println(message);

@@ -3,9 +3,12 @@ package cn.newcraft.terminal.util;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;

@@ -84,7 +84,6 @@ public class Initialization {
             CommandManager.regCommand(plugin, new ReloadCommand());
             CommandManager.regCommand(plugin, new StopCommand());
             CommandManager.regCommand(plugin, new SystemCommand());
-            CommandManager.regCommand(plugin, new ByteCommand());
             CommandManager.regCommand(plugin, new ShellCommand());
             /* regCommands stop */
 

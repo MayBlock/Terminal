@@ -11,6 +11,8 @@ import cn.newcraft.terminal.plugin.PluginEnum;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.util.Method;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;
@@ -90,18 +92,20 @@ public class Terminal {
 
     public static void shutdown() {
         screen.sendMessage("Terminal Stopping...");
-        new PluginManager(PluginEnum.DISABLE);
-        if (ServerThread.isServer()) {
-            for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
-                try {
-                    ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
-                } catch (IOException e) {
-                    Method.printException(Terminal.class, e);
+        new Thread(() -> {
+            new PluginManager(PluginEnum.DISABLE);
+            if (ServerThread.isServer()) {
+                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                    try {
+                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                    } catch (IOException ignored) {
+
+                    }
                 }
+                ServerThread.getServer().stopServer();
             }
-            ServerThread.getServer().stopServer();
-        }
-        screen = null;
-        System.exit(0);
+            screen = null;
+            System.exit(0);
+        }).start();
     }
 }

@@ -17,8 +17,7 @@ public class DisconnectOperate extends OperateManager {
     public void onOperate(Screen screen, Sender sender) {
         try {
             sender.disconnect("disconnect");
-        } catch (IOException e) {
-            Method.printException(this.getClass(), e);
+        } catch (IOException ignored) {
         }
     }
 }

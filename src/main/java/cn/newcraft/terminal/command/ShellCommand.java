@@ -44,6 +44,8 @@ public class ShellCommand extends CommandManager {
             screen.sendMessage(getCommand() + " <id> <operate> - 执行指定操作");
             screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
             screen.sendMessage(getCommand() + " <id> send - 添加自定义String数据");
+            screen.sendMessage("");
+            screen.sendMessage("注：在添加Byte数据时，符号\"##\"代表空格！");
             return;
         }
         if (args.length >= 3) {
@@ -56,18 +58,29 @@ public class ShellCommand extends CommandManager {
                 case "add":
                     ByteArrayDataOutput b = bytes.get(sender.getId()) == null ? ByteStreams.newDataOutput() : bytes.get(sender.getId());
                     if (args.length >= 4) {
-                        b.writeUTF(args[3]);
+                        StringBuilder text = new StringBuilder();
+                        for (int i = 3; i < args.length; i++) {
+                            text.append(args[i]).append(" ");
+                        }
+                        String string = text.toString().substring(0, text.toString().length() - 1);
+                        b.writeUTF(string);
                         bytes.put(sender.getId(), b);
-                        screen.sendMessage("已成功添加数据：" + new String(b.toByteArray()));
+                        screen.sendMessage("已成功添加数据：" + string);
                         screen.sendMessage("可继续添加数据，也可以使用send进行发送！");
                     } else {
                         screen.sendMessage("用法：" + getCommand() + " <id> add <byte>");
                     }
                     break;
                 case "send":
+                    if (bytes.get(sender.getId()) == null) {
+                        screen.sendMessage("你还尚未添加任何数据！");
+                        screen.sendMessage("请输入 \"" + getCommand() + " <id> add <byte>\" 来添加数据！");
+                        break;
+                    }
                     try {
                         sender.sendByte(bytes.get(sender.getId()).toByteArray(), false);
                         screen.sendMessage("已成功发送至 " + sender.getCanonicalName() + " 客户端");
+                        bytes.remove(sender.getId());
                     } catch (IOException e) {
                         Method.printException(this.getClass(), e);
                     }

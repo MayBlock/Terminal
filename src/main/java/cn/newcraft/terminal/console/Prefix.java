@@ -10,10 +10,8 @@ public enum Prefix {
     PLUGIN_MANAGER_WARN("[PluginSystem/WARN]"),
     DEBUG("[DEBUG]"),
     SERVER_THREAD("[Server Thread]"),
-    CLIENT_THREAD("[Client Thread]"),
     SERVER_THREAD_ERROR("[Server Thread/ERROR]"),
-    SERVER_THREAD_WARN("[Server Thread/WARN]"),
-    CLIENT_THREAD_ERROR("[Client Thread/ERROR]");
+    SERVER_THREAD_WARN("[Server Thread/WARN]");
 
     private String prefix;
 

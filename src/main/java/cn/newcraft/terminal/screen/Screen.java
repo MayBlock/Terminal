@@ -13,4 +13,6 @@ public interface Screen {
     void onScreen();
 
     void onInitComplete();
+
+    int showMessagePane(String title, String message);
 }

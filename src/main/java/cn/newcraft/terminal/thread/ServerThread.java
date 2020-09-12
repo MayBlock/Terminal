@@ -98,13 +98,13 @@ public class ServerThread extends Thread {
 
                     bytes = new byte[first];
                     inputStream.read(bytes);
-
                     if (new String(chancel).equals("TERMINAL")) {
                         if (init.get(id)) {
                             init.put(id, false);
                             Thread heart = getHeartThread(id);
                             integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
                             heart.start();
+                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + integerSocketHashMap.get(id).getCanonicalName() + " 与终端连接！");
                         }
                         Sender sender = integerSocketHashMap.get(id);
                         for (Plugin plugin : ServerReceived.getReceivedLists()) {
@@ -148,6 +148,7 @@ public class ServerThread extends Thread {
                     try {
                         sender.disconnect(e.toString());
                     } catch (IOException ignored) {
+
                     }
                     break;
                 }

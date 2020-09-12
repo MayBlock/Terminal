@@ -3,15 +3,12 @@ package cn.newcraft.terminal.thread;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.thread.packet.HeartbeatPacket;
 import cn.newcraft.terminal.util.Method;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class Server extends ServerReceived {
 
@@ -20,7 +17,6 @@ public class Server extends ServerReceived {
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
         String chancel = in.readUTF();
         if (chancel.equals("GET")) {
-            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             String subChancel = in.readUTF();
             try {
@@ -55,8 +51,14 @@ public class Server extends ServerReceived {
                         out.writeUTF("Your Address: " + sender.getHostAddress() + "/" + sender.getPort());
                         out.writeUTF("FINISH");
                         sender.sendByte(out.toByteArray(), false);
-                        System.out.println("INFO");
                 }
+            } catch (IOException e) {
+                Method.printException(this.getClass(), e);
+            }
+        }
+        if (chancel.equals("DISCONNECT")) {
+            try {
+                sender.disconnect(in.readUTF());
             } catch (IOException e) {
                 Method.printException(this.getClass(), e);
             }

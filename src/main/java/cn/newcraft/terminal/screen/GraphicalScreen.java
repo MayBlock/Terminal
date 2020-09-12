@@ -25,6 +25,8 @@ public class GraphicalScreen extends JFrame implements Screen {
     private static JButton execute, clearLog, theme;
     private List<String> cache = Lists.newArrayList();
     private int max_cache;
+    private int jOptionPane = JOptionPane.DEFAULT_OPTION;
+    private int messageType = JOptionPane.INFORMATION_MESSAGE;
     private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
 
     public JTextField getInput() {
@@ -240,9 +242,22 @@ public class GraphicalScreen extends JFrame implements Screen {
         }
     }
 
+    public void setJOptionPane(int i) {
+        this.jOptionPane = i;
+    }
+
+    public void setMessageType(int i) {
+        this.messageType = i;
+    }
+
     @Override
     public void onInitComplete() {
 
+    }
+
+    @Override
+    public int showMessagePane(String title, String message) {
+        return JOptionPane.showConfirmDialog(null, message, title, jOptionPane, messageType);
     }
 
     @Override

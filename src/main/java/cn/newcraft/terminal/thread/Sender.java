@@ -48,14 +48,15 @@ public class Sender {
         packet.onPacket(this);
     }
 
+    @Deprecated
     public void disconnect() throws IOException {
-        sendPacket(new DisconnectPacket());
         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( disconnect )");
+        sendPacket(new DisconnectPacket());
     }
 
     public void disconnect(String reason) throws IOException {
-        sendPacket(new DisconnectPacket(reason));
         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( " + reason + " )");
+        sendPacket(new DisconnectPacket(reason));
     }
 
     public boolean isFirstConnect() {

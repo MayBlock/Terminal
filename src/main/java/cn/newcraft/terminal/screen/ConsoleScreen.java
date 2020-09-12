@@ -47,6 +47,14 @@ public class ConsoleScreen extends Thread implements Screen {
     }
 
     @Override
+    public int showMessagePane(String title, String message) {
+        System.out.println(title);
+        System.out.println(message);
+        System.out.print("> ");
+        return -1;
+    }
+
+    @Override
     public void run() {
         while (true) {
             Scanner sc = new Scanner(System.in);

@@ -25,13 +25,14 @@ public class DisconnectPacket implements Packet {
     public void onPacket(Sender sender) throws IOException {
         Socket socket = sender.getSocket();
 
+        ServerThread.removeHashInit(sender.getId());
+        ServerThread.getIntegerSocketHashMap().remove(sender.getId());
+        sender.getHeartThread().stop();
+        socket.close();
+
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("DISCONNECT");
         b.writeUTF(reason);
         sender.sendByte(b.toByteArray(), false);
-        sender.getHeartThread().stop();
-        socket.close();
-        ServerThread.removeHashInit(sender.getId());
-        ServerThread.getIntegerSocketHashMap().remove(sender.getId());
     }
 }

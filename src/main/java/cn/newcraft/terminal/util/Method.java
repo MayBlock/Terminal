@@ -2,11 +2,13 @@ package cn.newcraft.terminal.util;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
+import com.sun.management.OperatingSystemMXBean;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.Socket;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class Method {
+
+    private static OperatingSystemMXBean osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
     public static boolean isLocalPortUsing(int port) {
         boolean flag = true;

@@ -17,6 +17,10 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 
@@ -24,6 +28,8 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     private static JTextArea text;
     private static JTextField input;
+    private JLabel copyright;
+    private JLabel version;
     private SystemTray tray;
     private TrayIcon trayIcon = null;
     private JButton execute, clearLog, theme;
@@ -51,6 +57,14 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     public JButton getTheme() {
         return theme;
+    }
+
+    public JLabel getCopyright() {
+        return copyright;
+    }
+
+    public JLabel getVersion() {
+        return version;
     }
 
     public SystemTray getTray() {
@@ -90,9 +104,14 @@ public class GraphicalScreen extends JFrame implements Screen {
             str.setBounds(180, 5, 500, 20);
             add(str);
 
-            JLabel version = new JLabel("Version:  " + Terminal.getInstance().getSetting().getCanonicalVersion());
-            int[] versionLogOffset = {185, 60};
+            version = new JLabel("Version:  " + Terminal.getInstance().getSetting().getCanonicalVersion());
+            //int[] versionLogOffset = {185, 60}; // alpha
+            int[] versionLogOffset = {180, 60}; // beta
             add(version);
+
+            copyright = new JLabel("©2020 May_Block 版权所有，保留所有权利");
+            int[] copyrightOffset = {800, 60};
+            add(copyright);
 
             JScrollPane jsp = new JScrollPane(text);
             jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -238,6 +257,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     jsp.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
                     version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 170, 20);
+                    copyright.setBounds(5, d.height - copyrightOffset[1], 250, 20);
                     execute.setBounds(d.width - executeLogOffset[0], d.height - executeLogOffset[1], 41, 30);
                     clearLog.setBounds(d.width - clearLogOffset[0], 40, 125, 30);
                     theme.setBounds(d.width - themeOffset[0], 80, 125, 30);
@@ -345,17 +365,21 @@ public class GraphicalScreen extends JFrame implements Screen {
             ImageIcon trayImg = new ImageIcon(this.getClass().getResource("/console.png"));
             PopupMenu pm = new PopupMenu();
             MenuItem mi0 = new MenuItem("打开");
+            mi0.setFont(new Font("宋体", Font.BOLD, 13));
             mi0.addActionListener(e -> maximize());
             MenuItem mi1 = new MenuItem("关于");
+            mi1.setFont(new Font("宋体", Font.PLAIN, 13));
             mi1.addActionListener(e -> showPromptScreen(
                     "Terminal - " + Terminal.getInstance().getSetting().getCanonicalVersion(),
                     "版权所有 ©2020 May_Block\n保留所有权利", 2500, false));
             MenuItem mi2 = new MenuItem("退出程序");
+            mi2.setFont(new Font("宋体", Font.PLAIN, 13));
             mi2.addActionListener(e -> Terminal.shutdown());
             pm.add(mi0);
             pm.add(mi1);
+            pm.addSeparator();
             pm.add(mi2);
-            trayIcon = new TrayIcon(trayImg.getImage(), "Terminal", pm);
+            trayIcon = new TrayIcon(trayImg.getImage(), "Terminal - " + Terminal.getInstance().getSetting().getVersion(), pm);
             trayIcon.setImageAutoSize(true);
             trayIcon.addMouseListener(new MouseAdapter() {
 

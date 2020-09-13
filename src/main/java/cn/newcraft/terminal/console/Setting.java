@@ -7,8 +7,8 @@ import java.util.TimeZone;
 public class Setting {
 
     private int port;
-    private String version = "0.2.3";
-    private String canonicalVersion = "0.2.3.200912_alpha";
+    private String version = "1.0.0";
+    private String canonicalVersion = "1.0.0.200913_beta";
     private int apiVersion = 1;
     private TimeZone timeZone = TimeZone.getDefault();
 

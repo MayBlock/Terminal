@@ -12,6 +12,8 @@ public class Theme {
     private String id;
     private String name;
     private String background;
+    private String copyright;
+    private String version;
     private String textBackground;
     private String textForeground;
     private String selection;
@@ -24,12 +26,14 @@ public class Theme {
 
     protected static HashMap<String, Theme> themeHashMap = new HashMap<>();
 
-    public Theme(String id, String name, String background,
+    public Theme(String id, String name, String background, String copyright, String version,
                  String textBackground, String textForeground, String selection, String selectedText, String textBorder,
                  String inputBackground, String inputForeground, String inputBorder) {
         this.id = id;
         this.name = name;
         this.background = background;
+        this.copyright = copyright;
+        this.version = version;
         this.textBackground = textBackground;
         this.textForeground = textForeground;
         this.selection = selection;
@@ -54,6 +58,22 @@ public class Theme {
 
     public String getBackgroundCode() {
         return background;
+    }
+
+    public Color getVersion() {
+        return Color.decode(version.split(":")[0]);
+    }
+
+    public String getVersionCode() {
+        return version;
+    }
+
+    public Color getCopyright() {
+        return Color.decode(copyright.split(":")[0]);
+    }
+
+    public String getCopyrightCode() {
+        return copyright;
     }
 
     public Color getTextBackground() {
@@ -125,6 +145,8 @@ public class Theme {
         for (String id : ThemeConfig.cfg.getYml().getConfigurationSection("theme").getKeys(false)) {
             String name = ThemeConfig.cfg.getYml().getString("theme." + id + ".name");
             String background = ThemeConfig.cfg.getYml().getString("theme." + id + ".background");
+            String copyright = ThemeConfig.cfg.getYml().getString("theme." + id + ".copyright");
+            String version = ThemeConfig.cfg.getYml().getString("theme." + id + ".version");
             String textBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".text.background");
             String textForeground = ThemeConfig.cfg.getYml().getString("theme." + id + ".text.foreground");
             String selection = ThemeConfig.cfg.getYml().getString("theme." + id + ".text.selection");
@@ -134,13 +156,15 @@ public class Theme {
             String inputBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.background");
             String inputForeground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.foreground");
             String inputBorder = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.border");
-            Theme.themeHashMap.put(id, new Theme(id, name, background, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
+            Theme.themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
         }
     }
 
     public static void changeTheme(String id) {
         String name = Terminal.getInstance().getSetting().getTheme(id).getName();
         String background = Terminal.getInstance().getSetting().getTheme(id).getBackgroundCode();
+        String copyright = Terminal.getInstance().getSetting().getTheme(id).getCopyrightCode();
+        String version = Terminal.getInstance().getSetting().getTheme(id).getVersionCode();
         String textBackground = Terminal.getInstance().getSetting().getTheme(id).getTextBackgroundCode();
         String textForeground = Terminal.getInstance().getSetting().getTheme(id).getTextForegroundCode();
         String selection = Terminal.getInstance().getSetting().getTheme(id).getSelectionCode();
@@ -153,6 +177,8 @@ public class Theme {
 
         Terminal.getScreen().getGraphicalScreen().getTextArea().setBackground(Color.decode(textBackground));
         Terminal.getScreen().getGraphicalScreen().getTextArea().setForeground(Color.decode(textForeground));
+        Terminal.getScreen().getGraphicalScreen().getCopyright().setForeground(Color.decode(copyright));
+        Terminal.getScreen().getGraphicalScreen().getVersion().setForeground(Color.decode(version));
         Terminal.getScreen().getGraphicalScreen().getTextArea().setSelectionColor(Color.decode(selection));
         Terminal.getScreen().getGraphicalScreen().getTextArea().setSelectedTextColor(Color.decode(selectedText));
         String[] split = textBorder.split(":");
@@ -163,6 +189,6 @@ public class Theme {
         Terminal.getScreen().getGraphicalScreen().getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
         Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getInstance().getSetting().getTheme(id).getBackgroundCode()));
 
-        themeHashMap.put(id, new Theme(id, name, background, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
+        themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
     }
 }

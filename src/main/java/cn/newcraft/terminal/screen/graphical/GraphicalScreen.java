@@ -24,8 +24,9 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     private static JTextArea text;
     private static JTextField input;
-    private static TrayIcon trayIcon = null;
-    private static JButton execute, clearLog, theme;
+    private SystemTray tray;
+    private TrayIcon trayIcon = null;
+    private JButton execute, clearLog, theme;
     private List<String> cache = Lists.newArrayList();
     private int max_cache;
     private int jOptionPane = JOptionPane.DEFAULT_OPTION;
@@ -50,6 +51,14 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     public JButton getTheme() {
         return theme;
+    }
+
+    public SystemTray getTray() {
+        return tray;
+    }
+
+    public TrayIcon getTrayIcon() {
+        return trayIcon;
     }
 
     @Override
@@ -239,15 +248,15 @@ public class GraphicalScreen extends JFrame implements Screen {
             this.getTheme().setEnabled(false);
             this.getInput().setEnabled(false);
             this.getInput().setBackground(Color.LIGHT_GRAY);
-            minimize(this);
+            initTray();
             setVisible(true);
         } catch (Exception e) {
             Method.printException(this.getClass(), e);
         }
     }
 
-    public void showPromptScreen(String title, String message) {
-        new PromptScreen().show(title, message);
+    public void showPromptScreen(String title, String message, int keepTime, boolean confirm) {
+        new PromptScreen().show(title, message, keepTime, confirm);
     }
 
     public void setJOptionPane(int i) {
@@ -261,6 +270,11 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void onInitComplete() {
 
+    }
+
+    @Override
+    public void onDisable() {
+        tray.remove(trayIcon);
     }
 
     @Override
@@ -288,14 +302,20 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            String[] buttons = {"关闭终端", "隐藏至任务栏", "取消"};
-            int jOptionPane = JOptionPane.showOptionDialog(this, "确定要关闭终端吗？\n关闭后尚未执行完毕的操作将会丢失！", "警告", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, buttons, buttons[2]);
+            List<String> list = Lists.newArrayList();
+            list.add("关闭终端");
+            if (SystemTray.isSupported()) {
+                list.add("隐藏至任务栏");
+            }
+            list.add("取消");
+            String[] buttons = list.toArray(new String[0]);
+            int jOptionPane = JOptionPane.showOptionDialog(this, "确定要关闭终端吗？\n关闭后尚未执行完毕的操作将会丢失！", "警告", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, buttons, buttons[list.size() - 1]);
             if (jOptionPane == 0) {
                 Terminal.shutdown();
             }
-            if (jOptionPane == 1) {
-                showPromptScreen("提示", "已隐藏至任务栏\n终端仍在运行，如需唤出界面请双击任务栏图标");
-                setVisible(false);
+            if (jOptionPane == list.size() - 2) {
+                showPromptScreen("提示", "已隐藏至任务栏\n终端仍在运行，如需唤出界面请双击任务栏图标", 5000, true);
+                minimize();
             }
             return;
         }
@@ -319,26 +339,48 @@ public class GraphicalScreen extends JFrame implements Screen {
         System.out.println(str);
     }
 
-    private void minimize(JFrame jFrame) {
-        SystemTray tray = SystemTray.getSystemTray();
-        ImageIcon trayImg = new ImageIcon(this.getClass().getResource("/console.png"));// 托盘图标
-        trayIcon = new TrayIcon(trayImg.getImage(), "Terminal", new PopupMenu());
-        trayIcon.setImageAutoSize(true);
-        trayIcon.addMouseListener(new MouseAdapter() {
+    private void initTray() {
+        if (SystemTray.isSupported()) {
+            tray = SystemTray.getSystemTray();
+            ImageIcon trayImg = new ImageIcon(this.getClass().getResource("/console.png"));
+            PopupMenu pm = new PopupMenu();
+            MenuItem mi0 = new MenuItem("打开");
+            mi0.addActionListener(e -> maximize());
+            MenuItem mi1 = new MenuItem("关于");
+            mi1.addActionListener(e -> showPromptScreen(
+                    "Terminal - " + Terminal.getInstance().getSetting().getCanonicalVersion(),
+                    "版权所有 ©2020 May_Block\n保留所有权利", 2500, false));
+            MenuItem mi2 = new MenuItem("退出程序");
+            mi2.addActionListener(e -> Terminal.shutdown());
+            pm.add(mi0);
+            pm.add(mi1);
+            pm.add(mi2);
+            trayIcon = new TrayIcon(trayImg.getImage(), "Terminal", pm);
+            trayIcon.setImageAutoSize(true);
+            trayIcon.addMouseListener(new MouseAdapter() {
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    jFrame.setVisible(true);
-                    jFrame.setExtendedState(JFrame.NORMAL);
-                    jFrame.toFront();
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getButton() == 1 && e.getClickCount() == 2) {
+                        maximize();
+                    }
                 }
+            });
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e1) {
+                e1.printStackTrace();
             }
-        });
-        try {
-            tray.add(trayIcon);
-        } catch (AWTException e1) {
-            e1.printStackTrace();
         }
+    }
+
+    private void minimize() {
+        this.setVisible(false);
+    }
+
+    private void maximize() {
+        this.setVisible(true);
+        this.setExtendedState(JFrame.NORMAL);
+        this.toFront();
     }
 }

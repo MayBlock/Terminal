@@ -17,5 +17,7 @@ public interface Screen {
 
     void onInitComplete();
 
+    void onDisable();
+
     int showMessagePane(String title, String message);
 }

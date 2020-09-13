@@ -25,7 +25,7 @@ public class PromptScreen extends JDialog {
         onScreen();
     }
 
-    public void show(String title, String message) {
+    public void show(String title, String message, int keepTime, boolean confirm) {
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
         getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));
@@ -35,7 +35,7 @@ public class PromptScreen extends JDialog {
         JTextArea color = new JTextArea();
         JTextArea jTextArea = new JTextArea(message);
 
-        jTitle.setBounds(10, 7, 200, 20);
+        jTitle.setBounds(10, 7, 270, 20);
         jTitle.setVerticalTextPosition(JLabel.CENTER);
         jTitle.setHorizontalTextPosition(JLabel.CENTER);
         jTitle.setFont(new Font("宋体", Font.BOLD, 15));
@@ -65,14 +65,16 @@ public class PromptScreen extends JDialog {
         });
         add(close);
 
-        determine.setFont(new Font("宋体", Font.PLAIN, 14));
-        determine.setBounds(120, 140, 60, 30);
-        determine.setCursor(new Cursor(12));
-        determine.setContentAreaFilled(false);
-        determine.setBorder(BorderFactory.createRaisedBevelBorder());
-        determine.setBackground(Color.decode("#3366FF"));
-        determine.addActionListener(arg0 -> close());
-        add(determine);
+        if (confirm) {
+            determine.setFont(new Font("宋体", Font.PLAIN, 14));
+            determine.setBounds(120, 140, 60, 30);
+            determine.setCursor(new Cursor(12));
+            determine.setContentAreaFilled(false);
+            determine.setBorder(BorderFactory.createRaisedBevelBorder());
+            determine.setBackground(Color.decode("#3366FF"));
+            determine.addActionListener(arg0 -> close());
+            add(determine);
+        }
 
         color.setEditable(false);
         color.setBackground(new Color(51, 102, 153));
@@ -91,20 +93,20 @@ public class PromptScreen extends JDialog {
         setUndecorated(true);
         setResizable(false);
         setVisible(true);
-        run();
+        run(keepTime);
     }
 
-    public void run() {
+    public void run(int keepTime) {
         new Thread(() -> {
             for (int i = 0; i <= height; i += 10) {
                 try {
                     this.setLocation(x, y - i);
-                    Thread.sleep(35);
+                    Thread.sleep(30);
                 } catch (InterruptedException ex) {
                 }
             }
             try {
-                Thread.sleep(8000);
+                Thread.sleep(keepTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -126,7 +128,7 @@ public class PromptScreen extends JDialog {
         for (int i = 0; i <= ybottom - y; i += 10) {
             try {
                 setLocation(x, y + i);
-                Thread.sleep(50);
+                Thread.sleep(40);
             } catch (InterruptedException ignored) {
             }
         }

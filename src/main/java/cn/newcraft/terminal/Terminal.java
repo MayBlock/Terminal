@@ -98,11 +98,11 @@ public class Terminal {
                     try {
                         ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
-
                     }
                 }
                 ServerThread.getServer().stopServer();
             }
+            screen.onDisable();
             screen = null;
             System.exit(0);
         }).start();

@@ -161,19 +161,19 @@ public class Theme {
     }
 
     public static void changeTheme(String id) {
-        String name = Terminal.getInstance().getSetting().getTheme(id).getName();
-        String background = Terminal.getInstance().getSetting().getTheme(id).getBackgroundCode();
-        String copyright = Terminal.getInstance().getSetting().getTheme(id).getCopyrightCode();
-        String version = Terminal.getInstance().getSetting().getTheme(id).getVersionCode();
-        String textBackground = Terminal.getInstance().getSetting().getTheme(id).getTextBackgroundCode();
-        String textForeground = Terminal.getInstance().getSetting().getTheme(id).getTextForegroundCode();
-        String selection = Terminal.getInstance().getSetting().getTheme(id).getSelectionCode();
-        String selectedText = Terminal.getInstance().getSetting().getTheme(id).getSelectedTextCode();
-        String textBorder = Terminal.getInstance().getSetting().getTheme(id).getTextBorderCode();
+        String name = Terminal.getOptions().getTheme(id).getName();
+        String background = Terminal.getOptions().getTheme(id).getBackgroundCode();
+        String copyright = Terminal.getOptions().getTheme(id).getCopyrightCode();
+        String version = Terminal.getOptions().getTheme(id).getVersionCode();
+        String textBackground = Terminal.getOptions().getTheme(id).getTextBackgroundCode();
+        String textForeground = Terminal.getOptions().getTheme(id).getTextForegroundCode();
+        String selection = Terminal.getOptions().getTheme(id).getSelectionCode();
+        String selectedText = Terminal.getOptions().getTheme(id).getSelectedTextCode();
+        String textBorder = Terminal.getOptions().getTheme(id).getTextBorderCode();
 
-        String inputBackground = Terminal.getInstance().getSetting().getTheme(id).getInputBackgroundCode();
-        String inputForeground = Terminal.getInstance().getSetting().getTheme(id).getInputForegroundCode();
-        String inputBorder = Terminal.getInstance().getSetting().getTheme(id).getInputBorderCode();
+        String inputBackground = Terminal.getOptions().getTheme(id).getInputBackgroundCode();
+        String inputForeground = Terminal.getOptions().getTheme(id).getInputForegroundCode();
+        String inputBorder = Terminal.getOptions().getTheme(id).getInputBorderCode();
 
         Terminal.getScreen().getGraphicalScreen().getTextArea().setBackground(Color.decode(textBackground));
         Terminal.getScreen().getGraphicalScreen().getTextArea().setForeground(Color.decode(textForeground));
@@ -187,7 +187,7 @@ public class Theme {
         Terminal.getScreen().getGraphicalScreen().getInput().setForeground(Color.decode(inputForeground));
         String[] split1 = inputBorder.split(":");
         Terminal.getScreen().getGraphicalScreen().getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
-        Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getInstance().getSetting().getTheme(id).getBackgroundCode()));
+        Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getOptions().getTheme(id).getBackgroundCode()));
 
         themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
     }

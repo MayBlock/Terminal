@@ -72,7 +72,7 @@ public class ConsoleScreen extends Thread implements Screen {
                 } else {
                     String in = sc.nextLine();
                     new SendCommand(in.split(" "));
-                    if (Terminal.getInstance().isDebug()) {
+                    if (Terminal.isDebug()) {
                         sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + in);
                     }
                     System.out.print("> ");

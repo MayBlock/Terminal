@@ -75,7 +75,7 @@ public class PluginManager {
                             Method m1 = LoadMain.getDeclaredMethod("onLoad");
                             m1.invoke(instance);
                             plugins.put(name, new PluginInfo(name, main, version, author, prefix, loadList.get(i).getPath(), loadList.get(i).getAbsolutePath(), urlClassLoader));
-                            if (Terminal.getInstance().isDebug()) {
+                            if (Terminal.isDebug()) {
                                 screen.sendMessage(Prefix.DEBUG.getPrefix() + " 插件 " + name + " Version: " + version + " MainClass: " + main + " 已加载至终端！");
                             }
                             pluginLists.add(name);
@@ -102,7 +102,7 @@ public class PluginManager {
                             Object instance = LoadMain.newInstance();
                             Method m1 = LoadMain.getDeclaredMethod("onEnable");
                             m1.invoke(instance);
-                            if (Terminal.getInstance().isDebug()) {
+                            if (Terminal.isDebug()) {
                                 screen.sendMessage(
                                         Prefix.DEBUG.getPrefix() + " 插件 " + name +
                                                 " Version: " + plugins.get(name).getVersion() + " MainClass: " + main + " 已启用！");
@@ -133,7 +133,7 @@ public class PluginManager {
                             Object instance = LoadMain.newInstance();
                             Method m1 = LoadMain.getDeclaredMethod("onDisable");
                             m1.invoke(instance);
-                            if (Terminal.getInstance().isDebug()) {
+                            if (Terminal.isDebug()) {
                                 screen.sendMessage(
                                         Prefix.DEBUG.getPrefix() + " 插件 " + name +
                                                 " Version: " + plugins.get(name).getVersion() + " MainClass: " + main + " 已从终端卸载！");

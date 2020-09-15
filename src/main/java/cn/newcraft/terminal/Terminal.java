@@ -3,13 +3,13 @@ package cn.newcraft.terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.console.Initialization;
-import cn.newcraft.terminal.console.Setting;
+import cn.newcraft.terminal.console.SendCommand;
+import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginEnum;
 import cn.newcraft.terminal.plugin.PluginManager;
-import cn.newcraft.terminal.screen.graphical.PromptScreen;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
@@ -19,34 +19,34 @@ import java.io.IOException;
 
 public class Terminal {
 
-    private boolean debug;
+    private static boolean debug;
     private static Terminal instance;
-    private static Setting setting = new Setting();
+    private static Options options = new Options();
     private static Screen screen;
-    private String name = "Terminal";
+    private static String name = "Terminal";
 
-    public String getName() {
+    public static String getName() {
         return name;
-    }
-
-    public static Terminal getInstance() {
-        return instance;
     }
 
     public static Screen getScreen() {
         return screen;
     }
 
-    public boolean isDebug() {
+    public static boolean isDebug() {
         return debug;
     }
 
-    public void setDebug(boolean b) {
+    public static void setDebug(boolean b) {
         debug = b;
     }
 
-    public Setting getSetting() {
-        return setting;
+    public static Options getOptions() {
+        return options;
+    }
+
+    public static void dispatchCommand(String command) {
+        new SendCommand(command.split(" "));
     }
 
     public static void main(String[] str) {
@@ -62,7 +62,7 @@ public class Terminal {
             } else
                 screen = ServerConfig.cfg.getYml().getString("server.default_screen").equalsIgnoreCase("GraphicalScreen") ? new GraphicalScreen() : new ConsoleScreen();
             screen.onScreen();
-            PropertyConfigurator.configure(getInstance().getClass().getResource("/log4j.properties"));
+            PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
             screen.sendMessage(
                     "---------------------------------\n" +
                             "Terminal\n" +

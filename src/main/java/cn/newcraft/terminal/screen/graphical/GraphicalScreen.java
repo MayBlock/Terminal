@@ -83,7 +83,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             setIconImage(icon.getImage());
             setLayout(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setTitle(Terminal.getInstance().getName() + " - " + Terminal.getInstance().getSetting().getVersion());
+            setTitle(Terminal.getName() + " - " + Terminal.getOptions().getVersion());
             setSize(900, 820);
             setLocation(200, 200);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -104,7 +104,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             str.setBounds(180, 5, 500, 20);
             add(str);
 
-            version = new JLabel("Version:  " + Terminal.getInstance().getSetting().getCanonicalVersion());
+            version = new JLabel("Version:  " + Terminal.getOptions().getCanonicalVersion());
             //int[] versionLogOffset = {185, 60}; // alpha
             int[] versionLogOffset = {180, 60}; // beta
             add(version);
@@ -128,7 +128,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 if (Initialization.isInitialization) {
                     Initialization.init(input.getText());
                 } else {
-                    new SendCommand(input.getText().split(" "));
+                    Terminal.dispatchCommand(input.getText());
                     if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
                         input.setText("");
                         input.requestFocus();
@@ -138,7 +138,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
                     }
-                    if (Terminal.getInstance().isDebug()) {
+                    if (Terminal.isDebug()) {
                         sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + input.getText());
                     }
                 }
@@ -185,7 +185,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 if (Initialization.isInitialization) {
                     Initialization.init(input.getText());
                 } else {
-                    new SendCommand(input.getText().split(" "));
+                    Terminal.dispatchCommand(input.getText());
                     if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
                         input.setText("");
                         input.requestFocus();
@@ -195,7 +195,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
                     }
-                    if (Terminal.getInstance().isDebug()) {
+                    if (Terminal.isDebug()) {
                         sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + input.getText());
                     }
                 }
@@ -207,10 +207,10 @@ public class GraphicalScreen extends JFrame implements Screen {
             clearLog = new JButton("清除控制台日志");
             int[] clearLogOffset = {145, 780};
             clearLog.addActionListener(arg0 -> {
-                int jOptionPane = JOptionPane.showConfirmDialog(null, "确定要清理当前日志吗？", "清除日志", JOptionPane.YES_NO_OPTION);
+                int jOptionPane = JOptionPane.showConfirmDialog(this, "确定要清理当前日志吗？", "清除日志", JOptionPane.YES_NO_OPTION);
                 if (jOptionPane == 0) {
                     text.setText("");
-                    sendMessage("已清除日志 - " + Method.getCurrentTime(Terminal.getInstance().getSetting().getTimeZone()));
+                    sendMessage("已清除日志 - " + Method.getCurrentTime(Terminal.getOptions().getTimeZone()));
                     input.requestFocus();
                 }
             });
@@ -220,16 +220,16 @@ public class GraphicalScreen extends JFrame implements Screen {
             int[] themeOffset = {145, 740};
             theme.addActionListener(arg0 -> {
                 if (ThemeConfig.cfg.getYml().getConfigurationSection("theme") == null) {
-                    JOptionPane.showConfirmDialog(null, "当前没有任何主题可用", "提示", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showConfirmDialog(this, "当前没有任何主题可用", "提示", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 List<String> id = Lists.newArrayList();
                 List<String> name = Lists.newArrayList();
                 for (String s : ThemeConfig.cfg.getYml().getConfigurationSection("theme").getKeys(false)) {
                     id.add(s);
-                    name.add(Terminal.getInstance().getSetting().getTheme(s).getName());
+                    name.add(Terminal.getOptions().getTheme(s).getName());
                 }
-                Object jOptionPane = JOptionPane.showInputDialog(null, "请选择主题", "主题",
+                Object jOptionPane = JOptionPane.showInputDialog(this, "请选择主题", "主题",
                         JOptionPane.INFORMATION_MESSAGE, null,
                         name.toArray(), name.get(0));
                 if (jOptionPane == null) {
@@ -238,7 +238,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 for (int i = 0; i < name.size(); i++) {
                     if (jOptionPane.equals(name.get(i))) {
                         Theme.changeTheme(id.get(i));
-                        sendMessage(Prefix.TERMINAL.getPrefix() + " 已切换主题 " + Terminal.getInstance().getSetting().getTheme(id.get(i)).getName());
+                        sendMessage(Prefix.TERMINAL.getPrefix() + " 已切换主题 " + Terminal.getOptions().getTheme(id.get(i)).getName());
                     }
                 }
             });
@@ -370,7 +370,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             MenuItem mi1 = new MenuItem("关于");
             mi1.setFont(new Font("宋体", Font.PLAIN, 13));
             mi1.addActionListener(e -> showPromptScreen(
-                    "Terminal - " + Terminal.getInstance().getSetting().getCanonicalVersion(),
+                    "Terminal - " + Terminal.getOptions().getCanonicalVersion(),
                     "版权所有 ©2020 May_Block\n保留所有权利", 2500, false));
             MenuItem mi2 = new MenuItem("退出程序");
             mi2.setFont(new Font("宋体", Font.PLAIN, 13));
@@ -379,7 +379,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             pm.add(mi1);
             pm.addSeparator();
             pm.add(mi2);
-            trayIcon = new TrayIcon(trayImg.getImage(), "Terminal - " + Terminal.getInstance().getSetting().getVersion(), pm);
+            trayIcon = new TrayIcon(trayImg.getImage(), "Terminal - " + Terminal.getOptions().getVersion(), pm);
             trayIcon.setImageAutoSize(true);
             trayIcon.addMouseListener(new MouseAdapter() {
 

@@ -34,7 +34,7 @@ public class Initialization {
                 }
                 screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 成功设置端口为 " + port);
                 ServerConfig.setPort(port);
-                Terminal.getInstance().getSetting().setPort(port);
+                Terminal.getOptions().setPort(port);
                 onTerminal();
             } else {
                 screen.sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " 端口" + in + "无效，端口设置只能为 1 - 65535之间！");
@@ -47,9 +47,9 @@ public class Initialization {
     public static void onTerminal() {
         try {
             screen.setComponentEnabled(false);
-            Terminal.getInstance().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
+            Terminal.setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
             int port = ServerConfig.getPort();
-            Terminal.getInstance().getSetting().setPort(port);
+            Terminal.getOptions().setPort(port);
             if (!Method.isConnect()) {
                 screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 你的电脑尚未联网，无法启动终端！");
                 if (Method.isReallyHeadless()) {
@@ -97,7 +97,7 @@ public class Initialization {
             screen.setComponentEnabled(true);
             isInitialization = false;
             new PluginManager(PluginEnum.ENABLE);
-            screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getInstance().getSetting().getVersion() + ")\n ");
+            screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n ");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
             Terminal.getScreen().onInitComplete();

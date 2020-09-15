@@ -113,7 +113,7 @@ public class ServerThread extends Thread {
                                 integerSocketHashMap.get(id).setFirstConnect(false);
                             }
                         }
-                        if (Terminal.getInstance().isDebug()) {
+                        if (Terminal.isDebug()) {
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 的Socket交互信息：");
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");
                             Terminal.getScreen().sendMessage(new String(bytes, StandardCharsets.UTF_8));
@@ -141,7 +141,7 @@ public class ServerThread extends Thread {
                 try {
                     Thread.sleep(10 * 1000);
                     sender.sendPacket(new HeartbeatPacket());
-                    if (Terminal.getInstance().isDebug()) {
+                    if (Terminal.isDebug()) {
                         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + integerSocketHashMap.get(i).getCanonicalName() + " 发送心跳包");
                     }
                 } catch (InterruptedException | IOException e) {

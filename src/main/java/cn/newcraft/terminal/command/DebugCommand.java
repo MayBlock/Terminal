@@ -11,11 +11,11 @@ public class DebugCommand extends CommandManager {
 
     @Override
     public void onCommand(Screen screen, String[] args) {
-        if (Terminal.getInstance().isDebug()) {
-            Terminal.getInstance().setDebug(false);
+        if (Terminal.isDebug()) {
+            Terminal.setDebug(false);
             screen.sendMessage("已关闭 DEBUG 模式");
         } else {
-            Terminal.getInstance().setDebug(true);
+            Terminal.setDebug(true);
             screen.sendMessage("已开启 DEBUG 模式");
         }
     }

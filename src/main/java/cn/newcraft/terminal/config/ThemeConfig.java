@@ -17,7 +17,7 @@ public class ThemeConfig extends ConfigManager {
         cfg.getYml().options().copyDefaults(true);
         cfg.getYml().addDefault("theme.white.name", "羊毛白");
         cfg.getYml().addDefault("theme.white.background", "#EAEDED");
-        cfg.getYml().addDefault("theme.white.copyright", "#8F8F8F");
+        cfg.getYml().addDefault("theme.white.copyright", "#808080");
         cfg.getYml().addDefault("theme.white.version", "#000000");
 
         cfg.getYml().addDefault("theme.white.text.background", "#FFFFFF");

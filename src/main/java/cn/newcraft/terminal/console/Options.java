@@ -4,11 +4,11 @@ import cn.newcraft.terminal.config.ServerConfig;
 
 import java.util.TimeZone;
 
-public class Setting {
+public class Options {
 
     private int port;
     private String version = "1.0.0";
-    private String canonicalVersion = "1.0.0.200913_beta";
+    private String canonicalVersion = "1.0.0.200915_beta";
     private int apiVersion = 1;
     private TimeZone timeZone = TimeZone.getDefault();
 

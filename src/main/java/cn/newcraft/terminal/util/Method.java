@@ -82,7 +82,7 @@ public class Method {
         ex.printStackTrace(ps);
         try {
             String output = os.toString("UTF-8");
-            Terminal.getScreen().sendMessage("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + getCurrentTime(Terminal.getInstance().getSetting().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
+            Terminal.getScreen().sendMessage("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
         } catch (UnsupportedEncodingException ignored) {
         }
     }
@@ -135,7 +135,7 @@ public class Method {
         boolean flag = false;
         InetAddress Address = InetAddress.getByName(host);
         try {
-            Socket socket = new Socket(Address, port);  //建立一个Socket连接
+            new Socket(Address, port);  //建立一个Socket连接
             flag = true;
         } catch (IOException ignored) {
         }

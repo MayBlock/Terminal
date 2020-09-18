@@ -19,5 +19,7 @@ public interface Screen {
 
     void onDisable();
 
+    void onUpdate(String newVersion);
+
     int showMessagePane(String title, String message);
 }

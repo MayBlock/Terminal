@@ -135,7 +135,7 @@ public class Method {
         boolean flag = false;
         InetAddress Address = InetAddress.getByName(host);
         try {
-            new Socket(Address, port);  //建立一个Socket连接
+            new Socket(Address, port);
             flag = true;
         } catch (IOException ignored) {
         }

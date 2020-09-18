@@ -2,13 +2,14 @@ package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
+import cn.newcraft.terminal.screen.graphical.other.UpdateScreen;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.console.Initialization;
 import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
 import com.google.common.collect.Lists;
@@ -17,10 +18,6 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.MemoryUsage;
-import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 
@@ -275,8 +272,8 @@ public class GraphicalScreen extends JFrame implements Screen {
         }
     }
 
-    public void showPromptScreen(String title, String message, int keepTime, boolean confirm) {
-        new PromptScreen().show(title, message, keepTime, confirm);
+    public void showPromptScreen(String title, String message, int keepTime, boolean confirm, String confirmMessage) {
+        new PromptScreen().show(title, message, keepTime, confirm, confirmMessage);
     }
 
     public void setJOptionPane(int i) {
@@ -295,6 +292,11 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void onDisable() {
         tray.remove(trayIcon);
+    }
+
+    @Override
+    public void onUpdate(String newVersion) {
+        new UpdateScreen(newVersion);
     }
 
     @Override
@@ -334,7 +336,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 Terminal.shutdown();
             }
             if (jOptionPane == list.size() - 2) {
-                showPromptScreen("提示", "已隐藏至任务栏\n终端仍在运行，如需唤出界面请双击任务栏图标", 5000, true);
+                showPromptScreen("提示", "已隐藏至任务栏\n终端仍在运行，如需唤出界面请双击任务栏图标", 5000, true, "知道了");
                 minimize();
             }
             return;
@@ -371,7 +373,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             mi1.setFont(new Font("宋体", Font.PLAIN, 13));
             mi1.addActionListener(e -> showPromptScreen(
                     "Terminal - " + Terminal.getOptions().getCanonicalVersion(),
-                    "版权所有 ©2020 May_Block\n保留所有权利", 2500, false));
+                    "版权所有 ©2020 May_Block\n保留所有权利", 2500, false, null));
             MenuItem mi2 = new MenuItem("退出程序");
             mi2.setFont(new Font("宋体", Font.PLAIN, 13));
             mi2.addActionListener(e -> Terminal.shutdown());

@@ -11,6 +11,7 @@ import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginEnum;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -84,6 +85,7 @@ public class Terminal {
             if (!Initialization.isInitialization) {
                 Initialization.onTerminal();
             }
+            new Update(getOptions().getCanonicalVersion());
         } catch (Exception ex) {
             Method.printException(Terminal.class, ex);
         }

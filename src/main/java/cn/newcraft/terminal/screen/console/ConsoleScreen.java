@@ -55,7 +55,7 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void onUpdate(String newVersion) {
-
+        sendMessage("Terminal updating...");
     }
 
     @Override

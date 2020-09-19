@@ -16,6 +16,7 @@ import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class Terminal {
@@ -25,9 +26,14 @@ public class Terminal {
     private static Options options = new Options();
     private static Screen screen;
     private static String name = "Terminal";
+    private static String programName;
 
     public static String getName() {
         return name;
+    }
+
+    public static String getProgramName() {
+        return programName;
     }
 
     public static Screen getScreen() {
@@ -69,7 +75,9 @@ public class Terminal {
                             "Terminal\n" +
                             "       Welcome!\n" +
                             "---------------------------------\n ");
-            screen.sendMessage("Terminal Starting...");
+            screen.sendMessage("Terminal starting...");
+            String s = instance.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
+            programName = s.substring(s.lastIndexOf("/") + 1);
             if (ServerConfig.getPort() == 0) {
                 Initialization.isInitialization = true;
                 screen.sendMessage("检测到你首次启动Terminal，你需要先完成初始化操作！");
@@ -85,14 +93,68 @@ public class Terminal {
             if (!Initialization.isInitialization) {
                 Initialization.onTerminal();
             }
-            new Update(getOptions().getCanonicalVersion());
         } catch (Exception ex) {
             Method.printException(Terminal.class, ex);
         }
     }
 
+    public static void reboot() {
+        screen.sendMessage("Terminal rebooting...");
+        new Thread(() -> {
+            File directory = new File("");
+            try {
+                System.out.println("java -jar " + directory.getAbsolutePath() + "/" + programName);
+                Method.runCmd("java -jar " + directory.getAbsolutePath() + "/" + programName);
+            } catch (IOException ex) {
+                Method.printException(Terminal.class, ex);
+            }
+        }).start();
+        new Thread(() -> {
+            new PluginManager(PluginEnum.DISABLE);
+            if (ServerThread.isServer()) {
+                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                    try {
+                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                    } catch (IOException ignored) {
+                    }
+                }
+                ServerThread.getServer().stopServer();
+            }
+            screen.onDisable();
+            screen = null;
+            System.exit(0);
+        }).start();
+    }
+
+    public static void reboot(String path) {
+        screen.sendMessage("Terminal rebooting...");
+        new Thread(() -> {
+            File directory = new File("");
+            try {
+                Method.runCmd("java -jar " + directory.getAbsolutePath() + "/" + path);
+            } catch (IOException ex) {
+                Method.printException(Terminal.class, ex);
+            }
+        }).start();
+        new Thread(() -> {
+            new PluginManager(PluginEnum.DISABLE);
+            if (ServerThread.isServer()) {
+                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                    try {
+                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                    } catch (IOException ignored) {
+                    }
+                }
+                ServerThread.getServer().stopServer();
+            }
+            screen.onDisable();
+            screen = null;
+            System.exit(0);
+        }).start();
+    }
+
     public static void shutdown() {
-        screen.sendMessage("Terminal Stopping...");
+        screen.sendMessage("Terminal stopping...");
         new Thread(() -> {
             new PluginManager(PluginEnum.DISABLE);
             if (ServerThread.isServer()) {

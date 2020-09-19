@@ -2,6 +2,7 @@ package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.operate.DisconnectOperate;
 import cn.newcraft.terminal.operate.OperateManager;
+import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.*;
@@ -82,6 +83,7 @@ public class Initialization {
             CommandManager.regCommand(plugin, new HelpCommand());
             CommandManager.regCommand(plugin, new PluginsCommand());
             CommandManager.regCommand(plugin, new ReloadCommand());
+            CommandManager.regCommand(plugin, new RebootCommand());
             CommandManager.regCommand(plugin, new StopCommand());
             CommandManager.regCommand(plugin, new SystemCommand());
             CommandManager.regCommand(plugin, new ShellCommand());
@@ -100,6 +102,7 @@ public class Initialization {
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n ");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
+            new Update(Terminal.getOptions().getCanonicalVersion());
             Terminal.getScreen().onInitComplete();
         } catch (Exception e) {
             Method.printException(Initialization.class, e);

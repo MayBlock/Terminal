@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class Update {
+
     public Update(String canonicalVersion) {
         new Thread(() -> {
             try {
@@ -27,7 +28,8 @@ public class Update {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
                 String response = reader.readLine();
                 String newVersion = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("canonical");
-                if (!newVersion.equals(canonicalVersion)) {
+                if (newVersion != null && !newVersion.equals(canonicalVersion)) {
+                    String version = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("version");
                     String description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
                     PromptScreen promptScreen = new PromptScreen();
                     JButton determine = new JButton("点击更新");
@@ -42,9 +44,9 @@ public class Update {
                         promptScreen.close();
                     });
                     promptScreen.show("检测到有新版本！",
-                            "当前版本：" + canonicalVersion + "\n" +
-                                    "最新版本" + newVersion + "\n\n" +
-                                    "更新日志：" + description, 5000, determine);
+                            "当前版本：" + Terminal.getOptions().getVersion() + " (" + canonicalVersion + ")\n" +
+                                    "最新版本：" + version + " (" + newVersion + ")\n\n" +
+                                    "更新日志：" + description, 8000, determine);
                 }
             } catch (IOException e) {
                 Method.printException(this.getClass(), e);

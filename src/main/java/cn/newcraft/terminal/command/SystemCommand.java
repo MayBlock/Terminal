@@ -3,6 +3,7 @@ package cn.newcraft.terminal.command;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.screen.Screen;
 
+import java.io.IOException;
 import java.util.Properties;
 
 public class SystemCommand extends CommandManager {
@@ -32,8 +33,14 @@ public class SystemCommand extends CommandManager {
                         for (int i = 2; i < args.length; i++) {
                             text.append(args[i]).append(" ");
                         }
-                        Method.runCmd(text.toString());
-                        screen.sendMessage("执行了系统命令 " + text.toString());
+                        new Thread(() -> {
+                            try {
+                                Method.runCmd(text.toString());
+                                screen.sendMessage("执行了系统命令 " + text.toString());
+                            } catch (IOException e) {
+                                Method.printException(this.getClass(), e);
+                            }
+                        }).start();
                     } else {
                         screen.sendMessage("用法：system runCmd <command>");
                     }

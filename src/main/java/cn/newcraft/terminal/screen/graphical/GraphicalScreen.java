@@ -82,7 +82,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setTitle(Terminal.getName() + " - " + Terminal.getOptions().getVersion());
             setSize(900, 820);
-            setLocation(200, 200);
+            setLocationRelativeTo(null);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
             text = new JTextArea();
             text.setFont(new Font("宋体", Font.PLAIN, 15));
@@ -368,7 +368,11 @@ public class GraphicalScreen extends JFrame implements Screen {
             PopupMenu pm = new PopupMenu();
             MenuItem mi0 = new MenuItem("打开");
             mi0.setFont(new Font("宋体", Font.BOLD, 13));
-            mi0.addActionListener(e -> maximize());
+            mi0.addActionListener(e -> {
+                if (!UpdateScreen.isUpdate()) {
+                    maximize();
+                }
+            });
             MenuItem mi1 = new MenuItem("关于");
             mi1.setFont(new Font("宋体", Font.PLAIN, 13));
             mi1.addActionListener(e -> showPromptScreen(
@@ -376,7 +380,13 @@ public class GraphicalScreen extends JFrame implements Screen {
                     "版权所有 ©2020 May_Block\n保留所有权利", 2500, false, null));
             MenuItem mi2 = new MenuItem("退出程序");
             mi2.setFont(new Font("宋体", Font.PLAIN, 13));
-            mi2.addActionListener(e -> Terminal.shutdown());
+            mi2.addActionListener(e -> {
+                if (!UpdateScreen.isUpdate()) {
+                    Terminal.shutdown();
+                } else {
+                    UpdateScreen.getInstance().showNotClosePane();
+                }
+            });
             pm.add(mi0);
             pm.add(mi1);
             pm.addSeparator();

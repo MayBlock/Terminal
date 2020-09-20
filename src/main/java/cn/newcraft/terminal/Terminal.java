@@ -3,8 +3,10 @@ package cn.newcraft.terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.console.Initialization;
+import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
+import cn.newcraft.terminal.exception.UnknownScreenException;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
@@ -17,6 +19,7 @@ import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -69,17 +72,24 @@ public class Terminal {
             ServerConfig.init();
             ThemeConfig.init();
             PluginManager.spawnFile();
-            if (ServerConfig.cfg.getYml().getString("server.default_screen") == null) {
+            String defaultScreen = ServerConfig.cfg.getYml().getString("server.default_screen");
+            if (defaultScreen == null) {
                 if (!Method.isReallyHeadless()) {
-                    screen = new GraphicalScreen();
-                    update = new GraphicalUpdate();
+                    initGraphicalScreen();
                 } else {
-                    screen = new ConsoleScreen();
-                    update = new ConsoleUpdate();
+                    initConsoleScreen();
                 }
             } else {
-                screen = ServerConfig.cfg.getYml().getString("server.default_screen").equalsIgnoreCase("GraphicalScreen") ? new GraphicalScreen() : new ConsoleScreen();
-                update = ServerConfig.cfg.getYml().getString("server.default_screen").equalsIgnoreCase("GraphicalScreen") ? new GraphicalUpdate() : new ConsoleUpdate();
+                switch (defaultScreen) {
+                    case "GraphicalScreen":
+                        initGraphicalScreen();
+                        break;
+                    case "ConsoleScreen":
+                        initConsoleScreen();
+                        break;
+                    default:
+                        throw new UnknownScreenException("Screen " + defaultScreen + " does not exist!");
+                }
             }
             screen.onScreen();
             PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
@@ -183,5 +193,26 @@ public class Terminal {
             screen = null;
             System.exit(0);
         }).start();
+    }
+
+    private static void initConsoleScreen() throws InterruptedException {
+        if (!Method.isConnect()) {
+            System.out.println(Prefix.TERMINAL_ERROR.getPrefix() + " 你的电脑尚未联网，无法启动终端！");
+            Thread.sleep(1000);
+            System.exit(0);
+            return;
+        }
+        screen = new ConsoleScreen();
+        update = new ConsoleUpdate();
+    }
+
+    private static void initGraphicalScreen() {
+        if (!Method.isConnect()) {
+            JOptionPane.showConfirmDialog(null, "你的电脑尚未联网，无法启动终端！", Prefix.TERMINAL_ERROR.getPrefix(), JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+            return;
+        }
+        screen = new GraphicalScreen();
+        update = new GraphicalUpdate();
     }
 }

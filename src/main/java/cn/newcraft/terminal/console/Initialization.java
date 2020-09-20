@@ -51,13 +51,6 @@ public class Initialization {
             Terminal.setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
             int port = ServerConfig.getPort();
             Terminal.getOptions().setPort(port);
-            if (!Method.isConnect()) {
-                screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 你的电脑尚未联网，无法启动终端！");
-                if (Method.isReallyHeadless()) {
-                    Terminal.getScreen().getConsoleScreen().stop();
-                }
-                return;
-            }
             if (port >= 1 && port <= 65535) {
                 if (Method.isLocalPortUsing(port)) {
                     screen.sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " 端口" + port + "当前已经被占用，请尝试使用其他的端口！");

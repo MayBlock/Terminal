@@ -87,6 +87,7 @@ public class Initialization {
             CommandManager.regCommand(plugin, new StopCommand());
             CommandManager.regCommand(plugin, new SystemCommand());
             CommandManager.regCommand(plugin, new ShellCommand());
+            CommandManager.regCommand(plugin, new UpdateCommand());
             /* regCommands stop */
 
             ServerReceived.registerIncomingPluginChannel(plugin, new Server());
@@ -102,7 +103,7 @@ public class Initialization {
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n ");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             screen.sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
-            new Update(Terminal.getOptions().getCanonicalVersion());
+            Terminal.getUpdate().checkUpdate(false);
             Terminal.getScreen().onInitComplete();
         } catch (Exception e) {
             Method.printException(Initialization.class, e);

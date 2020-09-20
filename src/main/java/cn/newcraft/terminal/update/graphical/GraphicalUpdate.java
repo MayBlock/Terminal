@@ -1,43 +1,39 @@
-package cn.newcraft.terminal.screen.graphical.other;
+package cn.newcraft.terminal.update.graphical;
 
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
+import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.update.Download;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
-import com.google.common.collect.Lists;
+import com.alibaba.fastjson.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.jar.JarFile;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
-public class UpdateScreen extends JFrame {
+public class GraphicalUpdate extends JFrame implements Update {
 
-    private GraphicalScreen graphicalScreen = Terminal.getScreen().getGraphicalScreen();
+    private String version;
     private String newVersion;
+    private String description;
+    private String canonicalVersion;
+    private boolean update = false;
 
-    private static boolean update = false;
+    private Screen screen = Terminal.getScreen();
 
-    public static boolean isUpdate() {
-        return update;
-    }
+    private static GraphicalUpdate instance;
 
-    private static UpdateScreen instance;
-
-    public static UpdateScreen getInstance() {
+    public static GraphicalUpdate getInstance() {
         return instance;
     }
 
@@ -51,15 +47,68 @@ public class UpdateScreen extends JFrame {
     private JLabel downloadSpeed;
     private JLabel downloadFile;
 
-    public UpdateScreen(String newVersion) {
-        this.newVersion = newVersion;
-        String[] buttons = {"确定", "取消"};
-        int jOptionPane = JOptionPane.showOptionDialog(this, "即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启，请确保当前没有任何进行中的操作！", Terminal.getName() + " Update", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, buttons, buttons[0]);
-        if (jOptionPane == 0) {
+    public GraphicalUpdate() {
+        try {
+            this.canonicalVersion = Terminal.getOptions().getCanonicalVersion();
+            URL url = new URL("https://api.newcraft.cn/update.php?version=" + canonicalVersion);
+            URLConnection conn = url.openConnection();
+            conn.setReadTimeout(5000);
+            conn.setDoOutput(true);
+            InputStream is = url.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            String response = reader.readLine();
+            this.version = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("version");
+            this.newVersion = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("canonical");
+            this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
+        } catch (IOException e) {
+            Method.printException(this.getClass(), e);
+        }
+    }
+
+    @Override
+    public void checkUpdate(boolean ret) {
+        if (newVersion != null && !newVersion.equals(canonicalVersion)) {
+            PromptScreen promptScreen = new PromptScreen();
+            JButton determine = new JButton("点击更新");
+            determine.setFont(new Font("宋体", Font.PLAIN, 14));
+            determine.setBounds(120, 140, 70, 30);
+            determine.setCursor(new Cursor(12));
+            determine.setContentAreaFilled(false);
+            determine.setBorder(BorderFactory.createRaisedBevelBorder());
+            determine.setBackground(Color.decode("#3366FF"));
+            determine.addActionListener(arg0 -> {
+                confirmUpdate();
+                promptScreen.close();
+            });
+            promptScreen.show("检测到有新版本！",
+                    "当前版本：" + Terminal.getOptions().getVersion() + " (" + canonicalVersion + ")\n" +
+                            "最新版本：" + version + " (" + newVersion + ")\n\n" +
+                            "更新日志：" + description, 8000, determine);
+        } else if (ret) {
+            screen.sendMessage("当前版本已为最新版本！");
+        }
+    }
+
+    @Override
+    public void confirmUpdate() {
+        if (newVersion != null && !newVersion.equals(canonicalVersion)) {
+            String[] buttons = {"确定", "取消"};
+            int jOptionPane = JOptionPane.showOptionDialog(this, "即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启，请确保当前没有任何进行中的操作！", Terminal.getName() + " Update", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, buttons, buttons[0]);
+            if (jOptionPane == 0) {
+                startUpdate();
+            }
+        } else {
+            screen.sendMessage("更新失败，当前已经为最新版本！");
+        }
+    }
+
+    @Override
+    public void startUpdate() {
+        if (newVersion != null && !newVersion.equals(canonicalVersion)) {
             instance = this;
-            Terminal.getScreen().sendMessage("Terminal updating...");
-            graphicalScreen.setEnabled(false);
-            graphicalScreen.setComponentEnabled(false);
+            screen.sendMessage("Terminal updating...");
+            screen.getGraphicalScreen().setEnabled(false);
+            screen.getGraphicalScreen().setComponentEnabled(false);
             if (ServerThread.isServer()) {
                 for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
                     try {
@@ -106,7 +155,14 @@ public class UpdateScreen extends JFrame {
                 download.download(new Thread(this::countDownload));
             }).start();
             setVisible(true);
+        } else {
+            screen.sendMessage("更新失败，当前已经为最新版本！");
         }
+    }
+
+    @Override
+    public boolean isUpdate() {
+        return update;
     }
 
     @Override

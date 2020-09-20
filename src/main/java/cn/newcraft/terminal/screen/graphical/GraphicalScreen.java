@@ -3,7 +3,7 @@ package cn.newcraft.terminal.screen.graphical;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
-import cn.newcraft.terminal.screen.graphical.other.UpdateScreen;
+import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
@@ -296,7 +296,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public void onUpdate(String newVersion) {
-        new UpdateScreen(newVersion);
+        Terminal.getUpdate().confirmUpdate();
     }
 
     @Override
@@ -369,7 +369,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             MenuItem mi0 = new MenuItem("打开");
             mi0.setFont(new Font("宋体", Font.BOLD, 13));
             mi0.addActionListener(e -> {
-                if (!UpdateScreen.isUpdate()) {
+                if (!Terminal.getUpdate().isUpdate()) {
                     maximize();
                 }
             });
@@ -381,10 +381,10 @@ public class GraphicalScreen extends JFrame implements Screen {
             MenuItem mi2 = new MenuItem("退出程序");
             mi2.setFont(new Font("宋体", Font.PLAIN, 13));
             mi2.addActionListener(e -> {
-                if (!UpdateScreen.isUpdate()) {
+                if (!Terminal.getUpdate().isUpdate()) {
                     Terminal.shutdown();
                 } else {
-                    UpdateScreen.getInstance().showNotClosePane();
+                    GraphicalUpdate.getInstance().showNotClosePane();
                 }
             });
             pm.add(mi0);

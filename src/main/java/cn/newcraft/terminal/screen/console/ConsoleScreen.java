@@ -13,7 +13,23 @@ import java.util.Scanner;
 
 public class ConsoleScreen extends Thread implements Screen {
 
+
+    private boolean inputScreenEnabled = true;
+    private boolean showMessageEnabled = true;
+    private boolean showMessagePaneEnabled = true;
     private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
+
+    public void setInputScreenEnabled(boolean b) {
+        this.inputScreenEnabled = b;
+    }
+
+    public void setShowMessageEnabled(boolean b) {
+        this.showMessageEnabled = b;
+    }
+
+    public void setShowMessagePaneEnabled(boolean b) {
+        this.showMessagePaneEnabled = b;
+    }
 
     @Override
     public ConsoleScreen getConsoleScreen() {
@@ -22,7 +38,8 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void setComponentEnabled(boolean b) {
-
+        this.inputScreenEnabled = b;
+        this.showMessagePaneEnabled = b;
     }
 
     @Override
@@ -32,8 +49,10 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void sendMessage(Object str) {
-        Logger.getLogger(Terminal.class).info(str);
-        System.out.println(str);
+        if (showMessageEnabled) {
+            Logger.getLogger(Terminal.class).info(str);
+            System.out.println(str);
+        }
     }
 
     @Override
@@ -61,9 +80,11 @@ public class ConsoleScreen extends Thread implements Screen {
     @Override
     @Deprecated
     public int showMessagePane(String title, String message) {
-        System.out.println(title);
-        System.out.println(message);
-        System.out.print("> ");
+        if (showMessagePaneEnabled) {
+            System.out.println(title);
+            System.out.println(message);
+            System.out.print("> ");
+        }
         return -1;
     }
 
@@ -71,7 +92,7 @@ public class ConsoleScreen extends Thread implements Screen {
     public void run() {
         while (true) {
             Scanner sc = new Scanner(System.in);
-            if (sc.hasNext()) {
+            if (sc.hasNext() && inputScreenEnabled) {
                 if (Initialization.isInitialization) {
                     Initialization.init(sc.next());
                 } else {

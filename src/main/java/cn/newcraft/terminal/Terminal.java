@@ -10,6 +10,8 @@ import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginEnum;
 import cn.newcraft.terminal.plugin.PluginManager;
+import cn.newcraft.terminal.update.console.ConsoleUpdate;
+import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
@@ -25,6 +27,7 @@ public class Terminal {
     private static Terminal instance;
     private static Options options = new Options();
     private static Screen screen;
+    private static Update update;
     private static String name = "Terminal";
     private static String programName;
 
@@ -38,6 +41,10 @@ public class Terminal {
 
     public static Screen getScreen() {
         return screen;
+    }
+
+    public static Update getUpdate() {
+        return update;
     }
 
     public static boolean isDebug() {
@@ -65,9 +72,15 @@ public class Terminal {
             if (ServerConfig.cfg.getYml().getString("server.default_screen") == null) {
                 if (!Method.isReallyHeadless()) {
                     screen = new GraphicalScreen();
-                } else screen = new ConsoleScreen();
-            } else
+                    update = new GraphicalUpdate();
+                } else {
+                    screen = new ConsoleScreen();
+                    update = new ConsoleUpdate();
+                }
+            } else {
                 screen = ServerConfig.cfg.getYml().getString("server.default_screen").equalsIgnoreCase("GraphicalScreen") ? new GraphicalScreen() : new ConsoleScreen();
+                update = ServerConfig.cfg.getYml().getString("server.default_screen").equalsIgnoreCase("GraphicalScreen") ? new GraphicalUpdate() : new ConsoleUpdate();
+            }
             screen.onScreen();
             PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
             screen.sendMessage(

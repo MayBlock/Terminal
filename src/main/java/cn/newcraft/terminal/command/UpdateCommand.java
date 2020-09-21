@@ -14,10 +14,15 @@ public class UpdateCommand extends CommandManager {
 
     @Override
     public void onCommand(Screen screen, String[] args) {
+        if (!(args.length >= 2)) {
+            screen.sendMessage("用法：" + getUsage());
+            return;
+        }
         new Thread(() -> {
             Update update = Terminal.getUpdate();
             switch (args[1]) {
                 case "help":
+                    screen.sendMessage("update help - 获取更新帮助");
                     screen.sendMessage("update check - 检查更新");
                     screen.sendMessage("update latest - 更新至最新版本");
                     break;

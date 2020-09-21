@@ -37,14 +37,14 @@ public class PluginManager {
         return pluginLists;
     }
 
+    private static int loadFailed = 0;
+
     public PluginManager(PluginEnum pluginEnum) {
         if (ServerConfig.cfg.getYml().getBoolean("server.enable_plugin")) {
             try {
                 File[] array = file.listFiles();
                 List<File> loadList = Lists.newArrayList();
                 Screen screen = Terminal.getScreen();
-                int a = 0;
-                int b = 0;
                 if (pluginEnum == PluginEnum.LOAD) {
                     for (File value : array) {
                         if (value.isFile() && value.getName().endsWith(".jar")) {
@@ -63,10 +63,18 @@ public class PluginManager {
                             String version = getPluginYmlString(loadList.get(i), "version");
                             String author = getPluginYmlString(loadList.get(i), "author") == null ? "匿名作者" : getPluginYmlString(loadList.get(i), "author");
                             String prefix = getPluginYmlString(loadList.get(i), "prefix") == null ? loadList.get(i).getName().replace(".jar", "") : getPluginYmlString(loadList.get(i), "prefix");
+                            String apiVersion = getPluginYmlString(loadList.get(i), "api-version");
                             screen.sendMessage("[" + name + "] Loading...");
                             if (plugins.get(name) != null) {
                                 screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 加载失败，插件 " + name + " 名字与其他插件相同！");
-                                b++;
+                                loadFailed++;
+                                continue;
+                            }
+                            if (apiVersion == null) {
+                                screen.sendMessage(Prefix.PLUGIN_MANAGER_WARN.getPrefix() + " 插件 " + name + " 在plugin.yml中未定义API版本！");
+                            } else if (Integer.parseInt(apiVersion) != Terminal.getOptions().getApiVersion()) {
+                                screen.sendMessage(Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 的API版本已不受支持，请联系开发者更新！");
+                                loadFailed++;
                                 continue;
                             }
                             urlClassLoader = new URLClassLoader(new URL[]{new URL("file:" + loadList.get(i).getAbsolutePath())});
@@ -79,9 +87,8 @@ public class PluginManager {
                                 screen.sendMessage(Prefix.DEBUG.getPrefix() + " 插件 " + name + " Version: " + version + " MainClass: " + main + " 已加载至终端！");
                             }
                             pluginLists.add(name);
-                            a++;
                         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | InstantiationException e) {
-                            b++;
+                            loadFailed++;
                             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + array[i].getName().replace(".jar", "") + " 加载失败，该报错非为Terminal问题，请联系该插件开发者");
                             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 请检查插件内是否包含 plugin.yml 文件且保证语法正确");
 
@@ -108,9 +115,8 @@ public class PluginManager {
                                                 " Version: " + plugins.get(name).getVersion() + " MainClass: " + main + " 已启用！");
                             }
                             screen.sendMessage("[" + name + "] Loaded!");
-                            a++;
                         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | ClassNotFoundException | InstantiationException e) {
-                            b++;
+                            loadFailed++;
                             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 启用失败，该报错非为Terminal问题，请联系该插件开发者");
                             screen.sendMessage("\n===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓===");
                             cn.newcraft.terminal.util.Method.printException(this.getClass(), e);
@@ -118,9 +124,7 @@ public class PluginManager {
                             new PluginManager(PluginEnum.DISABLE);
                         }
                     }
-                    if (loadList.size() != 0) {
-                        screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER.getPrefix() + " 所有插件已加载且启用完毕，" + a + " 个加载完毕，" + b + " 个加载失败");
-                    }
+                    screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER.getPrefix() + " 所有插件已加载且启用完毕，" + plugins.size() + " 个加载完毕，" + loadFailed + " 个加载失败");
                     return;
                 }
                 if (pluginEnum == PluginEnum.DISABLE) {

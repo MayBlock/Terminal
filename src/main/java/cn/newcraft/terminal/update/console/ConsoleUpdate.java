@@ -24,6 +24,7 @@ public class ConsoleUpdate implements Update {
     private String newVersion;
     private String description;
     private String canonicalVersion;
+    private boolean forceUpdate;
     private boolean update = false;
     private Download download;
     private ConsoleProgressBar progressBar;
@@ -48,6 +49,7 @@ public class ConsoleUpdate implements Update {
             this.version = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("version");
             this.newVersion = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("canonical");
             this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
+            this.forceUpdate = JSONObject.parseObject(response).getJSONObject("Terminal").getBoolean("force_update");
         } catch (IOException e) {
             Method.printException(this.getClass(), e);
         }
@@ -56,6 +58,18 @@ public class ConsoleUpdate implements Update {
     @Override
     public void checkUpdate(boolean ret) {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
+            if (forceUpdate) {
+                try {
+                    screen.sendMessage(Terminal.getName() + " Update");
+                    screen.sendMessage("即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启\n该更新为强制更新，点击确定后将开始更新！");
+                    screen.sendMessage("终端将在10秒后自动进行更新！");
+                    Thread.sleep(1000 * 10);
+                    startUpdate();
+                } catch (InterruptedException e) {
+                    Method.printException(this.getClass(), e);
+                }
+                return;
+            }
             screen.sendMessage("-----检测到有新版本-----");
             screen.sendMessage("当前版本：" + Terminal.getOptions().getVersion() + " (" + canonicalVersion + ")");
             screen.sendMessage("最新版本：" + version + " (" + newVersion + ")\n");

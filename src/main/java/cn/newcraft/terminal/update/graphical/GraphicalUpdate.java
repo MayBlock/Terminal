@@ -27,6 +27,7 @@ public class GraphicalUpdate extends JFrame implements Update {
     private String newVersion;
     private String description;
     private String canonicalVersion;
+    private boolean forceUpdate;
     private boolean update = false;
 
     private Screen screen = Terminal.getScreen();
@@ -60,6 +61,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             this.version = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("version");
             this.newVersion = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("canonical");
             this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
+            this.forceUpdate = JSONObject.parseObject(response).getJSONObject("Terminal").getBoolean("force_update");
         } catch (IOException e) {
             Method.printException(this.getClass(), e);
         }
@@ -68,6 +70,11 @@ public class GraphicalUpdate extends JFrame implements Update {
     @Override
     public void checkUpdate(boolean ret) {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
+            if (forceUpdate) {
+                JOptionPane.showConfirmDialog(screen.getGraphicalScreen(), "即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启\n该更新为强制更新，点击确定后将开始更新！", Terminal.getName() + " Update", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+                confirmUpdate();
+                return;
+            }
             PromptScreen promptScreen = new PromptScreen();
             JButton determine = new JButton("点击更新");
             determine.setFont(new Font("宋体", Font.PLAIN, 14));
@@ -77,7 +84,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             determine.setBorder(BorderFactory.createRaisedBevelBorder());
             determine.setBackground(Color.decode("#3366FF"));
             determine.addActionListener(arg0 -> {
-                confirmUpdate();
+                startUpdate();
                 promptScreen.close();
             });
             promptScreen.show("检测到有新版本！",

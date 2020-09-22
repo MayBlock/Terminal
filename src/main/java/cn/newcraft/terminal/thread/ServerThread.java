@@ -24,14 +24,14 @@ public class ServerThread extends Thread {
 
     private static Socket socket;
     private static boolean enable = false;
-    private static HashMap<Integer, Sender> integerSocketHashMap = new HashMap<>();
+    private static HashMap<Integer, Sender> senderHashMap = new HashMap<>();
     private static HashMap<Integer, Boolean> init = new HashMap<>();
 
     private static ServerThread server;
 
 
-    public static HashMap<Integer, Sender> getIntegerSocketHashMap() {
-        return integerSocketHashMap;
+    public static HashMap<Integer, Sender> getSenderHashMap() {
+        return senderHashMap;
     }
 
     public static void removeHashInit(int id) {
@@ -102,15 +102,15 @@ public class ServerThread extends Thread {
                         if (init.get(id)) {
                             init.put(id, false);
                             Thread heart = getHeartThread(id);
-                            integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
+                            senderHashMap.put(id, new Sender(socket, heart, id, true));
                             heart.start();
-                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + integerSocketHashMap.get(id).getCanonicalName() + " 与终端连接！");
+                            Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + senderHashMap.get(id).getCanonicalName() + " 与终端连接！");
                         }
-                        Sender sender = integerSocketHashMap.get(id);
+                        Sender sender = senderHashMap.get(id);
                         for (Plugin plugin : ServerReceived.getReceivedLists()) {
                             if (ServerReceived.getReceived().get(plugin) != null) {
                                 ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);
-                                integerSocketHashMap.get(id).setFirstConnect(false);
+                                senderHashMap.get(id).setFirstConnect(false);
                             }
                         }
                         if (Terminal.isDebug()) {
@@ -136,13 +136,13 @@ public class ServerThread extends Thread {
     private Thread getHeartThread(Integer id) {
         return new Thread(() -> {
             int i = id;
-            Sender sender = integerSocketHashMap.get(i);
+            Sender sender = senderHashMap.get(i);
             while (true) {
                 try {
                     Thread.sleep(10 * 1000);
                     sender.sendPacket(new HeartbeatPacket());
                     if (Terminal.isDebug()) {
-                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + integerSocketHashMap.get(i).getCanonicalName() + " 发送心跳包");
+                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + senderHashMap.get(i).getCanonicalName() + " 发送心跳包");
                     }
                 } catch (InterruptedException | IOException e) {
                     try {

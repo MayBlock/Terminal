@@ -6,7 +6,7 @@ import cn.newcraft.terminal.console.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
-import cn.newcraft.terminal.exception.UnknownScreenException;
+import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
@@ -88,7 +88,7 @@ public class Terminal {
                         initConsoleScreen();
                         break;
                     default:
-                        throw new UnknownScreenException("Screen " + defaultScreen + " does not exist!");
+                        throw new UnknownException("Screen " + defaultScreen + " does not exist!");
                 }
             }
             screen.onScreen();
@@ -135,9 +135,9 @@ public class Terminal {
         new Thread(() -> {
             new PluginManager(PluginEnum.DISABLE);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderHashMap().size(); i++) {
                     try {
-                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderHashMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     }
                 }
@@ -162,9 +162,9 @@ public class Terminal {
         new Thread(() -> {
             new PluginManager(PluginEnum.DISABLE);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderHashMap().size(); i++) {
                     try {
-                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderHashMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     }
                 }
@@ -181,9 +181,9 @@ public class Terminal {
         new Thread(() -> {
             new PluginManager(PluginEnum.DISABLE);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderHashMap().size(); i++) {
                     try {
-                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderHashMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     }
                 }

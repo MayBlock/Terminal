@@ -48,7 +48,7 @@ public class ShellCommand extends CommandManager {
             return;
         }
         if (args.length >= 3) {
-            Sender sender = ServerThread.getIntegerSocketHashMap().get(Integer.parseInt(args[1]));
+            Sender sender = ServerThread.getSenderHashMap().get(Integer.parseInt(args[1]));
             if (sender == null) {
                 screen.sendMessage("名为ID " + args[1] + " 的客户端不存在！");
                 return;

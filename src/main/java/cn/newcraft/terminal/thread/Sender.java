@@ -95,10 +95,10 @@ public class Sender {
     public static int spawnNewId() {
         int id = 0;
         while (true) {
-            if (ServerThread.getIntegerSocketHashMap().isEmpty()) {
+            if (ServerThread.getSenderHashMap().isEmpty()) {
                 return id;
             }
-            if (ServerThread.getIntegerSocketHashMap().get(id) != null) {
+            if (ServerThread.getSenderHashMap().get(id) != null) {
                 id++;
             } else {
                 return id;

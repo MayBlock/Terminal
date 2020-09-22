@@ -11,11 +11,11 @@ public class Plugin {
     }
 
     public void enablePlugin() {
-        new PluginManager(PluginEnum.ENABLE);
+        new PluginManager().enablePlugin(this);
     }
 
     public void disablePlugin() {
-        new PluginManager(PluginEnum.DISABLE);
+        new PluginManager().disablePlugin(this);
     }
 
     public String getPrefix() {

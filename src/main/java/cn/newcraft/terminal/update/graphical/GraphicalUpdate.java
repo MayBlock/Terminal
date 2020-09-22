@@ -72,7 +72,7 @@ public class GraphicalUpdate extends JFrame implements Update {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
             if (forceUpdate) {
                 JOptionPane.showConfirmDialog(screen.getGraphicalScreen(), "即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启\n该更新为强制更新，点击确定后将开始更新！", Terminal.getName() + " Update", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
-                confirmUpdate();
+                startUpdate();
                 return;
             }
             PromptScreen promptScreen = new PromptScreen();
@@ -84,7 +84,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             determine.setBorder(BorderFactory.createRaisedBevelBorder());
             determine.setBackground(Color.decode("#3366FF"));
             determine.addActionListener(arg0 -> {
-                startUpdate();
+                confirmUpdate();
                 promptScreen.close();
             });
             promptScreen.show("检测到有新版本！",
@@ -117,9 +117,9 @@ public class GraphicalUpdate extends JFrame implements Update {
             screen.getGraphicalScreen().setEnabled(false);
             screen.getGraphicalScreen().setComponentEnabled(false);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getIntegerSocketHashMap().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderHashMap().size(); i++) {
                     try {
-                        ServerThread.getIntegerSocketHashMap().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderHashMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     }
                 }

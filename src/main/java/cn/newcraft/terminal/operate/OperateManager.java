@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public abstract class OperateManager extends OperateInfo {
 
     private static HashMap<String, OperateManager> regOperate = new HashMap<>();
-    private static ArrayList<String> OperateNames = Lists.newArrayList();
+    private static ArrayList<String> operateNames = Lists.newArrayList();
 
     public OperateManager(String name, String desc) {
         super(name, desc);
@@ -24,7 +24,7 @@ public abstract class OperateManager extends OperateInfo {
     }
 
     public static ArrayList<String> getOperateNames() {
-        return OperateNames;
+        return operateNames;
     }
 
     public static void regOperate(OperateManager operateManager) {
@@ -38,7 +38,7 @@ public abstract class OperateManager extends OperateInfo {
             }
             return;
         }
-        OperateNames.add("[" + operateManager.getName() + "]");
+        operateNames.add("[" + operateManager.getName() + "]");
         regOperate.put("[" + operateManager.getName() + "]", operateManager);
     }
 

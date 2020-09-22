@@ -75,7 +75,6 @@ public class Initialization {
             CommandManager.regCommand(plugin, new DebugCommand());
             CommandManager.regCommand(plugin, new HelpCommand());
             CommandManager.regCommand(plugin, new PluginsCommand());
-            CommandManager.regCommand(plugin, new ReloadCommand());
             CommandManager.regCommand(plugin, new RebootCommand());
             CommandManager.regCommand(plugin, new StopCommand());
             CommandManager.regCommand(plugin, new SystemCommand());

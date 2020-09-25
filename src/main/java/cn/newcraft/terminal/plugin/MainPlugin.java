@@ -1,8 +1,5 @@
 package cn.newcraft.terminal.plugin;
 
-import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.screen.Screen;
-
 public abstract class MainPlugin extends Plugin {
 
     public static String name;

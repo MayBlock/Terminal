@@ -26,7 +26,7 @@ public class DisconnectPacket implements Packet {
         Socket socket = sender.getSocket();
 
         ServerThread.removeHashInit(sender.getId());
-        ServerThread.getSenderHashMap().remove(sender.getId());
+        ServerThread.getSenders().remove(sender.getId());
         sender.getHeartThread().stop();
         socket.close();
 

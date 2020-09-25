@@ -2,6 +2,7 @@ package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ThemeConfig;
+import cn.newcraft.terminal.plugin.PluginManager;
 
 import javax.swing.*;
 import java.awt.*;

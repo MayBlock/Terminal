@@ -88,7 +88,7 @@ public class ConsoleProgressBar {
 
 
     private void reset() {
-        System.out.print('\r'); //光标移动到行首
+        System.out.print('\r');
     }
 
     private void afterComplete() {

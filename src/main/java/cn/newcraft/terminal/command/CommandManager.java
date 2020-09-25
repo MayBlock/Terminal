@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.command;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.exception.InvalidCommandException;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.Plugin;
@@ -38,7 +39,7 @@ public abstract class CommandManager extends CommandInfo {
             try {
                 throw new InvalidCommandException("The " + command.getCommand() + " command has been registered!");
             } catch (InvalidCommandException e) {
-                Method.printException(CommandManager.class, e);
+                Terminal.printException(CommandManager.class, e);
             }
             return;
         }

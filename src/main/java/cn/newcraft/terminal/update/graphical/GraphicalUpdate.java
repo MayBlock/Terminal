@@ -63,7 +63,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
             this.forceUpdate = JSONObject.parseObject(response).getJSONObject("Terminal").getBoolean("force_update");
         } catch (IOException e) {
-            Method.printException(this.getClass(), e);
+            Terminal.printException(this.getClass(), e);
         }
     }
 
@@ -117,9 +117,9 @@ public class GraphicalUpdate extends JFrame implements Update {
             screen.getGraphicalScreen().setEnabled(false);
             screen.getGraphicalScreen().setComponentEnabled(false);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenderHashMap().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenders().size(); i++) {
                     try {
-                        ServerThread.getSenderHashMap().get(i).disconnect("Server Closed");
+                        ServerThread.getSenders().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     }
                 }
@@ -206,7 +206,7 @@ public class GraphicalUpdate extends JFrame implements Update {
                     break;
                 }
             } catch (ArithmeticException | InterruptedException | IOException e) {
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         }
     }

@@ -6,19 +6,10 @@ import java.util.TimeZone;
 
 public class Options {
 
-    private int port;
-    private String version = "1.1.3";
-    private String canonicalVersion = "1.1.3.200922_beta";
-    private int apiVersion = 1;
+    private String version = "1.2.0";
+    private String canonicalVersion = "1.2.0.200925_beta";
+    private int apiVersion = 2;
     private TimeZone timeZone = TimeZone.getDefault();
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
 
     public String getVersion() {
         return version;

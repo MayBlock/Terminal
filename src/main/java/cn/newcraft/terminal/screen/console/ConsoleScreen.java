@@ -1,7 +1,7 @@
 package cn.newcraft.terminal.screen.console;
 
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Initialization;
+import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.screen.Screen;
@@ -90,11 +90,12 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void run() {
+        Initialization init = new Initialization();
         while (true) {
             Scanner sc = new Scanner(System.in);
             if (sc.hasNext() && inputScreenEnabled) {
                 if (Initialization.isInitialization) {
-                    Initialization.init(sc.next());
+                    init.initFirst(sc.next());
                 } else {
                     String in = sc.nextLine();
                     new SendCommand(in.split(" "));

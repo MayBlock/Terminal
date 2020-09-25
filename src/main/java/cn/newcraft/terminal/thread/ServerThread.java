@@ -30,7 +30,7 @@ public class ServerThread extends Thread {
     private static ServerThread server;
 
 
-    public static HashMap<Integer, Sender> getSenderHashMap() {
+    public static HashMap<Integer, Sender> getSenders() {
         return senderHashMap;
     }
 
@@ -56,18 +56,18 @@ public class ServerThread extends Thread {
     }
 
 
-    public ServerThread(int port) {
+    public ServerThread() {
         server = this;
         Runnable intercommonitor = () -> {
             try {
-                ServerSocket serverSocket = new ServerSocket(port);
+                ServerSocket serverSocket = new ServerSocket(Terminal.getPort());
                 while (true) {
                     enable = true;
                     socket = serverSocket.accept();
                     threadPool.submit(runnable);
                 }
             } catch (Exception e) {
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         };
         new Thread(intercommonitor).start();
@@ -128,7 +128,7 @@ public class ServerThread extends Thread {
                 if (e.getMessage().equalsIgnoreCase("Connection reset") || e.getMessage().equalsIgnoreCase("Socket closed") || e.getMessage().equalsIgnoreCase("Socket is closed")) {
                     return;
                 }
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         }
     };

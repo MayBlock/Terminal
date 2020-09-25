@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.command;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.screen.Screen;
 
@@ -38,7 +39,7 @@ public class SystemCommand extends CommandManager {
                                 Method.runCmd(text.toString());
                                 screen.sendMessage("执行了系统命令 " + text.toString());
                             } catch (IOException e) {
-                                Method.printException(this.getClass(), e);
+                                Terminal.printException(this.getClass(), e);
                             }
                         }).start();
                     } else {

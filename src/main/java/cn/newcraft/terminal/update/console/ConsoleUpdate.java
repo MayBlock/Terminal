@@ -51,7 +51,7 @@ public class ConsoleUpdate implements Update {
             this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
             this.forceUpdate = JSONObject.parseObject(response).getJSONObject("Terminal").getBoolean("force_update");
         } catch (IOException e) {
-            Method.printException(this.getClass(), e);
+            Terminal.printException(this.getClass(), e);
         }
     }
 
@@ -66,7 +66,7 @@ public class ConsoleUpdate implements Update {
                     Thread.sleep(1000 * 10);
                     startUpdate();
                 } catch (InterruptedException e) {
-                    Method.printException(this.getClass(), e);
+                    Terminal.printException(this.getClass(), e);
                 }
                 return;
             }
@@ -140,7 +140,7 @@ public class ConsoleUpdate implements Update {
                     break;
                 }
             } catch (ArithmeticException | InterruptedException | IOException e) {
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         }
     }

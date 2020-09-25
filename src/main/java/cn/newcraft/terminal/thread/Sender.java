@@ -73,7 +73,7 @@ public class Sender {
             pw.write(str);
             pw.flush();
         } catch (IOException e) {
-            Method.printException(this.getClass(), e);
+            Terminal.printException(this.getClass(), e);
         }
     }
 
@@ -95,10 +95,10 @@ public class Sender {
     public static int spawnNewId() {
         int id = 0;
         while (true) {
-            if (ServerThread.getSenderHashMap().isEmpty()) {
+            if (ServerThread.getSenders().isEmpty()) {
                 return id;
             }
-            if (ServerThread.getSenderHashMap().get(id) != null) {
+            if (ServerThread.getSenders().get(id) != null) {
                 id++;
             } else {
                 return id;

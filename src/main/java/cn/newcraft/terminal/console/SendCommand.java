@@ -14,7 +14,7 @@ public class SendCommand {
         try {
             CommandManager.getCommands().get(command[0].toLowerCase()).onCommand(Terminal.getScreen(), command);
         } catch (Exception e) {
-            Method.printException(this.getClass(), e);
+            Terminal.printException(this.getClass(), e);
         }
     }
 }

@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.operate;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.exception.IllegalNameException;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
@@ -34,7 +35,7 @@ public abstract class OperateManager extends OperateInfo {
             try {
                 throw new IllegalNameException("The name " + operateManager.getName() + " is illegal!");
             } catch (IllegalNameException e) {
-                Method.printException(OperateManager.class, e);
+                Terminal.printException(OperateManager.class, e);
             }
             return;
         }

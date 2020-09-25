@@ -74,20 +74,8 @@ public class Method {
             GraphicsDevice[] screenDevices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
             return screenDevices == null || screenDevices.length == 0;
         } catch (HeadlessException e) {
-            Method.printException(Method.class, e);
+            Terminal.printException(Method.class, e);
             return true;
-        }
-    }
-
-    public static void printException(Class clazz, Exception ex) {
-        ex.printStackTrace();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(os);
-        ex.printStackTrace(ps);
-        try {
-            String output = os.toString("UTF-8");
-            Terminal.getScreen().sendMessage("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
-        } catch (UnsupportedEncodingException ignored) {
         }
     }
 

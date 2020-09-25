@@ -48,7 +48,7 @@ public class ShellCommand extends CommandManager {
             return;
         }
         if (args.length >= 3) {
-            Sender sender = ServerThread.getSenderHashMap().get(Integer.parseInt(args[1]));
+            Sender sender = ServerThread.getSenders().get(Integer.parseInt(args[1]));
             if (sender == null) {
                 screen.sendMessage("名为ID " + args[1] + " 的客户端不存在！");
                 return;
@@ -81,7 +81,7 @@ public class ShellCommand extends CommandManager {
                         screen.sendMessage("已成功发送至 " + sender.getCanonicalName() + " 客户端");
                         bytes.remove(sender.getId());
                     } catch (IOException e) {
-                        Method.printException(this.getClass(), e);
+                        Terminal.printException(this.getClass(), e);
                     }
                     break;
                 default:

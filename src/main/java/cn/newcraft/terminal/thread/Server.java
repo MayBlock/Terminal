@@ -53,14 +53,14 @@ public class Server extends ServerReceived {
                         sender.sendByte(out.toByteArray(), false);
                 }
             } catch (IOException e) {
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         }
         if (chancel.equals("DISCONNECT")) {
             try {
                 sender.disconnect(in.readUTF());
             } catch (IOException e) {
-                Method.printException(this.getClass(), e);
+                Terminal.printException(this.getClass(), e);
             }
         }
     }

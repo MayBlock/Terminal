@@ -8,7 +8,7 @@ import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
-import cn.newcraft.terminal.console.Initialization;
+import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
@@ -91,6 +91,8 @@ public class GraphicalScreen extends JFrame implements Screen {
             text.setEditable(false);
             add(text);
 
+            Initialization init = new Initialization();
+
             JLabel title = new JLabel("控制台日志");
             title.setBounds(20, 20, 150, 20);
             add(title);
@@ -123,7 +125,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     return;
                 }
                 if (Initialization.isInitialization) {
-                    Initialization.init(input.getText());
+                    init.initFirst(input.getText());
                 } else {
                     Terminal.dispatchCommand(input.getText());
                     if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
@@ -180,7 +182,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     return;
                 }
                 if (Initialization.isInitialization) {
-                    Initialization.init(input.getText());
+                    init.initFirst(input.getText());
                 } else {
                     Terminal.dispatchCommand(input.getText());
                     if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
@@ -268,7 +270,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             initTray();
             setVisible(true);
         } catch (Exception e) {
-            Method.printException(this.getClass(), e);
+            Terminal.printException(this.getClass(), e);
         }
     }
 

@@ -21,7 +21,7 @@ public abstract class ServerReceived {
 
     public abstract void onMessageReceived(Sender sender, byte[] bytes);
 
-    public static void registerIncomingPluginChannel(Plugin plugin, ServerReceived serverReceived) {
+    public static void regIncomingPluginChannel(Plugin plugin, ServerReceived serverReceived) {
         received.put(plugin, serverReceived);
         if (!receivedLists.contains(plugin)) {
             receivedLists.add(plugin);

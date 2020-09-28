@@ -28,7 +28,10 @@ public class UpdateCommand extends CommandManager {
                     break;
                 case "check":
                     screen.sendMessage("检查更新...");
-                    update.checkUpdate(true);
+                    new Thread(() -> {
+                        update.refreshUpdate();
+                        update.checkUpdate(true);
+                    }).start();
                     break;
                 case "latest":
                     if (!confirm) {

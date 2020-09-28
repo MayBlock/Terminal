@@ -2,10 +2,8 @@ package cn.newcraft.terminal.plugin;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.CommandManager;
-import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.configuration.file.YamlConfiguration;
 import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.screen.Screen;
 import com.google.common.collect.Lists;
 

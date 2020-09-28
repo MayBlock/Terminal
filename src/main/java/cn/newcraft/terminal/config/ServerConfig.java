@@ -1,5 +1,9 @@
 package cn.newcraft.terminal.config;
 
+import cn.newcraft.terminal.Terminal;
+
+import java.io.File;
+
 public class ServerConfig extends ConfigManager {
 
     public static ServerConfig cfg;
@@ -14,6 +18,7 @@ public class ServerConfig extends ConfigManager {
         cfg.getYml().addDefault("server.port", null);
         cfg.getYml().addDefault("server.enable_plugin", true);
         cfg.getYml().addDefault("server.debug", false);
+        cfg.getYml().addDefault("server.reboot_script", "java -jar {path}/{name}");
         cfg.getYml().addDefault("server.timezone", System.getProperty("user.timezone"));
         cfg.getYml().addDefault("server.default_theme", "white");
         cfg.getYml().addDefault("server.max_input_cache", 10);

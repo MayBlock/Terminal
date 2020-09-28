@@ -32,12 +32,6 @@ public class GraphicalUpdate extends JFrame implements Update {
 
     private Screen screen = Terminal.getScreen();
 
-    private static GraphicalUpdate instance;
-
-    public static GraphicalUpdate getInstance() {
-        return instance;
-    }
-
     public void showNotClosePane() {
         JOptionPane.showConfirmDialog(this, "当前终端正在更新中\n请不要试图关闭更新程序！", "错误", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
     }
@@ -48,7 +42,8 @@ public class GraphicalUpdate extends JFrame implements Update {
     private JLabel downloadSpeed;
     private JLabel downloadFile;
 
-    public GraphicalUpdate() {
+    @Override
+    public void refreshUpdate() {
         try {
             this.canonicalVersion = Terminal.getOptions().getCanonicalVersion();
             URL url = new URL("https://api.newcraft.cn/update.php?version=" + canonicalVersion);
@@ -69,6 +64,7 @@ public class GraphicalUpdate extends JFrame implements Update {
 
     @Override
     public void checkUpdate(boolean ret) {
+        new GraphicalUpdate();
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
             if (forceUpdate) {
                 JOptionPane.showConfirmDialog(screen.getGraphicalScreen(), "即将更新至版本 " + newVersion + "\n更新完毕后终端将会自动进行重启\n该更新为强制更新，点击确定后将开始更新！", Terminal.getName() + " Update", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -112,7 +108,6 @@ public class GraphicalUpdate extends JFrame implements Update {
     @Override
     public void startUpdate() {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
-            instance = this;
             screen.sendMessage("Terminal updating...");
             screen.getGraphicalScreen().setEnabled(false);
             screen.getGraphicalScreen().setComponentEnabled(false);

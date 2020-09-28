@@ -2,8 +2,6 @@ package cn.newcraft.terminal.operate;
 
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
-import cn.newcraft.terminal.thread.packet.DisconnectPacket;
-import cn.newcraft.terminal.util.Method;
 
 import java.io.IOException;
 

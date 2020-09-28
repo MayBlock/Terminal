@@ -30,13 +30,9 @@ public class ConsoleUpdate implements Update {
     private ConsoleProgressBar progressBar;
 
     private Screen screen = Terminal.getScreen();
-    private static ConsoleUpdate instance;
 
-    public static ConsoleUpdate getInstance() {
-        return instance;
-    }
-
-    public ConsoleUpdate() {
+    @Override
+    public void refreshUpdate() {
         try {
             this.canonicalVersion = Terminal.getOptions().getCanonicalVersion();
             URL url = new URL("https://api.newcraft.cn/update.php?version=" + canonicalVersion);
@@ -94,7 +90,6 @@ public class ConsoleUpdate implements Update {
     @Override
     public void startUpdate() {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
-            instance = this;
             screen.sendMessage("Terminal updating...");
             update = true;
             screen.getConsoleScreen().setComponentEnabled(false);

@@ -386,7 +386,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 if (!Terminal.getUpdate().isUpdate()) {
                     Terminal.shutdown();
                 } else {
-                    GraphicalUpdate.getInstance().showNotClosePane();
+                    new GraphicalUpdate().showNotClosePane();
                 }
             });
             pm.add(mi0);

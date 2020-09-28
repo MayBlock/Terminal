@@ -6,20 +6,14 @@ import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
-import cn.newcraft.terminal.exception.UnknownException;
-import cn.newcraft.terminal.screen.console.ConsoleScreen;
-import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
-import cn.newcraft.terminal.update.console.ConsoleUpdate;
-import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.thread.ServerThread;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.io.*;
 
 public class Terminal {
@@ -118,10 +112,10 @@ public class Terminal {
     public static void reboot() {
         screen.sendMessage("Terminal rebooting...");
         new Thread(() -> {
-            File directory = new File("");
             try {
-                System.out.println("java -jar " + directory.getAbsolutePath() + "/" + programName);
-                Method.runCmd("java -jar " + directory.getAbsolutePath() + "/" + programName);
+                Method.runCmd(ServerConfig.cfg.getYml().getString("server.reboot_script")
+                        .replace("{path}", new File("").getAbsolutePath())
+                        .replace("{name}", Terminal.getProgramName()));
             } catch (IOException ex) {
                 printException(Terminal.class, ex);
             }
@@ -143,12 +137,13 @@ public class Terminal {
         }).start();
     }
 
-    public static void reboot(String path) {
+    public static void reboot(String script) {
         screen.sendMessage("Terminal rebooting...");
         new Thread(() -> {
-            File directory = new File("");
             try {
-                Method.runCmd("java -jar " + directory.getAbsolutePath() + "/" + path);
+                Method.runCmd(script
+                        .replace("{path}", new File("").getAbsolutePath())
+                        .replace("{name}", Terminal.getProgramName()));
             } catch (IOException ex) {
                 printException(Terminal.class, ex);
             }

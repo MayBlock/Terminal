@@ -125,7 +125,10 @@ public class Initialization {
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n ");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
-            Terminal.getUpdate().checkUpdate(false);
+            new Thread(() -> {
+                Terminal.getUpdate().refreshUpdate();
+                Terminal.getUpdate().checkUpdate(false);
+            }).start();
             Terminal.getScreen().onInitComplete();
         } catch (Exception e) {
             Terminal.printException(this.getClass(), e);

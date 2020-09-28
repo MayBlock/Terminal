@@ -147,8 +147,8 @@ public class ServerThread extends Thread {
                 } catch (InterruptedException | IOException e) {
                     try {
                         sender.disconnect(e.toString());
-                    } catch (IOException ignored) {
-
+                    } catch (IOException ex) {
+                        Terminal.printException(this.getClass(), ex);
                     }
                     break;
                 }

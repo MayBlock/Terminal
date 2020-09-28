@@ -28,11 +28,12 @@ public class DisconnectPacket implements Packet {
         ServerThread.removeHashInit(sender.getId());
         ServerThread.getSenders().remove(sender.getId());
         sender.getHeartThread().stop();
-        socket.close();
 
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("DISCONNECT");
         b.writeUTF(reason);
         sender.sendByte(b.toByteArray(), false);
+
+        socket.close();
     }
 }

@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -24,17 +23,12 @@ public class PluginManager {
 
     private static File file;
     private static HashMap<String, PluginInfo> plugins = new HashMap<>();
-    private static ArrayList<String> pluginLists = Lists.newArrayList();
     private Class<?> LoadMain;
     private URLClassLoader urlClassLoader;
     private Screen screen = Terminal.getScreen();
 
     public static HashMap<String, PluginInfo> getPlugins() {
         return plugins;
-    }
-
-    public static ArrayList<String> getPluginLists() {
-        return pluginLists;
     }
 
     private static int loadFailed = 0;
@@ -66,14 +60,14 @@ public class PluginManager {
                 }
                 break;
             case ENABLE:
-                for (String plugin : pluginLists) {
+                for (String plugin : plugins.keySet()) {
                     this.enablePlugin(new Plugin(plugin));
                 }
                 screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER.getPrefix() + " 所有插件已加载且启用完毕，" + plugins.size() + " 个加载完毕，" + loadFailed + " 个加载失败");
                 break;
             case DISABLE:
-                while (!pluginLists.isEmpty()) {
-                    this.disablePlugin(new Plugin(pluginLists.get(0)));
+                while (!plugins.isEmpty()) {
+                    this.disablePlugin(new Plugin((String) plugins.keySet().toArray()[0]));
                 }
         }
     }
@@ -108,7 +102,6 @@ public class PluginManager {
             if (Terminal.isDebug()) {
                 screen.sendMessage(Prefix.DEBUG.getPrefix() + " 插件 " + name + " Version: " + version + " MainClass: " + main + " 已加载至终端！");
             }
-            pluginLists.add(name);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | InstantiationException e) {
             loadFailed++;
             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + file.getName().replace(".jar", "") + " 加载失败，该报错非为Terminal问题，请联系该插件开发者");
@@ -168,7 +161,6 @@ public class PluginManager {
         }
         CommandManager.getCommandsInfo().remove(name);
         plugins.remove(name);
-        pluginLists.remove(name);
     }
 
     public static Plugin getPlugin(String name) {

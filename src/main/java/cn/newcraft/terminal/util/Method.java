@@ -1,18 +1,12 @@
 package cn.newcraft.terminal.util;
 
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Prefix;
 import com.sun.management.OperatingSystemMXBean;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.net.*;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;

@@ -49,30 +49,6 @@ public class SystemCommand extends CommandManager {
                 default:
                     screen.sendMessage("用法：" + getUsage());
             }
-            /*if (args[1].equalsIgnoreCase("help")) {
-                screen.sendMessage("查看系统信息：/system info");
-                screen.sendMessage("修改当前/其他用户密码：/system changepassword [user] <newPassword>");
-                return;
-            }
-            if (args[1].equalsIgnoreCase("info")) {
-                screen.sendMessage("\n系统：" + prop.getProperty("os.name") + " (" + prop.getProperty("java.vm.name") + ")");
-                screen.sendMessage("用户名：" + prop.getProperty("user.name"));
-                screen.sendMessage("执行其他系统操作请输入命令 \"system help\"\n");
-                return;
-            } else if (args[1].equalsIgnoreCase("changepassword")) {
-                if (args.length == 3) {
-                    Method.runCmd("net user " + prop.getProperty("user.name") + " " + args[2]);
-                    screen.sendMessage("尝试修改用户 " + prop.getProperty("user.name") + " 的密码，新密码为：" + args[2]);
-                } else if (args.length == 4) {
-                    Method.runCmd("net user " + args[2] + " " + args[3]);
-                    screen.sendMessage("尝试修改用户 " + args[2] + " 的密码，新密码为：" + args[3]);
-                } else {
-                    screen.sendMessage("用法： \"system changepassword [user] <newPassword>\"");
-                }
-                return;
-            }
-
-             */
         }
     }
 }

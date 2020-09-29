@@ -4,17 +4,13 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.exception.IllegalNameException;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
-import cn.newcraft.terminal.util.Method;
-import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public abstract class OperateManager extends OperateInfo {
 
     private static HashMap<String, OperateManager> regOperate = new HashMap<>();
-    private static ArrayList<String> operateNames = Lists.newArrayList();
 
     public OperateManager(String name, String desc) {
         super(name, desc);
@@ -22,10 +18,6 @@ public abstract class OperateManager extends OperateInfo {
 
     public static HashMap<String, OperateManager> getRegOperate() {
         return regOperate;
-    }
-
-    public static ArrayList<String> getOperateNames() {
-        return operateNames;
     }
 
     public static void regOperate(OperateManager operateManager) {
@@ -39,7 +31,6 @@ public abstract class OperateManager extends OperateInfo {
             }
             return;
         }
-        operateNames.add("[" + operateManager.getName() + "]");
         regOperate.put("[" + operateManager.getName() + "]", operateManager);
     }
 

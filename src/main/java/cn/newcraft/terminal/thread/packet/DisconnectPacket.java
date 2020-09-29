@@ -1,7 +1,5 @@
 package cn.newcraft.terminal.thread.packet;
 
-import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.thread.Sender;
 import cn.newcraft.terminal.thread.ServerThread;
 import com.google.common.io.ByteArrayDataOutput;

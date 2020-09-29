@@ -1,9 +1,5 @@
 package cn.newcraft.terminal.config;
 
-import cn.newcraft.terminal.Terminal;
-
-import java.io.File;
-
 public class ServerConfig extends ConfigManager {
 
     public static ServerConfig cfg;

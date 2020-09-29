@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
 
 public class ConsoleUpdate implements Update {
 

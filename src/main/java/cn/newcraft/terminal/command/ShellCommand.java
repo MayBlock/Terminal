@@ -5,7 +5,6 @@ import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
 import cn.newcraft.terminal.thread.ServerThread;
-import cn.newcraft.terminal.util.Method;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -26,14 +25,15 @@ public class ShellCommand extends CommandManager {
             if (args.length >= 3 && args[2].equalsIgnoreCase("operate")) {
                 screen.sendMessage("---- 所有可执行操作 ----");
                 screen.sendMessage("");
-                if (OperateManager.getOperateNames().size() <= 0) {
+                if (OperateManager.getRegOperate().size() <= 0) {
                     screen.sendMessage("暂无任何可执行操作！");
                     return;
                 }
-                for (int i = 0; i < OperateManager.getOperateNames().size(); i++) {
-                    String name = OperateManager.getOperateNames().get(i);
-                    OperateManager o = OperateManager.getRegOperate().get(name);
-                    screen.sendMessage(i + 1 + ". " + name + " - " + o.getDesc());
+                int i = 0;
+                for (String key : OperateManager.getRegOperate().keySet()) {
+                    OperateManager o = OperateManager.getRegOperate().get(key);
+                    i++;
+                    screen.sendMessage(i + ". " + key + " - " + o.getDesc());
                 }
                 return;
             }

@@ -2,8 +2,6 @@ package cn.newcraft.terminal.config;
 
 import cn.newcraft.terminal.console.Theme;
 
-import java.awt.*;
-
 public class ThemeConfig extends ConfigManager {
 
     public static ThemeConfig cfg;

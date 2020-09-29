@@ -4,7 +4,6 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.exception.InvalidCommandException;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.Plugin;
-import cn.newcraft.terminal.util.Method;
 import com.google.common.collect.Lists;
 
 import java.util.HashMap;

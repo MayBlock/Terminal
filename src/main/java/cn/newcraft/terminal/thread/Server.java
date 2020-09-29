@@ -2,8 +2,6 @@ package cn.newcraft.terminal.thread;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
-import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.util.Method;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;

@@ -25,9 +25,9 @@ public class HelpCommand extends CommandManager {
             List<CommandInfo> terminal = getCommandsInfo().get("Terminal");
             terminal.forEach(info -> commands.add(info.getCommand()));
 
-            /* 获取插件命令并使用forEach遍历存储至commands中 */
-            List<String> pluginLists = PluginManager.getPluginLists();
-            pluginLists.forEach(name -> {
+            /* 获取插件的Key并使用forEach遍历存储至commands中 */
+            Set<String> plugins = PluginManager.getPlugins().keySet();
+            plugins.forEach(name -> {
                 List<CommandInfo> pluginInfo = getCommandsInfo().get(PluginManager.getPlugin(name).getPluginName());
                 pluginInfo.forEach(info -> commands.add(info.getCommand()));
             });

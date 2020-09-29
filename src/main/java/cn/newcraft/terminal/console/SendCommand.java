@@ -1,6 +1,5 @@
 package cn.newcraft.terminal.console;
 
-import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.CommandManager;
 

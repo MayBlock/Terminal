@@ -63,12 +63,12 @@ public class NetworkEvent {
         }
     }
 
-    public static class ClientReceivedEvent extends Event {
+    public static class ServerReceivedEvent extends Event {
 
         private Sender sender;
         private byte[] bytes;
 
-        public ClientReceivedEvent(Sender sender, byte[] bytes) {
+        public ServerReceivedEvent(Sender sender, byte[] bytes) {
             this.sender = sender;
             this.bytes = bytes;
         }
@@ -79,6 +79,18 @@ public class NetworkEvent {
 
         public Sender getSender() {
             return sender;
+        }
+    }
+
+    public static class ServerStartEvent extends Event {
+
+        public ServerStartEvent() {
+        }
+    }
+
+    public static class ServerStopEvent extends Event {
+
+        public ServerStopEvent() {
         }
     }
 }

@@ -65,16 +65,4 @@ public class SocketEvent {
             cancellable = b;
         }
     }
-
-    public static class ServerStartEvent extends Event {
-
-        public ServerStartEvent() {
-        }
-    }
-
-    public static class ServerStopEvent extends Event {
-
-        public ServerStopEvent() {
-        }
-    }
 }

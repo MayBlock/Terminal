@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 public class ServerListener implements Listener {
 
     @SubscribeEvent
-    public void onReceived(NetworkEvent.ClientReceivedEvent e) {
+    public void onReceived(NetworkEvent.ServerReceivedEvent e) {
         Sender sender = e.getSender();
         ByteArrayDataInput in = ByteStreams.newDataInput(e.getBytes());
         String chancel = in.readUTF();

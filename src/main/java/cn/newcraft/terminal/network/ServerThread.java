@@ -44,7 +44,7 @@ public class ServerThread extends Thread {
     public void stopServer() {
         enable = false;
         try {
-            Event.callEvent(new SocketEvent.ServerStopEvent());
+            Event.callEvent(new NetworkEvent.ServerStopEvent());
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class ServerThread extends Thread {
     public void startServer() {
         start();
         try {
-            Event.callEvent(new SocketEvent.ServerStartEvent());
+            Event.callEvent(new NetworkEvent.ServerStartEvent());
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -119,7 +119,7 @@ public class ServerThread extends Thread {
                         }
                         Sender sender = senderHashMap.get(id);
                         Set<Plugin> key = ServerReceived.getReceived().keySet();
-                        Event.callEvent(new NetworkEvent.ClientReceivedEvent(sender, bytes));
+                        Event.callEvent(new NetworkEvent.ServerReceivedEvent(sender, bytes));
                         for (Plugin plugin : key) {
                             if (ServerReceived.getReceived().get(plugin) != null) {
                                 ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);

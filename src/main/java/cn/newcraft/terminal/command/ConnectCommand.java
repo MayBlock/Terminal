@@ -1,7 +1,7 @@
 package cn.newcraft.terminal.command;
 
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.network.ServerThread;
 
 public class ConnectCommand extends CommandManager {
 

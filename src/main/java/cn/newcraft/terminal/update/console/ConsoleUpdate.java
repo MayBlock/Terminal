@@ -1,8 +1,8 @@
 package cn.newcraft.terminal.update.console;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.console.ConsoleEvent;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.console.ConsoleUpdateEvent;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.console.other.ConsoleProgressBar;
 import cn.newcraft.terminal.update.Download;
@@ -95,7 +95,7 @@ public class ConsoleUpdate implements Update {
             screen.sendMessage("Terminal updating...");
             update = true;
             try {
-                Event.callEvent(new ConsoleUpdateEvent(newVersion, description, forceUpdate));
+                Event.callEvent(new ConsoleEvent.UpdateEvent(newVersion, description, forceUpdate));
             } catch (InvocationTargetException | IllegalAccessException e) {
                 Terminal.printException(this.getClass(), e);
             }

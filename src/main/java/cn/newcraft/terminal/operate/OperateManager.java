@@ -3,7 +3,7 @@ package cn.newcraft.terminal.operate;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.exception.IllegalNameException;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.thread.Sender;
+import cn.newcraft.terminal.network.Sender;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;

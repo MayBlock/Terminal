@@ -3,7 +3,6 @@ package cn.newcraft.terminal.console;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.console.ConsoleEvent;
 
 import javax.swing.*;
 import java.awt.*;

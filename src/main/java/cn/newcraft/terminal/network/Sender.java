@@ -1,12 +1,10 @@
-package cn.newcraft.terminal.thread;
+package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.server.ServerSendByteToClientEvent;
-import cn.newcraft.terminal.event.server.ServerSendPacketToClientEvent;
-import cn.newcraft.terminal.thread.packet.DisconnectPacket;
-import cn.newcraft.terminal.thread.packet.Packet;
+import cn.newcraft.terminal.network.packet.DisconnectPacket;
+import cn.newcraft.terminal.network.packet.Packet;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,7 +43,11 @@ public class Sender {
     }
 
     public void sendPacket(Packet packet) throws IOException, InvocationTargetException, IllegalAccessException {
-        Event.callEvent(new ServerSendPacketToClientEvent(this, packet));
+        SocketEvent.SendPacketToClientEvent event = new SocketEvent.SendPacketToClientEvent(this, packet);
+        Event.callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
         packet.onPacket(this);
     }
 
@@ -79,7 +81,11 @@ public class Sender {
     }
 
     public void sendByte(byte[] bytes, boolean length) throws IOException, InvocationTargetException, IllegalAccessException {
-        Event.callEvent(new ServerSendByteToClientEvent(this, bytes));
+        SocketEvent.SendByteToClientEvent event = new SocketEvent.SendByteToClientEvent(this, bytes);
+        Event.callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
         OutputStream out = socket.getOutputStream();
         if (length) out.write(bytes.length);
         out.write(bytes);

@@ -1,7 +1,8 @@
 package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.console.ConsoleEvent;
+import cn.newcraft.terminal.console.ConsoleEvent;
+import cn.newcraft.terminal.screen.ScreenRefreshEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
@@ -30,6 +31,7 @@ public class GraphicalScreen extends JFrame implements Screen {
     private static JTextField input;
     private JLabel copyright;
     private JLabel version;
+    private JScrollPane scrollPane;
     private SystemTray tray;
     private TrayIcon trayIcon = null;
     private JButton execute, clearLog, theme;
@@ -45,6 +47,10 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     public JTextArea getTextArea() {
         return text;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
     }
 
     public JButton getExecute() {
@@ -115,9 +121,9 @@ public class GraphicalScreen extends JFrame implements Screen {
             int[] copyrightOffset = {800, 60};
             add(copyright);
 
-            JScrollPane jsp = new JScrollPane(text);
-            jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            add(jsp);
+            scrollPane = new JScrollPane(text);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            add(scrollPane);
 
             max_cache = ServerConfig.cfg.getYml().getInt("server.max_input_cache");
             input = new JTextField();
@@ -261,7 +267,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 public void componentResized(ComponentEvent e) {
                     Dimension d = getSize();
                     text.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
-                    jsp.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
+                    scrollPane.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
                     version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 170, 20);
                     copyright.setBounds(5, d.height - copyrightOffset[1], 250, 20);
@@ -366,6 +372,11 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public void sendMessage(Object str) {
+        try {
+            Event.callEvent(new ScreenRefreshEvent(this));
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            Terminal.printException(this.getClass(), e);
+        }
         text.append(str + "\n");
         Logger.getLogger(Terminal.class).info(str);
         System.out.println(str);

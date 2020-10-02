@@ -5,7 +5,7 @@ import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.configuration.file.YamlConfiguration;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.thread.ServerReceived;
+import cn.newcraft.terminal.network.ServerReceived;
 import com.google.common.collect.Lists;
 
 import java.io.*;

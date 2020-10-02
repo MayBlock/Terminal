@@ -1,4 +1,4 @@
-package cn.newcraft.terminal.thread;
+package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.plugin.Plugin;
 import com.google.common.collect.Lists;

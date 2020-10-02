@@ -1,6 +1,6 @@
-package cn.newcraft.terminal.thread.packet;
+package cn.newcraft.terminal.network.packet;
 
-import cn.newcraft.terminal.thread.Sender;
+import cn.newcraft.terminal.network.Sender;
 
 import java.io.IOException;
 

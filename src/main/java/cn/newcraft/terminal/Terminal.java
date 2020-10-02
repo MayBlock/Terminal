@@ -8,7 +8,7 @@ import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
-import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.network.ServerThread;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;

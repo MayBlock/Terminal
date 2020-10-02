@@ -1,12 +1,7 @@
-package cn.newcraft.terminal.thread;
+package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.network.ClientConnectEvent;
-import cn.newcraft.terminal.event.network.ClientConnectedEvent;
-import cn.newcraft.terminal.event.network.ClientReceivedEvent;
-import cn.newcraft.terminal.event.server.ServerStartEvent;
-import cn.newcraft.terminal.event.server.ServerStopEvent;
-import cn.newcraft.terminal.thread.packet.HeartbeatPacket;
+import cn.newcraft.terminal.network.packet.HeartbeatPacket;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.plugin.Plugin;
@@ -49,7 +44,7 @@ public class ServerThread extends Thread {
     public void stopServer() {
         enable = false;
         try {
-            Event.callEvent(new ServerStopEvent());
+            Event.callEvent(new SocketEvent.ServerStopEvent());
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -59,7 +54,7 @@ public class ServerThread extends Thread {
     public void startServer() {
         start();
         try {
-            Event.callEvent(new ServerStartEvent());
+            Event.callEvent(new SocketEvent.ServerStartEvent());
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -107,7 +102,7 @@ public class ServerThread extends Thread {
 
                     bytes = new byte[first];
                     inputStream.read(bytes);
-                    ClientConnectEvent connectEvent = new ClientConnectEvent(new String(chancel), socket);
+                    NetworkEvent.ClientConnectEvent connectEvent = new NetworkEvent.ClientConnectEvent(new String(chancel), socket);
                     Event.callEvent(connectEvent);
                     if (connectEvent.isCancelled()) {
                         socket.close();
@@ -119,12 +114,12 @@ public class ServerThread extends Thread {
                             Thread heart = getHeartThread(id);
                             senderHashMap.put(id, new Sender(socket, heart, id, true));
                             heart.start();
-                            Event.callEvent(new ClientConnectedEvent(senderHashMap.get(id)));
+                            Event.callEvent(new NetworkEvent.ClientConnectedEvent(senderHashMap.get(id)));
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + senderHashMap.get(id).getCanonicalName() + " 与终端连接！");
                         }
                         Sender sender = senderHashMap.get(id);
                         Set<Plugin> key = ServerReceived.getReceived().keySet();
-                        Event.callEvent(new ClientReceivedEvent(sender, bytes));
+                        Event.callEvent(new NetworkEvent.ClientReceivedEvent(sender, bytes));
                         for (Plugin plugin : key) {
                             if (ServerReceived.getReceived().get(plugin) != null) {
                                 ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);

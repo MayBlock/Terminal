@@ -3,9 +3,11 @@ package cn.newcraft.terminal.internal;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.exception.UnknownException;
+import cn.newcraft.terminal.network.ServerListener;
 import cn.newcraft.terminal.operate.DisconnectOperate;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
+import cn.newcraft.terminal.screen.graphical.GraphicalListener;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.update.console.ConsoleUpdate;
 import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
@@ -15,8 +17,7 @@ import cn.newcraft.terminal.command.*;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.plugin.Plugin;
 import cn.newcraft.terminal.plugin.PluginManager;
-import cn.newcraft.terminal.thread.Server;
-import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.network.ServerThread;
 
 import javax.swing.*;
 import java.util.TimeZone;
@@ -110,7 +111,8 @@ public class Initialization {
             CommandManager.regCommand(plugin, new UpdateCommand());
             /* regCommands stop */
 
-            Event.regEvents(new Server());
+            Event.regListener(new GraphicalListener());
+            Event.regListener(new ServerListener());
             OperateManager.regOperate(new DisconnectOperate());
 
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));

@@ -1,11 +1,9 @@
-package cn.newcraft.terminal.thread;
+package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
-import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.Listener;
 import cn.newcraft.terminal.event.SubscribeEvent;
-import cn.newcraft.terminal.event.network.ClientConnectEvent;
-import cn.newcraft.terminal.event.network.ClientReceivedEvent;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -13,10 +11,10 @@ import com.google.common.io.ByteStreams;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class Server extends Event {
+public class ServerListener implements Listener {
 
     @SubscribeEvent
-    public void onReceived(ClientReceivedEvent e) {
+    public void onReceived(NetworkEvent.ClientReceivedEvent e) {
         Sender sender = e.getSender();
         ByteArrayDataInput in = ByteStreams.newDataInput(e.getBytes());
         String chancel = in.readUTF();

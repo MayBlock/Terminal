@@ -2,7 +2,7 @@ package cn.newcraft.terminal.operate;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.thread.Sender;
+import cn.newcraft.terminal.network.Sender;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

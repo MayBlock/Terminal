@@ -1,7 +1,6 @@
-package cn.newcraft.terminal.event.console;
+package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.util.Method;
@@ -59,6 +58,31 @@ public class ConsoleEvent {
 
         public TimeZone getCurrentTime() {
             return currentTime;
+        }
+    }
+
+    public static class UpdateEvent extends Event {
+
+        private String newVersion;
+        private String description;
+        private boolean force;
+
+        public UpdateEvent(String newVersion, String description, boolean force) {
+            this.newVersion = newVersion;
+            this.description = description;
+            this.force = force;
+        }
+
+        public String getNewVersion() {
+            return newVersion;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public boolean isForce() {
+            return force;
         }
     }
 }

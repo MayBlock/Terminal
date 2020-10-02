@@ -1,14 +1,18 @@
 package cn.newcraft.terminal.screen.console;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.console.ConsoleEvent;
+import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.ScreenRefreshEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class ConsoleScreen extends Thread implements Screen {
@@ -50,6 +54,11 @@ public class ConsoleScreen extends Thread implements Screen {
     @Override
     public void sendMessage(Object str) {
         if (showMessageEnabled) {
+            try {
+                Event.callEvent(new ScreenRefreshEvent(this));
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
+            }
             Logger.getLogger(Terminal.class).info(str);
             System.out.println(str);
         }

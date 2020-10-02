@@ -1,10 +1,10 @@
-package cn.newcraft.terminal.thread.packet;
+package cn.newcraft.terminal.network.packet;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.network.ClientDisconnectEvent;
-import cn.newcraft.terminal.thread.Sender;
-import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.network.NetworkEvent;
+import cn.newcraft.terminal.network.Sender;
+import cn.newcraft.terminal.network.ServerThread;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -26,7 +26,7 @@ public class DisconnectPacket implements Packet {
     @Override
     public void onPacket(Sender sender) throws IOException {
         try {
-            Event.callEvent(new ClientDisconnectEvent(sender));
+            Event.callEvent(new NetworkEvent.ClientDisconnectEvent(sender));
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }

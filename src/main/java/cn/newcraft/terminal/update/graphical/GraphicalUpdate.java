@@ -1,11 +1,11 @@
 package cn.newcraft.terminal.update.graphical;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.console.ConsoleEvent;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.event.console.ConsoleUpdateEvent;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
-import cn.newcraft.terminal.thread.ServerThread;
+import cn.newcraft.terminal.network.ServerThread;
 import cn.newcraft.terminal.update.Download;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
@@ -137,7 +137,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
             update = true;
             try {
-                Event.callEvent(new ConsoleUpdateEvent(newVersion, description, forceUpdate));
+                Event.callEvent(new ConsoleEvent.UpdateEvent(newVersion, description, forceUpdate));
             } catch (InvocationTargetException | IllegalAccessException e) {
                 Terminal.printException(this.getClass(), e);
             }

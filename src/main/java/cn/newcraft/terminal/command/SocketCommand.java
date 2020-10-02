@@ -3,7 +3,7 @@ package cn.newcraft.terminal.command;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.thread.Sender;
+import cn.newcraft.terminal.network.Sender;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 

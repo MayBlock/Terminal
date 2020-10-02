@@ -2,12 +2,16 @@ package cn.newcraft.terminal.thread;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.server.ServerSendByteToClientEvent;
+import cn.newcraft.terminal.event.server.ServerSendPacketToClientEvent;
 import cn.newcraft.terminal.thread.packet.DisconnectPacket;
 import cn.newcraft.terminal.thread.packet.Packet;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
 public class Sender {
@@ -40,17 +44,18 @@ public class Sender {
         return "[" + getHostAddress() + "/" + id + "]";
     }
 
-    public void sendPacket(Packet packet) throws IOException {
+    public void sendPacket(Packet packet) throws IOException, InvocationTargetException, IllegalAccessException {
+        Event.callEvent(new ServerSendPacketToClientEvent(this, packet));
         packet.onPacket(this);
     }
 
     @Deprecated
-    public void disconnect() throws IOException {
+    public void disconnect() throws IOException, InvocationTargetException, IllegalAccessException {
         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( disconnect )");
         sendPacket(new DisconnectPacket());
     }
 
-    public void disconnect(String reason) throws IOException {
+    public void disconnect(String reason) throws IOException, InvocationTargetException, IllegalAccessException {
         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + getCanonicalName() + " 断开连接！ ( " + reason + " )");
         sendPacket(new DisconnectPacket(reason));
     }
@@ -73,7 +78,8 @@ public class Sender {
         }
     }
 
-    public void sendByte(byte[] bytes, boolean length) throws IOException {
+    public void sendByte(byte[] bytes, boolean length) throws IOException, InvocationTargetException, IllegalAccessException {
+        Event.callEvent(new ServerSendByteToClientEvent(this, bytes));
         OutputStream out = socket.getOutputStream();
         if (length) out.write(bytes.length);
         out.write(bytes);
@@ -86,6 +92,10 @@ public class Sender {
 
     public int getPort() {
         return socket.getPort();
+    }
+
+    public static Sender getSender(int id) {
+        return ServerThread.getSenders().get(id);
     }
 
     public static int spawnNewId() {

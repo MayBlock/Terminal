@@ -1,6 +1,8 @@
 package cn.newcraft.terminal.update.graphical;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.console.ConsoleUpdateEvent;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
 import cn.newcraft.terminal.thread.ServerThread;
@@ -16,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
@@ -116,6 +119,8 @@ public class GraphicalUpdate extends JFrame implements Update {
                     try {
                         ServerThread.getSenders().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        Terminal.printException(this.getClass(), e);
                     }
                 }
                 ServerThread.getServer().stopServer();
@@ -131,7 +136,11 @@ public class GraphicalUpdate extends JFrame implements Update {
             setLocationRelativeTo(null);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
             update = true;
-
+            try {
+                Event.callEvent(new ConsoleUpdateEvent(newVersion, description, forceUpdate));
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
+            }
             text = new JLabel("即将开始更新，更新过程中请不要关闭终端");
             text.setForeground(Color.RED);
             text.setBounds(135, 100, 300, 20);

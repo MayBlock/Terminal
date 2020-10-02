@@ -4,17 +4,17 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
-import cn.newcraft.terminal.thread.ServerThread;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-public class ShellCommand extends CommandManager {
+public class SocketCommand extends CommandManager {
 
-    public ShellCommand() {
-        super("shell", "远程发送数据至现以连接至终端的远程服务器", "shell help");
+    public SocketCommand() {
+        super("socket", "发送数据至现以连接至终端的远程客户端", "socket help");
     }
 
     private HashMap<Integer, ByteArrayDataOutput> bytes = new HashMap<>();
@@ -39,18 +39,24 @@ public class ShellCommand extends CommandManager {
             }
             screen.sendMessage("---- " + getCommand() + " 命令用法 ----");
             screen.sendMessage("");
-            screen.sendMessage(getCommand() + " help - 查看Remote命令所有帮助");
+            screen.sendMessage(getCommand() + " help - 查看" + getCommand() + "命令所有帮助");
             screen.sendMessage(getCommand() + " help operate - 查看所有的可执行操作");
             screen.sendMessage(getCommand() + " <id> <operate> - 执行指定操作");
             screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
-            screen.sendMessage(getCommand() + " <id> send - 添加自定义String数据");
+            screen.sendMessage(getCommand() + " <id> send - 向客户端发送已添加的Byte数据");
             screen.sendMessage("");
             return;
         }
         if (args.length >= 3) {
-            Sender sender = ServerThread.getSenders().get(Integer.parseInt(args[1]));
-            if (sender == null) {
-                screen.sendMessage("名为ID " + args[1] + " 的客户端不存在！");
+            Sender sender;
+            try {
+                sender = Sender.getSender(Integer.parseInt(args[1]));
+                if (sender == null) {
+                    screen.sendMessage("名为ID " + args[1] + " 的客户端不存在！");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                screen.sendMessage("你输入的ID不是一个数字！");
                 return;
             }
             switch (args[2]) {
@@ -80,7 +86,7 @@ public class ShellCommand extends CommandManager {
                         sender.sendByte(bytes.get(sender.getId()).toByteArray(), false);
                         screen.sendMessage("已成功发送至 " + sender.getCanonicalName() + " 客户端");
                         bytes.remove(sender.getId());
-                    } catch (IOException e) {
+                    } catch (IOException | IllegalAccessException | InvocationTargetException e) {
                         Terminal.printException(this.getClass(), e);
                     }
                     break;

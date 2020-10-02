@@ -1,10 +1,12 @@
 package cn.newcraft.terminal.thread.packet;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.thread.Sender;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class HeartbeatPacket implements Packet {
 
@@ -14,6 +16,10 @@ public class HeartbeatPacket implements Packet {
         if (!sender.getSocket().getOOBInline()) sender.getSocket().setOOBInline(true);
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("TEST_CONNECT");
-        sender.sendByte(b.toByteArray(), false);
+        try {
+            sender.sendByte(b.toByteArray(), false);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            Terminal.printException(this.getClass(), e);
+        }
     }
 }

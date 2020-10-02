@@ -1,9 +1,11 @@
 package cn.newcraft.terminal.operate;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.thread.Sender;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class DisconnectOperate extends OperateManager {
 
@@ -16,6 +18,8 @@ public class DisconnectOperate extends OperateManager {
         try {
             sender.disconnect("disconnect");
         } catch (IOException ignored) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            Terminal.printException(this.getClass(), e);
         }
     }
 }

@@ -5,6 +5,7 @@ import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.configuration.file.YamlConfiguration;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.thread.ServerReceived;
 import com.google.common.collect.Lists;
 
 import java.io.*;
@@ -160,6 +161,7 @@ public class PluginManager {
             screen.sendMessage("\n ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑===");
         }
         CommandManager.getCommandsInfo().remove(name);
+        ServerReceived.getReceived().remove(plugin);
         plugins.remove(name);
     }
 

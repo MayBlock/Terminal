@@ -2,22 +2,28 @@ package cn.newcraft.terminal.thread;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.SubscribeEvent;
+import cn.newcraft.terminal.event.network.ClientConnectEvent;
+import cn.newcraft.terminal.event.network.ClientReceivedEvent;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
-public class Server extends ServerReceived {
+public class Server extends Event {
 
-    @Override
-    public void onMessageReceived(Sender sender, byte[] bytes) {
-        ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+    @SubscribeEvent
+    public void onReceived(ClientReceivedEvent e) {
+        Sender sender = e.getSender();
+        ByteArrayDataInput in = ByteStreams.newDataInput(e.getBytes());
         String chancel = in.readUTF();
         if (chancel.equals("GET")) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            String subChancel = in.readUTF();
             try {
+                String subChancel = in.readUTF();
                 switch (subChancel) {
                     case "ID":
                         out.write(sender.getId());
@@ -50,15 +56,15 @@ public class Server extends ServerReceived {
                         out.writeUTF("FINISH");
                         sender.sendByte(out.toByteArray(), false);
                 }
-            } catch (IOException e) {
-                Terminal.printException(this.getClass(), e);
+            } catch (IOException | IllegalAccessException | InvocationTargetException ex) {
+                Terminal.printException(this.getClass(), ex);
             }
         }
         if (chancel.equals("DISCONNECT")) {
             try {
                 sender.disconnect(in.readUTF());
-            } catch (IOException e) {
-                Terminal.printException(this.getClass(), e);
+            } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
+                Terminal.printException(this.getClass(), ex);
             }
         }
     }

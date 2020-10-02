@@ -1,5 +1,7 @@
 package cn.newcraft.terminal.screen.graphical;
 
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.console.ConsoleEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
@@ -18,6 +20,7 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -211,6 +214,11 @@ public class GraphicalScreen extends JFrame implements Screen {
                     text.setText("");
                     sendMessage("已清除日志 - " + Method.getCurrentTime(Terminal.getOptions().getTimeZone()));
                     input.requestFocus();
+                    try {
+                        Event.callEvent(new ConsoleEvent.ClearMessageEvent(Terminal.getOptions().getTimeZone()));
+                    } catch (InvocationTargetException | IllegalAccessException e) {
+                        Terminal.printException(this.getClass(), e);
+                    }
                 }
             });
             add(clearLog);

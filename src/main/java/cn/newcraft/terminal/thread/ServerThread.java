@@ -1,15 +1,23 @@
 package cn.newcraft.terminal.thread;
 
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.network.ClientConnectEvent;
+import cn.newcraft.terminal.event.network.ClientConnectedEvent;
+import cn.newcraft.terminal.event.network.ClientReceivedEvent;
+import cn.newcraft.terminal.event.server.ServerStartEvent;
+import cn.newcraft.terminal.event.server.ServerStopEvent;
 import cn.newcraft.terminal.thread.packet.HeartbeatPacket;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.plugin.Plugin;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,11 +48,21 @@ public class ServerThread extends Thread {
 
     public void stopServer() {
         enable = false;
+        try {
+            Event.callEvent(new ServerStopEvent());
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         stop();
     }
 
     public void startServer() {
         start();
+        try {
+            Event.callEvent(new ServerStartEvent());
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -73,7 +91,6 @@ public class ServerThread extends Thread {
                 InputStream inputStream = socket.getInputStream();
                 /* Init Connect */
                 int id = Sender.spawnNewId();
-                //integerSocketHashMap.put(id, new Sender(socket, heart, id, true));
                 socket.setKeepAlive(true);
                 init.put(id, true);
                 /* Init Connect */
@@ -90,16 +107,25 @@ public class ServerThread extends Thread {
 
                     bytes = new byte[first];
                     inputStream.read(bytes);
+                    ClientConnectEvent connectEvent = new ClientConnectEvent(new String(chancel), socket);
+                    Event.callEvent(connectEvent);
+                    if (connectEvent.isCancelled()) {
+                        socket.close();
+                        break;
+                    }
                     if (new String(chancel).equals("TERMINAL")) {
                         if (init.get(id)) {
                             init.put(id, false);
                             Thread heart = getHeartThread(id);
                             senderHashMap.put(id, new Sender(socket, heart, id, true));
                             heart.start();
+                            Event.callEvent(new ClientConnectedEvent(senderHashMap.get(id)));
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + senderHashMap.get(id).getCanonicalName() + " 与终端连接！");
                         }
                         Sender sender = senderHashMap.get(id);
-                        for (Plugin plugin : ServerReceived.getReceivedLists()) {
+                        Set<Plugin> key = ServerReceived.getReceived().keySet();
+                        Event.callEvent(new ClientReceivedEvent(sender, bytes));
+                        for (Plugin plugin : key) {
                             if (ServerReceived.getReceived().get(plugin) != null) {
                                 ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);
                                 senderHashMap.get(id).setFirstConnect(false);
@@ -121,6 +147,12 @@ public class ServerThread extends Thread {
                     return;
                 }
                 Terminal.printException(this.getClass(), e);
+            } catch (InvocationTargetException e) {
+                if (e.getCause() == null || !e.getCause().getMessage().equals("java.io.EOFException")) {
+                    Terminal.printException(this.getClass(), e);
+                }
+            } catch (IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
             }
         }
     };
@@ -139,10 +171,12 @@ public class ServerThread extends Thread {
                 } catch (InterruptedException | IOException e) {
                     try {
                         sender.disconnect(e.toString());
-                    } catch (IOException ex) {
+                    } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
                         Terminal.printException(this.getClass(), ex);
                     }
                     break;
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    Terminal.printException(this.getClass(), e);
                 }
             }
         });

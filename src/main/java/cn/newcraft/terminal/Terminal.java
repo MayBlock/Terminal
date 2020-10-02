@@ -13,8 +13,9 @@ import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.log4j.PropertyConfigurator;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class Terminal {
 
@@ -84,7 +85,7 @@ public class Terminal {
                     "---------------------------------\n" +
                             "Terminal\n" +
                             "       Welcome!\n" +
-                            "---------------------------------\n ");
+                            "---------------------------------\n");
             screen.sendMessage("Terminal starting...");
             String s = instance.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
             programName = s.substring(s.lastIndexOf("/") + 1);
@@ -127,6 +128,8 @@ public class Terminal {
                     try {
                         ServerThread.getSenders().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        Terminal.printException(Terminal.class, e);
                     }
                 }
                 ServerThread.getServer().stopServer();
@@ -155,6 +158,8 @@ public class Terminal {
                     try {
                         ServerThread.getSenders().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        Terminal.printException(Terminal.class, e);
                     }
                 }
                 ServerThread.getServer().stopServer();
@@ -174,6 +179,8 @@ public class Terminal {
                     try {
                         ServerThread.getSenders().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        Terminal.printException(Terminal.class, e);
                     }
                 }
                 ServerThread.getServer().stopServer();

@@ -9,7 +9,7 @@ public class UpdateCommand extends CommandManager {
     private boolean confirm = false;
 
     public UpdateCommand() {
-        super("update", "检查更新", "update help");
+        super("update", "检查更新", "update <help/check/latest>");
     }
 
     @Override

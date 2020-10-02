@@ -34,12 +34,13 @@ public class SystemCommand extends CommandManager {
                         for (int i = 2; i < args.length; i++) {
                             text.append(args[i]).append(" ");
                         }
+                        String string = text.toString().substring(0, text.toString().length() - 1);
                         new Thread(() -> {
                             try {
-                                Method.runCmd(text.toString());
-                                screen.sendMessage("执行了系统命令 " + text.toString());
+                                Method.runCmd(string);
+                                screen.sendMessage("执行了系统命令 " + string);
                             } catch (IOException e) {
-                                Terminal.printException(this.getClass(), e);
+                                screen.sendMessage("命令 " + string + " 不存在！");
                             }
                         }).start();
                     } else {

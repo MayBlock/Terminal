@@ -1,6 +1,8 @@
 package cn.newcraft.terminal.update.console;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.console.ConsoleUpdateEvent;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.console.other.ConsoleProgressBar;
 import cn.newcraft.terminal.update.Download;
@@ -12,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
@@ -91,6 +94,11 @@ public class ConsoleUpdate implements Update {
         if (newVersion != null && !newVersion.equals(canonicalVersion)) {
             screen.sendMessage("Terminal updating...");
             update = true;
+            try {
+                Event.callEvent(new ConsoleUpdateEvent(newVersion, description, forceUpdate));
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
+            }
             screen.getConsoleScreen().setComponentEnabled(false);
             screen.getConsoleScreen().setShowMessageEnabled(false);
             progressBar = new ConsoleProgressBar(0, 100, 50, '=');

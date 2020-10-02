@@ -15,12 +15,10 @@ public abstract class ServerReceived {
         return received;
     }
 
-    public static List<Plugin> getReceivedLists() {
-        return receivedLists;
-    }
-
+    @Deprecated
     public abstract void onMessageReceived(Sender sender, byte[] bytes);
 
+    @Deprecated
     public static void regIncomingPluginChannel(Plugin plugin, ServerReceived serverReceived) {
         received.put(plugin, serverReceived);
         if (!receivedLists.contains(plugin)) {

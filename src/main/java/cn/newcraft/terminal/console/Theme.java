@@ -2,9 +2,12 @@ package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ThemeConfig;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.console.ConsoleEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public class Theme {
@@ -190,5 +193,10 @@ public class Theme {
         Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getOptions().getTheme(id).getBackgroundCode()));
 
         themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
+        try {
+            Event.callEvent(new ConsoleEvent.ChangeThemeEvent(themeHashMap.get(id)));
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            Terminal.printException(Theme.class, e);
+        }
     }
 }

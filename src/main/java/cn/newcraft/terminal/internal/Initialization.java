@@ -1,6 +1,7 @@
 package cn.newcraft.terminal.internal;
 
 import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.operate.DisconnectOperate;
 import cn.newcraft.terminal.operate.OperateManager;
@@ -15,7 +16,6 @@ import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.plugin.Plugin;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.thread.Server;
-import cn.newcraft.terminal.thread.ServerReceived;
 import cn.newcraft.terminal.thread.ServerThread;
 
 import javax.swing.*;
@@ -106,11 +106,11 @@ public class Initialization {
             CommandManager.regCommand(plugin, new RebootCommand());
             CommandManager.regCommand(plugin, new StopCommand());
             CommandManager.regCommand(plugin, new SystemCommand());
-            CommandManager.regCommand(plugin, new ShellCommand());
+            CommandManager.regCommand(plugin, new SocketCommand());
             CommandManager.regCommand(plugin, new UpdateCommand());
             /* regCommands stop */
 
-            ServerReceived.regIncomingPluginChannel(plugin, new Server());
+            Event.regEvents(new Server());
             OperateManager.regOperate(new DisconnectOperate());
 
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
@@ -120,7 +120,7 @@ public class Initialization {
             Terminal.getScreen().setComponentEnabled(true);
             isInitialization = false;
             new PluginManager(PluginManager.Status.ENABLE);
-            Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n ");
+            Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
             new Thread(() -> {

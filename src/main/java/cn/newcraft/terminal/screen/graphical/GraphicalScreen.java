@@ -2,7 +2,7 @@ package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.console.ConsoleEvent;
-import cn.newcraft.terminal.screen.ScreenRefreshEvent;
+import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
@@ -266,6 +266,11 @@ public class GraphicalScreen extends JFrame implements Screen {
                 @Override
                 public void componentResized(ComponentEvent e) {
                     Dimension d = getSize();
+                    try {
+                        Event.callEvent(new ScreenEvent.GraphicalEvent.ScreenResizeEvent(getGraphicalScreen(), getWidth(), getHeight()));
+                    } catch (InvocationTargetException | IllegalAccessException ex) {
+                        Terminal.printException(GraphicalScreen.this.getClass(), ex);
+                    }
                     text.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     scrollPane.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
@@ -373,7 +378,7 @@ public class GraphicalScreen extends JFrame implements Screen {
     @Override
     public void sendMessage(Object str) {
         try {
-            Event.callEvent(new ScreenRefreshEvent(this));
+            Event.callEvent(new ScreenEvent.ScreenRefreshEvent(this));
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }

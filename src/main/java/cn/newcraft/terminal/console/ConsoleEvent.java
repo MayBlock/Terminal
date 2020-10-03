@@ -3,8 +3,10 @@ package cn.newcraft.terminal.console;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.network.NetworkEvent;
 import cn.newcraft.terminal.util.Method;
 
+import javax.swing.*;
 import java.util.TimeZone;
 
 public class ConsoleEvent {

@@ -1,26 +1,29 @@
 package cn.newcraft.terminal.event;
 
+import cn.newcraft.terminal.plugin.MainPlugin;
+import cn.newcraft.terminal.plugin.Plugin;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.HashMap;
 import java.util.List;
 
 public class Event {
 
-    private static List<Listener> listeners = Lists.newArrayList();
+    private static HashMap<Plugin, Listener> listenerMap = new HashMap<>();
 
-    public static List<Listener> getListener() {
-        return listeners;
+    public static HashMap<Plugin, Listener> getListener() {
+        return listenerMap;
     }
 
-    public static void regListener(Listener listener) {
-        listeners.add(listener);
+    public static void regListener(Plugin plugin, Listener listener) {
+        listenerMap.put(plugin, listener);
     }
 
     public static void callEvent(Event event) throws InvocationTargetException, IllegalAccessException {
-        for (Listener listener : listeners) {
+        for (Listener listener : listenerMap.values()) {
             for (Method m : listener.getClass().getMethods()) {
                 if (m.isAnnotationPresent(SubscribeEvent.class)) {
                     Parameter[] parameters = m.getParameters();

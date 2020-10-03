@@ -18,33 +18,31 @@ public class UpdateCommand extends CommandManager {
             screen.sendMessage("用法：" + getUsage());
             return;
         }
-        new Thread(() -> {
-            Update update = Terminal.getUpdate();
-            switch (args[1]) {
-                case "help":
-                    screen.sendMessage("update help - 获取更新帮助");
-                    screen.sendMessage("update check - 检查更新");
-                    screen.sendMessage("update latest - 更新至最新版本");
-                    break;
-                case "check":
-                    screen.sendMessage("检查更新...");
-                    new Thread(() -> {
-                        update.refreshUpdate();
-                        update.checkUpdate(true);
-                    }).start();
-                    break;
-                case "latest":
-                    if (!confirm) {
-                        update.confirmUpdate();
-                        confirm = true;
-                    } else {
-                        update.startUpdate();
-                        confirm = false;
-                    }
-                    break;
-                default:
-                    screen.sendMessage("用法：" + getUsage());
-            }
-        }).start();
+        Update update = Terminal.getUpdate();
+        switch (args[1]) {
+            case "help":
+                screen.sendMessage("update help - 获取更新帮助");
+                screen.sendMessage("update check - 检查更新");
+                screen.sendMessage("update latest - 更新至最新版本");
+                break;
+            case "check":
+                screen.sendMessage("检查更新...");
+                new Thread(() -> {
+                    update.refreshUpdate();
+                    update.checkUpdate(true);
+                }).start();
+                break;
+            case "latest":
+                if (!confirm) {
+                    update.confirmUpdate();
+                    confirm = true;
+                } else {
+                    update.startUpdate();
+                    confirm = false;
+                }
+                break;
+            default:
+                screen.sendMessage("用法：" + getUsage());
+        }
     }
 }

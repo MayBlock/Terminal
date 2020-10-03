@@ -6,8 +6,8 @@ import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.4.1";
-    private String canonicalVersion = "1.4.1.201002_beta";
+    private String version = "1.4.2";
+    private String canonicalVersion = "1.4.2.201003_beta";
     private int apiVersion = 3;
     private TimeZone timeZone = TimeZone.getDefault();
 

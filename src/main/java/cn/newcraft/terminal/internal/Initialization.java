@@ -37,8 +37,9 @@ public class Initialization {
                     }
                     return;
                 }
-                Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 成功设置端口为 " + port);
+                new Terminal().setPort(port);
                 ServerConfig.setPort(port);
+                Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 成功设置端口为 " + port);
                 initTerminal();
             } else {
                 Terminal.getScreen().sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " 端口" + in + "无效，端口设置只能为 1 - 65535之间！");
@@ -111,8 +112,8 @@ public class Initialization {
             CommandManager.regCommand(plugin, new UpdateCommand());
             /* regCommands stop */
 
-            Event.regListener(new GraphicalListener());
-            Event.regListener(new ServerListener());
+            Event.regListener(plugin, new GraphicalListener());
+            Event.regListener(plugin, new ServerListener());
             OperateManager.regOperate(new DisconnectOperate());
 
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));

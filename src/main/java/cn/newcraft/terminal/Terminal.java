@@ -56,6 +56,10 @@ public class Terminal {
         return port;
     }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     public void setUpdate(Update update) {
         this.update = update;
     }
@@ -113,16 +117,16 @@ public class Terminal {
     public static void reboot() {
         screen.sendMessage("Terminal rebooting...");
         new Thread(() -> {
-            try {
-                Method.runCmd(ServerConfig.cfg.getYml().getString("server.reboot_script")
-                        .replace("{path}", new File("").getAbsolutePath())
-                        .replace("{name}", Terminal.getProgramName()));
-            } catch (IOException ex) {
-                printException(Terminal.class, ex);
-            }
-        }).start();
-        new Thread(() -> {
             new PluginManager(PluginManager.Status.DISABLE);
+            new Thread(() -> {
+                try {
+                    Method.runCmd(ServerConfig.cfg.getYml().getString("server.reboot_script")
+                            .replace("{path}", new File("").getAbsolutePath())
+                            .replace("{name}", Terminal.getProgramName()));
+                } catch (IOException ex) {
+                    printException(Terminal.class, ex);
+                }
+            }).start();
             if (ServerThread.isServer()) {
                 for (int i = 0; i < ServerThread.getSenders().size(); i++) {
                     try {

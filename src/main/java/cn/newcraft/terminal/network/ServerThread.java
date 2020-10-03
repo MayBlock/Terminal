@@ -118,14 +118,7 @@ public class ServerThread extends Thread {
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + senderHashMap.get(id).getCanonicalName() + " 与终端连接！");
                         }
                         Sender sender = senderHashMap.get(id);
-                        Set<Plugin> key = ServerReceived.getReceived().keySet();
                         Event.callEvent(new NetworkEvent.ServerReceivedEvent(sender, bytes));
-                        for (Plugin plugin : key) {
-                            if (ServerReceived.getReceived().get(plugin) != null) {
-                                ServerReceived.getReceived().get(plugin).onMessageReceived(sender, bytes);
-                                senderHashMap.get(id).setFirstConnect(false);
-                            }
-                        }
                         if (Terminal.isDebug()) {
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 的Socket交互信息：");
                             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");

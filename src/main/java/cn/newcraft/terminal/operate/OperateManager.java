@@ -20,16 +20,14 @@ public abstract class OperateManager extends OperateInfo {
         return regOperate;
     }
 
-    public static void regOperate(OperateManager operateManager) {
+    public static void regOperate(OperateManager operateManager) throws IllegalNameException {
         if (!(Pattern.matches("[a-zA-Z0-9_]*", operateManager.getName())) ||
                 (operateManager.getName().equalsIgnoreCase("add") ||
                         operateManager.getName().equalsIgnoreCase("send"))) {
-            try {
-                throw new IllegalNameException("The name " + operateManager.getName() + " is illegal!");
-            } catch (IllegalNameException e) {
-                Terminal.printException(OperateManager.class, e);
-            }
-            return;
+            throw new IllegalNameException("The name " + operateManager.getName() + " is illegal!");
+        }
+        if (regOperate.get(operateManager.getName()) != null) {
+            throw new IllegalNameException("The name " + operateManager.getName() + " is existed!");
         }
         regOperate.put("[" + operateManager.getName() + "]", operateManager);
     }

@@ -2,8 +2,6 @@ package cn.newcraft.terminal.plugin;
 
 public abstract class MainPlugin extends Plugin {
 
-    public static String name;
-
     public MainPlugin(String pluginName) {
         super(pluginName);
     }

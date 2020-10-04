@@ -68,7 +68,6 @@ public class PluginManager {
                 break;
             case DISABLE:
                 while (!plugins.isEmpty()) {
-                    screen.sendMessage("start disable");
                     this.disablePlugin(new Plugin((String) plugins.keySet().toArray()[0]));
                 }
         }

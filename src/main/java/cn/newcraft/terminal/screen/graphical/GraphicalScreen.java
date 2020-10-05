@@ -16,7 +16,8 @@ import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
 import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -382,8 +383,8 @@ public class GraphicalScreen extends JFrame implements Screen {
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }
+        Terminal.getLogger().info(str);
         text.append(str + "\n");
-        Logger.getLogger(Terminal.class).info(str);
         System.out.println(str);
     }
 

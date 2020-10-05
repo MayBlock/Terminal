@@ -9,7 +9,6 @@ import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
-import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
@@ -58,7 +57,7 @@ public class ConsoleScreen extends Thread implements Screen {
             } catch (InvocationTargetException | IllegalAccessException e) {
                 Terminal.printException(this.getClass(), e);
             }
-            Logger.getLogger(Terminal.class).info(str);
+            Terminal.getLogger().info(str);
             System.out.println(str);
         }
     }

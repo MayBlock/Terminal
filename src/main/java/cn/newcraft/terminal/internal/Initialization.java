@@ -20,6 +20,7 @@ import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 public class Initialization {
@@ -77,6 +78,7 @@ public class Initialization {
     }
 
     public void initTerminal() {
+        long startTime = System.currentTimeMillis();
         try {
             Terminal.getScreen().setComponentEnabled(false);
             new Terminal().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
@@ -110,6 +112,7 @@ public class Initialization {
             CommandManager.regCommand(plugin, new SystemCommand());
             CommandManager.regCommand(plugin, new SocketCommand());
             CommandManager.regCommand(plugin, new UpdateCommand());
+            CommandManager.regCommand(plugin, new VersionCommand());
             /* regCommands stop */
 
             Event.regListener(plugin, new GraphicalListener());
@@ -123,7 +126,9 @@ public class Initialization {
             Terminal.getScreen().setComponentEnabled(true);
             isInitialization = false;
             new PluginManager(PluginManager.Status.ENABLE);
-            Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！ (Version: " + Terminal.getOptions().getVersion() + ")\n");
+            SimpleDateFormat formatter = new SimpleDateFormat("s.SSS");
+            Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 终端已全部初始化完毕！" +
+                    " (耗时" + formatter.format(((System.currentTimeMillis() - startTime))) + "s)\n");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
             new Thread(() -> {

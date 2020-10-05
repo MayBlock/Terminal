@@ -11,7 +11,8 @@ import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.*;
@@ -20,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Terminal {
 
     private static int port;
+    private static Logger logger;
     private static boolean debug;
     private static Terminal instance;
     private static Options options = new Options();
@@ -56,6 +58,10 @@ public class Terminal {
         return port;
     }
 
+    public static Logger getLogger() {
+        return logger;
+    }
+
     public void setPort(int port) {
         this.port = port;
     }
@@ -84,7 +90,8 @@ public class Terminal {
             PluginManager.spawnFile();
             Initialization init = new Initialization();
             init.initScreen();
-            PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
+            logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+            //PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
             screen.sendMessage(
                     "---------------------------------\n" +
                             "Terminal\n" +
@@ -116,8 +123,8 @@ public class Terminal {
 
     public static void reboot() {
         screen.sendMessage("Terminal rebooting...");
+        new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
-            new PluginManager(PluginManager.Status.DISABLE);
             new Thread(() -> {
                 try {
                     Method.runCmd(ServerConfig.cfg.getYml().getString("server.reboot_script")
@@ -146,17 +153,17 @@ public class Terminal {
 
     public static void reboot(String script) {
         screen.sendMessage("Terminal rebooting...");
+        new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
-            try {
-                Method.runCmd(script
-                        .replace("{path}", new File("").getAbsolutePath())
-                        .replace("{name}", Terminal.getProgramName()));
-            } catch (IOException ex) {
-                printException(Terminal.class, ex);
-            }
-        }).start();
-        new Thread(() -> {
-            new PluginManager(PluginManager.Status.DISABLE);
+            new Thread(() -> {
+                try {
+                    Method.runCmd(script
+                            .replace("{path}", new File("").getAbsolutePath())
+                            .replace("{name}", Terminal.getProgramName()));
+                } catch (IOException ex) {
+                    printException(Terminal.class, ex);
+                }
+            }).start();
             if (ServerThread.isServer()) {
                 for (int i = 0; i < ServerThread.getSenders().size(); i++) {
                     try {
@@ -176,8 +183,8 @@ public class Terminal {
 
     public static void shutdown() {
         screen.sendMessage("Terminal stopping...");
+        new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
-            new PluginManager(PluginManager.Status.DISABLE);
             if (ServerThread.isServer()) {
                 for (int i = 0; i < ServerThread.getSenders().size(); i++) {
                     try {

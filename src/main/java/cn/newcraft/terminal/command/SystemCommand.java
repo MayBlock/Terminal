@@ -1,6 +1,5 @@
 package cn.newcraft.terminal.command;
 
-import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.screen.Screen;
 

@@ -14,10 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -115,15 +112,15 @@ public class GraphicalUpdate extends JFrame implements Update {
             screen.getGraphicalScreen().setEnabled(false);
             screen.getGraphicalScreen().setComponentEnabled(false);
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenders().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
                     try {
-                        ServerThread.getSenders().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         Terminal.printException(this.getClass(), e);
                     }
                 }
-                ServerThread.getServer().stopServer();
+                ServerThread.stopServerThread();
             }
             ImageIcon icon = new ImageIcon(this.getClass().getResource("/console.png"));
             setIconImage(icon.getImage());
@@ -202,7 +199,7 @@ public class GraphicalUpdate extends JFrame implements Update {
                     disableEvents(AWTEvent.WINDOW_EVENT_MASK);
                     jProgressBar.setString("更新完毕！");
                     Method.copyFile("./update/terminal-" + newVersion + ".jar", Terminal.getProgramName());
-                    for (int i = 10; i > 0; i--) {
+                    for (int i = 5; i > 0; i--) {
                         text.setText("更新完毕，终端将在" + i + "秒后重启！");
                         Thread.sleep(1000);
                     }

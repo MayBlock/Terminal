@@ -88,6 +88,11 @@ public class ConsoleScreen extends Thread implements Screen {
     @Deprecated
     public int showMessagePane(String title, String message) {
         if (showMessagePaneEnabled) {
+            try {
+                Event.callEvent(new ScreenEvent.ShowPaneEvent(title, message));
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
+            }
             System.out.println(title);
             System.out.println(message);
             System.out.print("> ");

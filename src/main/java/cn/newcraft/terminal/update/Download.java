@@ -13,9 +13,7 @@ public class Download {
     private String userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
     private String cookie = null;
     private String url;
-    // 文件总长度
     private long contentLength;
-    // 当前下载长度
     private long currentLength;
     private long preLength;
     private Map<String, List<String>> headers;
@@ -66,14 +64,11 @@ public class Download {
             }
             setContentLength(connection.getContentLength());
             headers = connection.getHeaderFields();
-            // 创建本地文件
             File file = new File(localPath);
             if (!file.exists()) file.mkdirs();
-            file = new File(localPath + File.separator + getFileName(url));
+            file = new File(localPath + File.separator + getFileName());
             FileOutputStream fos = new FileOutputStream(file);
-            // 在写文件之前调用统计方法
             count.start();
-            // 拿到文件流
             InputStream is = connection.getInputStream();
             int len;
             byte[] b = new byte[1024];
@@ -108,7 +103,7 @@ public class Download {
         }
     }
 
-    public String getFileName(String url) throws UnsupportedEncodingException {
+    public String getFileName() throws UnsupportedEncodingException {
         String fileName = url.substring(url.lastIndexOf("/") + 1);
         if (fileName.contains(".")) {
             String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);

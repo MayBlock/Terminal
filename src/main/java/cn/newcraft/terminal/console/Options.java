@@ -6,9 +6,9 @@ import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.4.4";
-    private String canonicalVersion = "1.4.4.201005_beta";
-    private int apiVersion = 3;
+    private String version = "1.5.0";
+    private String canonicalVersion = "1.5.0.201006_beta";
+    private int apiVersion = 4;
     private TimeZone timeZone = TimeZone.getDefault();
 
     public String getVersion() {
@@ -17,6 +17,10 @@ public class Options {
 
     public int getApiVersion() {
         return apiVersion;
+    }
+
+    public int getMaxThread() {
+        return ServerConfig.cfg.getYml().getInt("server.max_thread");
     }
 
     public String getCanonicalVersion() {

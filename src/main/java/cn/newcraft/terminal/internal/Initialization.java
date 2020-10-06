@@ -121,7 +121,7 @@ public class Initialization {
 
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
             new ServerThread();
-            ServerThread.getServer().startServer();
+            ServerThread.startServerThread();
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 创建监听连接进程完毕！");
             Terminal.getScreen().setComponentEnabled(true);
             isInitialization = false;

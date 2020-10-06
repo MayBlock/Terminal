@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.screen;
 
+import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 
@@ -15,6 +16,25 @@ public class ScreenEvent {
 
         public Screen getScreen() {
             return screen;
+        }
+    }
+
+    public static class ShowPaneEvent extends Event {
+
+        private String title;
+        private String message;
+
+        public ShowPaneEvent(String title, String message) {
+            this.title = title;
+            this.message = message;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getMessage() {
+            return message;
         }
     }
 
@@ -41,6 +61,54 @@ public class ScreenEvent {
 
             public int getHeight() {
                 return height;
+            }
+        }
+
+        public static class ShowPromptEvent extends Event implements Cancellable {
+
+            private String title;
+            private String message;
+            private int keepTime;
+            private boolean confirm;
+            private String confirmMessage;
+            private boolean cancellable = false;
+
+            public ShowPromptEvent(String title, String message, int keepTime, boolean confirm, String confirmMessage) {
+                this.title = title;
+                this.message = message;
+                this.keepTime = keepTime;
+                this.confirm = confirm;
+                this.confirmMessage = confirmMessage;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public String getMessage() {
+                return message;
+            }
+
+            public int getKeepTime() {
+                return keepTime;
+            }
+
+            public boolean isConfirm() {
+                return confirm;
+            }
+
+            public String getConfirmMessage() {
+                return confirmMessage;
+            }
+
+            @Override
+            public boolean isCancelled() {
+                return cancellable;
+            }
+
+            @Override
+            public void setCancelled(boolean b) {
+                cancellable = b;
             }
         }
     }

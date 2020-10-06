@@ -3,43 +3,26 @@ package cn.newcraft.terminal.screen.console.other;
 import java.text.DecimalFormat;
 
 public class ConsoleProgressBar {
-    private long minimum = 0; // 进度条起始值
 
-    private long maximum = 100; // 进度条最大值
+    private long minimum = 0;
 
-    private long barLen = 100; // 进度条长度
+    private long maximum = 100;
 
-    private char showChar = '='; // 用于进度条显示的字符
+    private long barLen = 100;
+
+    private char showChar = '=';
 
     private String string = "";
     private String prefix = "";
 
-    /**
-     * 使用系统标准输出，显示字符进度条及其百分比。
-     */
     public ConsoleProgressBar() {
     }
 
-    /**
-     * 使用系统标准输出，显示字符进度条及其百分比。
-     *
-     * @param minimum 进度条起始值
-     * @param maximum 进度条最大值
-     * @param barLen  进度条长度
-     */
     public ConsoleProgressBar(long minimum, long maximum,
                               long barLen) {
         this(minimum, maximum, barLen, '=');
     }
 
-    /**
-     * 使用系统标准输出，显示字符进度条及其百分比。
-     *
-     * @param minimum  进度条起始值
-     * @param maximum  进度条最大值
-     * @param barLen   进度条长度
-     * @param showChar 用于进度条显示的字符
-     */
     public ConsoleProgressBar(long minimum, long maximum,
                               long barLen, char showChar) {
         this.minimum = minimum;
@@ -48,11 +31,6 @@ public class ConsoleProgressBar {
         this.showChar = showChar;
     }
 
-    /**
-     * 显示进度条。
-     *
-     * @param value 当前进度。进度必须大于或等于起始点且小于等于结束点（start <= current <= end）。
-     */
     public void show(long value) {
         if (value < minimum || value > maximum) {
             return;
@@ -63,7 +41,6 @@ public class ConsoleProgressBar {
         float rate = (float) (minimum * 1.0 / maximum);
         long len = (long) (rate * barLen);
         draw(len, string);
-        //setString(format(rate));
         if (minimum == maximum) {
             afterComplete();
         }

@@ -7,7 +7,7 @@ import cn.newcraft.terminal.network.packet.DisconnectPacket;
 import cn.newcraft.terminal.network.packet.Packet;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
@@ -15,15 +15,14 @@ import java.net.Socket;
 public class Sender {
 
     private int id;
+    private int timeoutCount = 0;
     private Thread heartThread;
     private Socket socket;
-    private boolean firstConnect;
 
-    public Sender(Socket socket, Thread heartThread, int id, boolean firstConnect) {
+    public Sender(Socket socket, Thread heartThread, int id) {
         this.id = id;
         this.heartThread = heartThread;
         this.socket = socket;
-        this.firstConnect = firstConnect;
     }
 
     public int getId() {
@@ -62,14 +61,6 @@ public class Sender {
         sendPacket(new DisconnectPacket(reason));
     }
 
-    public boolean isFirstConnect() {
-        return firstConnect;
-    }
-
-    protected void setFirstConnect(boolean b) {
-        firstConnect = b;
-    }
-
     public void sendMessage(String str) {
         try {
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
@@ -86,10 +77,18 @@ public class Sender {
         if (event.isCancelled()) {
             return;
         }
-        OutputStream out = socket.getOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         if (length) out.write(bytes.length);
-        out.write(bytes);
+        out.writeObject(bytes);
         out.flush();
+    }
+
+    public void setTimeoutCount(int timeoutCount) {
+        this.timeoutCount = timeoutCount;
+    }
+
+    public int getTimeoutCount() {
+        return timeoutCount;
     }
 
     public String getHostAddress() {
@@ -101,16 +100,16 @@ public class Sender {
     }
 
     public static Sender getSender(int id) {
-        return ServerThread.getSenders().get(id);
+        return ServerThread.getSenderMap().get(id);
     }
 
     public static int spawnNewId() {
         int id = 0;
         while (true) {
-            if (ServerThread.getSenders().isEmpty()) {
+            if (ServerThread.getSenderMap().isEmpty()) {
                 return id;
             }
-            if (ServerThread.getSenders().get(id) != null) {
+            if (ServerThread.getSenderMap().get(id) != null) {
                 id++;
             } else {
                 return id;

@@ -1,9 +1,14 @@
 package cn.newcraft.terminal.screen.graphical.other;
 
+import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.screen.ScreenEvent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class PromptScreen extends JDialog {
 
@@ -24,6 +29,15 @@ public class PromptScreen extends JDialog {
     }
 
     public void show(String title, String message, int keepTime, boolean confirm, String confirmMessage) {
+        try {
+            ScreenEvent.GraphicalEvent.ShowPromptEvent event = new ScreenEvent.GraphicalEvent.ShowPromptEvent(title, message, keepTime, confirm, confirmMessage);
+            Event.callEvent(event);
+            if (event.isCancelled()) {
+                return;
+            }
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            Terminal.printException(this.getClass(), e);
+        }
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
         getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLUE, 1));

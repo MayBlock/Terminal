@@ -323,6 +323,11 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public int showMessagePane(String title, String message) {
+        try {
+            Event.callEvent(new ScreenEvent.ShowPaneEvent(title, message));
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            Terminal.printException(this.getClass(), e);
+        }
         return JOptionPane.showOptionDialog(this, message, title, jOptionPane, messageType, null, null, null);
     }
 

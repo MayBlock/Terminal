@@ -66,15 +66,15 @@ public class NetworkEvent {
     public static class ServerReceivedEvent extends Event {
 
         private Sender sender;
-        private byte[] bytes;
+        private Object input;
 
-        public ServerReceivedEvent(Sender sender, byte[] bytes) {
+        public ServerReceivedEvent(Sender sender, Object input) {
             this.sender = sender;
-            this.bytes = bytes;
+            this.input = input;
         }
 
-        public byte[] getBytes() {
-            return bytes;
+        public Object getInput() {
+            return input;
         }
 
         public Sender getSender() {

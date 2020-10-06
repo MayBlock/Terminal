@@ -135,15 +135,15 @@ public class Terminal {
                 }
             }).start();
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenders().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
                     try {
-                        ServerThread.getSenders().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         Terminal.printException(Terminal.class, e);
                     }
                 }
-                ServerThread.getServer().stopServer();
+                ServerThread.stopServerThread();
             }
             screen.onDisable();
             screen = null;
@@ -165,15 +165,15 @@ public class Terminal {
                 }
             }).start();
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenders().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
                     try {
-                        ServerThread.getSenders().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         Terminal.printException(Terminal.class, e);
                     }
                 }
-                ServerThread.getServer().stopServer();
+                ServerThread.stopServerThread();
             }
             screen.onDisable();
             screen = null;
@@ -186,15 +186,15 @@ public class Terminal {
         new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenders().size(); i++) {
+                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
                     try {
-                        ServerThread.getSenders().get(i).disconnect("Server Closed");
+                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
                     } catch (IOException ignored) {
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         Terminal.printException(Terminal.class, e);
                     }
                 }
-                ServerThread.getServer().stopServer();
+                ServerThread.stopServerThread();
             }
             screen.onDisable();
             screen = null;

@@ -95,6 +95,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             setLocationRelativeTo(null);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
             text = new JTextArea();
+            text.setCursor(new Cursor(Cursor.TEXT_CURSOR));
             text.setFont(new Font("宋体", Font.PLAIN, 15));
             text.setLineWrap(true);
             text.setWrapStyleWord(true);
@@ -186,6 +187,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
             execute = new JButton(">");
             int[] executeLogOffset = {175, 95};
+            execute.setCursor(new Cursor(Cursor.HAND_CURSOR));
             execute.addActionListener(arg0 -> {
                 if (input.getText().isEmpty()) {
                     input.requestFocus();
@@ -215,6 +217,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
             clearLog = new JButton("清除控制台日志");
             int[] clearLogOffset = {145, 780};
+            clearLog.setCursor(new Cursor(Cursor.HAND_CURSOR));
             clearLog.addActionListener(arg0 -> {
                 int jOptionPane = JOptionPane.showConfirmDialog(this, "确定要清理当前日志吗？", "清除日志", JOptionPane.YES_NO_OPTION);
                 if (jOptionPane == 0) {
@@ -232,6 +235,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
             theme = new JButton("切换主题");
             int[] themeOffset = {145, 740};
+            theme.setCursor(new Cursor(Cursor.HAND_CURSOR));
             theme.addActionListener(arg0 -> {
                 if (ThemeConfig.cfg.getYml().getConfigurationSection("theme") == null) {
                     JOptionPane.showConfirmDialog(this, "当前没有任何主题可用", "提示", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);

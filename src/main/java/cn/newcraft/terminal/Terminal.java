@@ -24,10 +24,10 @@ public class Terminal {
     private static Logger logger;
     private static boolean debug;
     private static Terminal instance;
-    private static Options options = new Options();
+    private static final Options options = new Options();
     private static Screen screen;
     private static Update update;
-    private static String name = "Terminal";
+    private static final String name = "Terminal";
     private static String programName;
 
     public static String getName() {
@@ -91,7 +91,6 @@ public class Terminal {
             Initialization init = new Initialization();
             init.initScreen();
             logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
-            //PropertyConfigurator.configure(Terminal.class.getResource("/log4j.properties"));
             screen.sendMessage(
                     "---------------------------------\n" +
                             "Terminal\n" +

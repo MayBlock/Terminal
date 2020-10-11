@@ -4,19 +4,20 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
+import org.jline.reader.*;
+import org.jline.terminal.TerminalBuilder;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
 
 public class ConsoleScreen extends Thread implements Screen {
 
 
-    private boolean inputScreenEnabled = true;
+    private boolean inputScreenEnabled = false;
     private boolean showMessageEnabled = true;
     private boolean showMessagePaneEnabled = true;
     private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
@@ -102,8 +103,7 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void run() {
-        Initialization init = new Initialization();
-        while (true) {
+        /*while (true) {
             Scanner sc = new Scanner(System.in);
             if (sc.hasNext() && inputScreenEnabled) {
                 if (Initialization.isInitialization) {
@@ -117,6 +117,34 @@ public class ConsoleScreen extends Thread implements Screen {
                     System.out.print("> ");
                 }
             }
+        }
+
+         */
+        Initialization init = new Initialization();
+        try {
+            org.jline.terminal.Terminal terminal = TerminalBuilder.builder()
+                    .dumb(true)
+                    .system(true)
+                    .build();
+            LineReader lineReader = LineReaderBuilder.builder()
+                    .terminal(terminal)
+                    .build();
+            while (true) {
+                String line;
+                line = lineReader.readLine("> ");
+                if (!line.isEmpty() && inputScreenEnabled) {
+                    if (Initialization.isInitialization) {
+                        init.initFirst(line);
+                    } else {
+                        Terminal.dispatchCommand(line);
+                        if (Terminal.isDebug()) {
+                            sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + line);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Terminal.printException(this.getClass(), e);
         }
     }
 }

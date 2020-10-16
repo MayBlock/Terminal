@@ -3,7 +3,7 @@ name: BUG反馈
 about: 反馈BUG以帮助我们继续改进
 title: "[BUG]"
 labels: bug
-assignees: ''
+assignees: MayBlock
 
 ---
 

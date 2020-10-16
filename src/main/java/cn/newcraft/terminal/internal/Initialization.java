@@ -9,6 +9,7 @@ import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.graphical.GraphicalListener;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
+import cn.newcraft.terminal.screen.graphical.other.LoadScreen;
 import cn.newcraft.terminal.update.console.ConsoleUpdate;
 import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.util.Method;
@@ -25,6 +26,7 @@ import java.util.TimeZone;
 
 public class Initialization {
 
+    private long startTime = System.currentTimeMillis();
     public static boolean isInitialization = false;
 
     public void initFirst(String in) {
@@ -78,7 +80,6 @@ public class Initialization {
     }
 
     public void initTerminal() {
-        long startTime = System.currentTimeMillis();
         try {
             Terminal.getScreen().setComponentEnabled(false);
             new Terminal().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
@@ -160,6 +161,7 @@ public class Initialization {
             System.exit(0);
             return;
         }
+        new LoadScreen().show("Terminal正在启动中");
         terminal.setScreen(new GraphicalScreen());
         terminal.setUpdate(new GraphicalUpdate());
     }

@@ -42,16 +42,25 @@ public class ServerThread extends Thread {
     @Override
     public void run() {
         int id = Sender.spawnNewId();
-        ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxThread());
-        try {
-            /** Init Connect **/
-            byte[] chancel;
-            while (true) {
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+        ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConnect());
+        /** Init Connect **/
+        byte[] chancel;
+        while (true) {
+            ObjectInputStream ois;
+            try {
+                ois = new ObjectInputStream(socket.getInputStream());
                 int chancelLength = ois.read();
                 chancel = new byte[chancelLength];
                 ois.read(chancel);
-
+            } catch (Exception e) {
+                try {
+                    socket.close();
+                } catch (IOException ex) {
+                    Terminal.printException(this.getClass(), ex);
+                }
+                break;
+            }
+            try {
                 /* ClientConnectEvent */
                 if (senderMap.get(id) == null) {
                     NetworkEvent.ClientConnectEvent connectEvent = new NetworkEvent.ClientConnectEvent(new String(chancel), socket);
@@ -68,19 +77,19 @@ public class ServerThread extends Thread {
                     Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
                 }
                 threadPool.submit(new ServerInputRunnable(senderMap.get(id), ois.readObject()));
-            }
-        } catch (IOException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
-            if (e.getMessage().equals("Socket closed")) {
-                return;
-            }
-            if (e.getMessage().equals("Connection reset")) {
-                try {
-                    senderMap.get(id).disconnect(e.toString());
-                } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
+            } catch (IOException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+                if (e.getMessage().equals("Socket closed")) {
                     return;
                 }
+                if (e.getMessage().equals("Connection reset")) {
+                    try {
+                        senderMap.get(id).disconnect(e.toString());
+                    } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
+                        return;
+                    }
+                }
+                Terminal.printException(this.getClass(), e);
             }
-            Terminal.printException(this.getClass(), e);
         }
     }
 
@@ -141,6 +150,9 @@ class ServerInputRunnable implements Runnable {
 
     @Override
     public void run() {
+        if (input == null || new String((byte[]) input, StandardCharsets.UTF_8).isEmpty()) {
+            return;
+        }
         try {
             Event.callEvent(new NetworkEvent.ServerReceivedEvent(sender, input));
         } catch (IllegalAccessException | InvocationTargetException e) {

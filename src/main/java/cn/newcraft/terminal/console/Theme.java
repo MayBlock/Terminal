@@ -22,14 +22,29 @@ public class Theme {
     private String selectedText;
     private String textBorder;
 
+    private String scrollBackground;
+    private String scrollTrack;
+
+    private String buttonBackground;
+    private String buttonForeground;
+    private String buttonBorder;
+
     private String inputBackground;
     private String inputForeground;
     private String inputBorder;
+
+    private static Theme currentTheme;
+
+    public static Theme getCurrentTheme() {
+        return currentTheme;
+    }
 
     protected static HashMap<String, Theme> themeHashMap = new HashMap<>();
 
     public Theme(String id, String name, String background, String copyright, String version,
                  String textBackground, String textForeground, String selection, String selectedText, String textBorder,
+                 String scrollBackground, String scrollTrack,
+                 String buttonBackground, String buttonForeground, String buttonBorder,
                  String inputBackground, String inputForeground, String inputBorder) {
         this.id = id;
         this.name = name;
@@ -41,6 +56,11 @@ public class Theme {
         this.selection = selection;
         this.selectedText = selectedText;
         this.textBorder = textBorder;
+        this.scrollBackground = scrollBackground;
+        this.scrollTrack = scrollTrack;
+        this.buttonBackground = buttonBackground;
+        this.buttonForeground = buttonForeground;
+        this.buttonBorder = buttonBorder;
         this.inputBackground = inputBackground;
         this.inputForeground = inputForeground;
         this.inputBorder = inputBorder;
@@ -118,6 +138,46 @@ public class Theme {
         return textBorder;
     }
 
+    public Color getScrollBackground() {
+        return Color.decode(scrollBackground);
+    }
+
+    public String getScrollBackgroundCode() {
+        return scrollBackground;
+    }
+
+    public Color getScrollTrack() {
+        return Color.decode(scrollTrack);
+    }
+
+    public String getScrollTrackCode() {
+        return scrollTrack;
+    }
+
+    public Color getButtonBackground() {
+        return Color.decode(buttonBackground.split(":")[0]);
+    }
+
+    public String getButtonBackgroundCode() {
+        return buttonBackground;
+    }
+
+    public Color getButtonForeground() {
+        return Color.decode(buttonForeground.split(":")[0]);
+    }
+
+    public String getButtonForegroundCode() {
+        return buttonForeground;
+    }
+
+    public Color getButtonBorder() {
+        return Color.decode(buttonBorder.split(":")[0]);
+    }
+
+    public String getButtonBorderCode() {
+        return buttonBorder;
+    }
+
     public Color getInputBackground() {
         return Color.decode(inputBackground.split(":")[0]);
     }
@@ -155,10 +215,17 @@ public class Theme {
             String selectedText = ThemeConfig.cfg.getYml().getString("theme." + id + ".text.selectedText");
             String textBorder = ThemeConfig.cfg.getYml().getString("theme." + id + ".text.border");
 
+            String scrollBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".scrollbar.background");
+            String scrollTrack = ThemeConfig.cfg.getYml().getString("theme." + id + ".scrollbar.track");
+
+            String buttonBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".button.background");
+            String buttonForeground = ThemeConfig.cfg.getYml().getString("theme." + id + ".button.foreground");
+            String buttonBorder = ThemeConfig.cfg.getYml().getString("theme." + id + ".button.border");
+
             String inputBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.background");
             String inputForeground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.foreground");
             String inputBorder = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.border");
-            Theme.themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
+            Theme.themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputBorder));
         }
     }
 
@@ -172,6 +239,13 @@ public class Theme {
         String selection = Terminal.getOptions().getTheme(id).getSelectionCode();
         String selectedText = Terminal.getOptions().getTheme(id).getSelectedTextCode();
         String textBorder = Terminal.getOptions().getTheme(id).getTextBorderCode();
+
+        String scrollBackground = Terminal.getOptions().getTheme(id).getScrollBackgroundCode();
+        String scrollTrack = Terminal.getOptions().getTheme(id).getScrollTrackCode();
+
+        String buttonBackground = Terminal.getOptions().getTheme(id).getButtonBackgroundCode();
+        String buttonForeground = Terminal.getOptions().getTheme(id).getButtonForegroundCode();
+        String buttonBorder = Terminal.getOptions().getTheme(id).getButtonBorderCode();
 
         String inputBackground = Terminal.getOptions().getTheme(id).getInputBackgroundCode();
         String inputForeground = Terminal.getOptions().getTheme(id).getInputForegroundCode();
@@ -187,11 +261,26 @@ public class Theme {
         Terminal.getScreen().getGraphicalScreen().getTextArea().setBorder(BorderFactory.createLineBorder(Color.decode(split[0]), Integer.parseInt(split[1])));
         Terminal.getScreen().getGraphicalScreen().getInput().setBackground(Color.decode(inputBackground));
         Terminal.getScreen().getGraphicalScreen().getInput().setForeground(Color.decode(inputForeground));
-        String[] split1 = inputBorder.split(":");
-        Terminal.getScreen().getGraphicalScreen().getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        String[] split1 = buttonBorder.split(":");
+        Terminal.getScreen().getGraphicalScreen().getClearLog().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        Terminal.getScreen().getGraphicalScreen().getClearLog().setBackground(Color.decode(buttonBackground));
+        Terminal.getScreen().getGraphicalScreen().getClearLog().setForeground(Color.decode(buttonForeground));
+
+        Terminal.getScreen().getGraphicalScreen().getExecute().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        Terminal.getScreen().getGraphicalScreen().getExecute().setBackground(Color.decode(buttonBackground));
+        Terminal.getScreen().getGraphicalScreen().getExecute().setForeground(Color.decode(buttonForeground));
+
+        Terminal.getScreen().getGraphicalScreen().getTheme().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        Terminal.getScreen().getGraphicalScreen().getTheme().setBackground(Color.decode(buttonBackground));
+        Terminal.getScreen().getGraphicalScreen().getTheme().setForeground(Color.decode(buttonForeground));
+
+        String[] split2 = inputBorder.split(":");
+        Terminal.getScreen().getGraphicalScreen().getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split2[0]), Integer.parseInt(split2[1])));
         Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getOptions().getTheme(id).getBackgroundCode()));
 
-        themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, inputBackground, inputForeground, inputBorder));
+        Theme theme = new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputBorder);
+        currentTheme = theme;
+        themeHashMap.put(id, theme);
         try {
             Event.callEvent(new ConsoleEvent.ChangeThemeEvent(themeHashMap.get(id)));
         } catch (InvocationTargetException | IllegalAccessException e) {

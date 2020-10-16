@@ -25,7 +25,9 @@ public class PromptScreen extends JDialog {
                 this.getGraphicsConfiguration());
         x = (int) (dim.getWidth() - width - 3);
         y = (int) (dim.getHeight() - screenInsets.bottom - 3);
-        onScreen();
+        this.setSize(width, height);
+        this.setLocation(x, y);
+        this.setBackground(Color.BLACK);
     }
 
     public void show(String title, String message, int keepTime, boolean confirm, String confirmMessage) {
@@ -192,13 +194,6 @@ public class PromptScreen extends JDialog {
             }
             close();
         }).start();
-    }
-
-
-    public void onScreen() {
-        this.setSize(width, height);
-        this.setLocation(x, y);
-        this.setBackground(Color.BLACK);
     }
 
     public void close() {

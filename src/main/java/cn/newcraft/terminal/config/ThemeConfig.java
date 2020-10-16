@@ -24,6 +24,13 @@ public class ThemeConfig extends ConfigManager {
         cfg.getYml().addDefault("theme.white.text.selectedText", "#000000");
         cfg.getYml().addDefault("theme.white.text.border", "#FFFFFF:1");
 
+        cfg.getYml().addDefault("theme.white.scrollbar.background", "#EAEDED");
+        cfg.getYml().addDefault("theme.white.scrollbar.track", "#C2C2C2");
+
+        cfg.getYml().addDefault("theme.white.button.background", "#E5FFFF");
+        cfg.getYml().addDefault("theme.white.button.foreground", "#000000");
+        cfg.getYml().addDefault("theme.white.button.border", "#C2C2C2:1");
+
         cfg.getYml().addDefault("theme.white.input.background", "#FFFFFF");
         cfg.getYml().addDefault("theme.white.input.foreground", "#000000");
         cfg.getYml().addDefault("theme.white.input.border", "#000000:1");
@@ -39,6 +46,13 @@ public class ThemeConfig extends ConfigManager {
         cfg.getYml().addDefault("theme.gray.text.selection", "#6666CC");
         cfg.getYml().addDefault("theme.gray.text.selectedText", "#33CCFF");
         cfg.getYml().addDefault("theme.gray.text.border", "#000000:1");
+
+        cfg.getYml().addDefault("theme.gray.scrollbar.background", "#808080");
+        cfg.getYml().addDefault("theme.gray.scrollbar.track", "#C2C2C2");
+
+        cfg.getYml().addDefault("theme.gray.button.background", "#404040");
+        cfg.getYml().addDefault("theme.gray.button.foreground", "#00FF00");
+        cfg.getYml().addDefault("theme.gray.button.border", "#000000:2");
 
         cfg.getYml().addDefault("theme.gray.input.background", "#404040");
         cfg.getYml().addDefault("theme.gray.input.foreground", "#00FF00");

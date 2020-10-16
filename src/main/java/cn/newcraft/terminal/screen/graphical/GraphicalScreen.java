@@ -5,6 +5,9 @@ import cn.newcraft.terminal.console.ConsoleEvent;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.graphical.module.Button;
+import cn.newcraft.terminal.screen.graphical.module.ScrollPane;
+import cn.newcraft.terminal.screen.graphical.other.LoadScreen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
 import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.util.Method;
@@ -16,8 +19,6 @@ import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
 import com.google.common.collect.Lists;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +87,7 @@ public class GraphicalScreen extends JFrame implements Screen {
     public void onScreen() {
         try {
             Collections.reverse(cache);
-            ImageIcon icon = new ImageIcon(this.getClass().getResource("/console.png"));
+            ImageIcon icon = new ImageIcon(Terminal.getOptions().getImageResource());
             setIconImage(icon.getImage());
             setLayout(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +109,8 @@ public class GraphicalScreen extends JFrame implements Screen {
             title.setBounds(20, 20, 150, 20);
             add(title);
 
-            JLabel str = new JLabel("公告：" + announcement);
+            JLabel str = new JLabel("公告：" + announcement, JLabel.CENTER);
+            //str.setHorizontalAlignment(SwingConstants.CENTER);
             str.setForeground(Color.RED);
             str.setFont(new Font("宋体", Font.BOLD, 14));
             str.setBounds(180, 5, 500, 20);
@@ -116,7 +118,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
             version = new JLabel("Version:  " + Terminal.getOptions().getCanonicalVersion());
             //int[] versionLogOffset = {185, 60}; // alpha
-            int[] versionLogOffset = {180, 60}; // beta
+            int[] versionLogOffset = {195, 60}; // beta
             add(version);
 
             copyright = new JLabel("©2020 May_Block 版权所有，保留所有权利");
@@ -124,6 +126,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             add(copyright);
 
             scrollPane = new JScrollPane(text);
+            scrollPane.getVerticalScrollBar().setUI(new ScrollPane());
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             add(scrollPane);
 
@@ -185,7 +188,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             });
             add(input);
 
-            execute = new JButton(">");
+            execute = new Button(">");
             int[] executeLogOffset = {175, 95};
             execute.setCursor(new Cursor(Cursor.HAND_CURSOR));
             execute.addActionListener(arg0 -> {
@@ -215,7 +218,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             });
             add(execute);
 
-            clearLog = new JButton("清除控制台日志");
+            clearLog = new Button("清除控制台日志");
             int[] clearLogOffset = {145, 780};
             clearLog.setCursor(new Cursor(Cursor.HAND_CURSOR));
             clearLog.addActionListener(arg0 -> {
@@ -233,7 +236,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             });
             add(clearLog);
 
-            theme = new JButton("切换主题");
+            theme = new Button("切换主题");
             int[] themeOffset = {145, 740};
             theme.setCursor(new Cursor(Cursor.HAND_CURSOR));
             theme.addActionListener(arg0 -> {
@@ -279,7 +282,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                     text.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     scrollPane.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
-                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 170, 20);
+                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 200, 20);
                     copyright.setBounds(5, d.height - copyrightOffset[1], 250, 20);
                     execute.setBounds(d.width - executeLogOffset[0], d.height - executeLogOffset[1], 41, 30);
                     clearLog.setBounds(d.width - clearLogOffset[0], 40, 125, 30);
@@ -296,6 +299,7 @@ public class GraphicalScreen extends JFrame implements Screen {
         } catch (Exception e) {
             Terminal.printException(this.getClass(), e);
         }
+        new LoadScreen().close();
     }
 
     public void showPromptScreen(String title, String message, int keepTime, boolean confirm, String confirmMessage) {

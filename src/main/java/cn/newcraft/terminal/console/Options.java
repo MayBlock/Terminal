@@ -2,12 +2,13 @@ package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.config.ServerConfig;
 
+import java.net.URL;
 import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.6.0";
-    private String canonicalVersion = "1.6.0.201011_beta";
+    private String version = "1.0.0";
+    private String canonicalVersion = "1.0.0.201015_release";
     private int apiVersion = 4;
     private TimeZone timeZone = TimeZone.getDefault();
 
@@ -15,12 +16,16 @@ public class Options {
         return version;
     }
 
+    public URL getImageResource() {
+        return this.getClass().getResource("/console.png");
+    }
+
     public int getApiVersion() {
         return apiVersion;
     }
 
-    public int getMaxThread() {
-        return ServerConfig.cfg.getYml().getInt("server.max_thread");
+    public int getMaxConnect() {
+        return ServerConfig.cfg.getYml().getInt("server.max_connect");
     }
 
     public String getCanonicalVersion() {

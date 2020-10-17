@@ -61,7 +61,7 @@ public class ExamplePlugin extends MainPlugin {
 ```
 
 ## 添加引导
-在项目根目录创建名为“plugin.yml”的文件夹并如下进行配置
+在项目根目录创建名为“plugin.yml”的文件并如下进行配置
 ```plugin
 name: ExamplePlugin // 项目名（必填）
 main: com.google.exampleplugin.Main // 项目主类路径（必填）

@@ -3,7 +3,7 @@
 ## 导入Terminal作为依赖
 
 ### Maven
-```maven
+```xml
 1.将存储库添加到你的Maven构建中
 <repositories>
 	<repository>
@@ -20,7 +20,7 @@
 </dependency>
 ```
 ### Grade
-```grade
+```groovy
 1.将其添加到存储库末尾的build.gradle中
 allprojects {
 	repositories {
@@ -36,7 +36,7 @@ dependencies {
 ```
 
 ## 配置主类
-```main
+```java
 public class ExamplePlugin extends MainPlugin {
 
     public ExamplePlugin() {
@@ -63,7 +63,7 @@ public class ExamplePlugin extends MainPlugin {
 ## 添加引导
 在项目根目录创建名为“plugin.yml”的文件并如下进行配置
 
-```plugin
+```yaml
 name: ExamplePlugin #项目名（必填）
 main: com.google.exampleplugin.Main #项目主类路径（必填）
 version: 1.0.0 #项目版本（必填）

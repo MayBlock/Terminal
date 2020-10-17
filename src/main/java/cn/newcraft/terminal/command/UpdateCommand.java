@@ -21,9 +21,9 @@ public class UpdateCommand extends CommandManager {
         Update update = Terminal.getUpdate();
         switch (args[1]) {
             case "help":
-                screen.sendMessage("update help - 获取更新帮助");
-                screen.sendMessage("update check - 检查更新");
-                screen.sendMessage("update latest - 更新至最新版本");
+                screen.sendMessage(getCommand() + " help - 获取更新帮助");
+                screen.sendMessage(getCommand() + " check - 检查更新");
+                screen.sendMessage(getCommand() + " latest - 更新至最新版本");
                 break;
             case "check":
                 screen.sendMessage("检查更新...");

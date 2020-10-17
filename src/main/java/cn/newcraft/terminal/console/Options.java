@@ -7,8 +7,8 @@ import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.0.0";
-    private String canonicalVersion = "1.0.0.201015_release";
+    private String version = "1.1.0";
+    private String canonicalVersion = "1.1.0.201017_release";
     private int apiVersion = 4;
     private TimeZone timeZone = TimeZone.getDefault();
 
@@ -36,12 +36,14 @@ public class Options {
         return timeZone;
     }
 
+    @Deprecated
     public Theme getTheme(String id) {
-        return Theme.themeHashMap.get(id);
+        return Theme.getThemeMap().get(id);
     }
 
+    @Deprecated
     public Theme getDefaultTheme() {
-        return Theme.themeHashMap.get(ServerConfig.cfg.getYml().getString("server.default_theme"));
+        return Theme.getThemeMap().get(ServerConfig.cfg.getYml().getString("server.default_theme"));
     }
 
     public void setTimeZone(TimeZone timeZone) {

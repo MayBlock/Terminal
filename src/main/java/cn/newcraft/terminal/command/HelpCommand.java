@@ -34,15 +34,18 @@ public class HelpCommand extends CommandManager {
 
             /* 排序commands并使用forEach遍历并输出 */
             commands.sort(comparator);
-            commands.forEach(command -> screen.sendMessage(command + " - " + CommandManager.getCommands().get(command).getDesc()));
+            commands.forEach(command -> screen.sendMessage(command.split(":")[1] + " - " + CommandManager.getCommands().get(command).getDesc()));
             screen.sendMessage("\n小提示：输入\"help <命令>\"可以查看该命令的详细用法哦\n");
             return;
         }
-        if (CommandManager.isExist(args[1])) {
-            screen.sendMessage("#---------- 命令 '" + args[1] + "' 的帮助 ----------#");
-            screen.sendMessage("主命令：" + args[1]);
-            screen.sendMessage("说明：" + CommandManager.getCommands().get(args[1]).getDesc());
-            screen.sendMessage("用法：" + CommandManager.getCommands().get(args[1]).getUsage());
+        String existCommand = CommandManager.isExist(args[1]);
+        System.out.println(existCommand);
+        if (existCommand != null) {
+            screen.sendMessage("#---------- 命令 '" + existCommand.split(":")[1] + "' 的帮助 ----------#");
+            screen.sendMessage("主命令：" + existCommand.split(":")[1] + " (" + existCommand + ")");
+            screen.sendMessage("说明：" + CommandManager.getCommands().get(existCommand).getDesc());
+            screen.sendMessage("用法：" + CommandManager.getCommands().get(existCommand).getUsage());
+            screen.sendMessage(CommandManager.getCommands().get(existCommand).getAliases() != null ? "别称：" + Arrays.asList(CommandManager.getCommands().get(existCommand).getAliases()).toString() : "别称：无");
         } else {
             screen.sendMessage("查询失败，命令 " + args[1] + " 不存在！");
         }

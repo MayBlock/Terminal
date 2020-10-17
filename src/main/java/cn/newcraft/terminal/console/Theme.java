@@ -1,13 +1,17 @@
 package cn.newcraft.terminal.console;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Theme {
 
@@ -31,6 +35,7 @@ public class Theme {
 
     private String inputBackground;
     private String inputForeground;
+    private String inputCaret;
     private String inputBorder;
 
     private static Theme currentTheme;
@@ -39,13 +44,21 @@ public class Theme {
         return currentTheme;
     }
 
-    protected static HashMap<String, Theme> themeHashMap = new HashMap<>();
+    public static Theme getDefaultTheme() {
+        return Theme.getThemeMap().get(ServerConfig.cfg.getYml().getString("server.default_theme"));
+    }
+
+    private static Map<String, Theme> themeHashMap = new HashMap<>();
+
+    public static Map<String, Theme> getThemeMap() {
+        return themeHashMap;
+    }
 
     public Theme(String id, String name, String background, String copyright, String version,
                  String textBackground, String textForeground, String selection, String selectedText, String textBorder,
                  String scrollBackground, String scrollTrack,
                  String buttonBackground, String buttonForeground, String buttonBorder,
-                 String inputBackground, String inputForeground, String inputBorder) {
+                 String inputBackground, String inputForeground, String inputCaret, String inputBorder) {
         this.id = id;
         this.name = name;
         this.background = background;
@@ -63,6 +76,7 @@ public class Theme {
         this.buttonBorder = buttonBorder;
         this.inputBackground = inputBackground;
         this.inputForeground = inputForeground;
+        this.inputCaret = inputCaret;
         this.inputBorder = inputBorder;
     }
 
@@ -194,6 +208,14 @@ public class Theme {
         return inputForeground;
     }
 
+    public Color getInputCaret() {
+        return Color.decode(inputCaret);
+    }
+
+    public String getInputCaretCode() {
+        return inputCaret;
+    }
+
     public Color getInputBorder() {
         return Color.decode(inputBorder.split(":")[0]);
     }
@@ -224,61 +246,68 @@ public class Theme {
 
             String inputBackground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.background");
             String inputForeground = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.foreground");
+            String inputCaret = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.caret");
             String inputBorder = ThemeConfig.cfg.getYml().getString("theme." + id + ".input.border");
-            Theme.themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputBorder));
+            Theme.themeHashMap.put(id, new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputCaret, inputBorder));
         }
     }
 
     public static void changeTheme(String id) {
-        String name = Terminal.getOptions().getTheme(id).getName();
-        String background = Terminal.getOptions().getTheme(id).getBackgroundCode();
-        String copyright = Terminal.getOptions().getTheme(id).getCopyrightCode();
-        String version = Terminal.getOptions().getTheme(id).getVersionCode();
-        String textBackground = Terminal.getOptions().getTheme(id).getTextBackgroundCode();
-        String textForeground = Terminal.getOptions().getTheme(id).getTextForegroundCode();
-        String selection = Terminal.getOptions().getTheme(id).getSelectionCode();
-        String selectedText = Terminal.getOptions().getTheme(id).getSelectedTextCode();
-        String textBorder = Terminal.getOptions().getTheme(id).getTextBorderCode();
+        GraphicalScreen screen = Terminal.getScreen().getGraphicalScreen();
 
-        String scrollBackground = Terminal.getOptions().getTheme(id).getScrollBackgroundCode();
-        String scrollTrack = Terminal.getOptions().getTheme(id).getScrollTrackCode();
+        String name = Terminal.getTheme(id).getName();
+        String background = Terminal.getTheme(id).getBackgroundCode();
+        String copyright = Terminal.getTheme(id).getCopyrightCode();
+        String version = Terminal.getTheme(id).getVersionCode();
+        String textBackground = Terminal.getTheme(id).getTextBackgroundCode();
+        String textForeground = Terminal.getTheme(id).getTextForegroundCode();
+        String selection = Terminal.getTheme(id).getSelectionCode();
+        String selectedText = Terminal.getTheme(id).getSelectedTextCode();
+        String textBorder = Terminal.getTheme(id).getTextBorderCode();
 
-        String buttonBackground = Terminal.getOptions().getTheme(id).getButtonBackgroundCode();
-        String buttonForeground = Terminal.getOptions().getTheme(id).getButtonForegroundCode();
-        String buttonBorder = Terminal.getOptions().getTheme(id).getButtonBorderCode();
+        String scrollBackground = Terminal.getTheme(id).getScrollBackgroundCode();
+        String scrollTrack = Terminal.getTheme(id).getScrollTrackCode();
 
-        String inputBackground = Terminal.getOptions().getTheme(id).getInputBackgroundCode();
-        String inputForeground = Terminal.getOptions().getTheme(id).getInputForegroundCode();
-        String inputBorder = Terminal.getOptions().getTheme(id).getInputBorderCode();
+        String buttonBackground = Terminal.getTheme(id).getButtonBackgroundCode();
+        String buttonForeground = Terminal.getTheme(id).getButtonForegroundCode();
+        String buttonBorder = Terminal.getTheme(id).getButtonBorderCode();
 
-        Terminal.getScreen().getGraphicalScreen().getTextArea().setBackground(Color.decode(textBackground));
-        Terminal.getScreen().getGraphicalScreen().getTextArea().setForeground(Color.decode(textForeground));
-        Terminal.getScreen().getGraphicalScreen().getCopyright().setForeground(Color.decode(copyright));
-        Terminal.getScreen().getGraphicalScreen().getVersion().setForeground(Color.decode(version));
-        Terminal.getScreen().getGraphicalScreen().getTextArea().setSelectionColor(Color.decode(selection));
-        Terminal.getScreen().getGraphicalScreen().getTextArea().setSelectedTextColor(Color.decode(selectedText));
+        String inputBackground = Terminal.getTheme(id).getInputBackgroundCode();
+        String inputForeground = Terminal.getTheme(id).getInputForegroundCode();
+        String inputCaret = Terminal.getTheme(id).getInputCaretCode();
+        String inputBorder = Terminal.getTheme(id).getInputBorderCode();
+
+        screen.getTextArea().setBackground(Color.decode(textBackground));
+        screen.getTextArea().setForeground(Color.decode(textForeground));
+        screen.getCopyright().setForeground(Color.decode(copyright));
+        screen.getVersion().setForeground(Color.decode(version));
+        screen.getTextArea().setSelectionColor(Color.decode(selection));
+        screen.getTextArea().setSelectedTextColor(Color.decode(selectedText));
         String[] split = textBorder.split(":");
-        Terminal.getScreen().getGraphicalScreen().getTextArea().setBorder(BorderFactory.createLineBorder(Color.decode(split[0]), Integer.parseInt(split[1])));
-        Terminal.getScreen().getGraphicalScreen().getInput().setBackground(Color.decode(inputBackground));
-        Terminal.getScreen().getGraphicalScreen().getInput().setForeground(Color.decode(inputForeground));
+        screen.getTextArea().setBorder(BorderFactory.createLineBorder(Color.decode(split[0]), Integer.parseInt(split[1])));
+        screen.getInput().setBackground(Color.decode(inputBackground));
+        screen.getInput().setForeground(Color.decode(inputForeground));
+        screen.getInput().setCaretColor(Color.decode(inputCaret));
+        screen.getInput().setSelectionColor(Color.decode(selection));
+        screen.getInput().setSelectedTextColor(Color.decode(selectedText));
         String[] split1 = buttonBorder.split(":");
-        Terminal.getScreen().getGraphicalScreen().getClearLog().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
-        Terminal.getScreen().getGraphicalScreen().getClearLog().setBackground(Color.decode(buttonBackground));
-        Terminal.getScreen().getGraphicalScreen().getClearLog().setForeground(Color.decode(buttonForeground));
+        screen.getClearLog().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        screen.getClearLog().setBackground(Color.decode(buttonBackground));
+        screen.getClearLog().setForeground(Color.decode(buttonForeground));
 
-        Terminal.getScreen().getGraphicalScreen().getExecute().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
-        Terminal.getScreen().getGraphicalScreen().getExecute().setBackground(Color.decode(buttonBackground));
-        Terminal.getScreen().getGraphicalScreen().getExecute().setForeground(Color.decode(buttonForeground));
+        screen.getExecute().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        screen.getExecute().setBackground(Color.decode(buttonBackground));
+        screen.getExecute().setForeground(Color.decode(buttonForeground));
 
-        Terminal.getScreen().getGraphicalScreen().getTheme().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
-        Terminal.getScreen().getGraphicalScreen().getTheme().setBackground(Color.decode(buttonBackground));
-        Terminal.getScreen().getGraphicalScreen().getTheme().setForeground(Color.decode(buttonForeground));
+        screen.getTheme().setBorder(BorderFactory.createLineBorder(Color.decode(split1[0]), Integer.parseInt(split1[1])));
+        screen.getTheme().setBackground(Color.decode(buttonBackground));
+        screen.getTheme().setForeground(Color.decode(buttonForeground));
 
         String[] split2 = inputBorder.split(":");
-        Terminal.getScreen().getGraphicalScreen().getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split2[0]), Integer.parseInt(split2[1])));
-        Terminal.getScreen().getGraphicalScreen().getContentPane().setBackground(Color.decode(Terminal.getOptions().getTheme(id).getBackgroundCode()));
+        screen.getInput().setBorder(BorderFactory.createLineBorder(Color.decode(split2[0]), Integer.parseInt(split2[1])));
+        screen.getContentPane().setBackground(Color.decode(Terminal.getTheme(id).getBackgroundCode()));
 
-        Theme theme = new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputBorder);
+        Theme theme = new Theme(id, name, background, copyright, version, textBackground, textForeground, selection, selectedText, textBorder, scrollBackground, scrollTrack, buttonBackground, buttonForeground, buttonBorder, inputBackground, inputForeground, inputCaret, inputBorder);
         currentTheme = theme;
         themeHashMap.put(id, theme);
         try {

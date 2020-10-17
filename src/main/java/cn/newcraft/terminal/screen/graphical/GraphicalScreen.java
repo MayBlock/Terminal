@@ -110,15 +110,13 @@ public class GraphicalScreen extends JFrame implements Screen {
             add(title);
 
             JLabel str = new JLabel("公告：" + announcement, JLabel.CENTER);
-            //str.setHorizontalAlignment(SwingConstants.CENTER);
             str.setForeground(Color.RED);
             str.setFont(new Font("宋体", Font.BOLD, 14));
             str.setBounds(180, 5, 500, 20);
             add(str);
 
             version = new JLabel("Version:  " + Terminal.getOptions().getCanonicalVersion());
-            //int[] versionLogOffset = {185, 60}; // alpha
-            int[] versionLogOffset = {195, 60}; // beta
+            int[] versionLogOffset = {195, 60};
             add(version);
 
             copyright = new JLabel("©2020 May_Block 版权所有，保留所有权利");

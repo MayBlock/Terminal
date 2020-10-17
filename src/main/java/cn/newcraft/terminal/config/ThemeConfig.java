@@ -33,6 +33,7 @@ public class ThemeConfig extends ConfigManager {
 
         cfg.getYml().addDefault("theme.white.input.background", "#FFFFFF");
         cfg.getYml().addDefault("theme.white.input.foreground", "#000000");
+        cfg.getYml().addDefault("theme.white.input.caret", "#000000");
         cfg.getYml().addDefault("theme.white.input.border", "#000000:1");
 
 
@@ -56,6 +57,7 @@ public class ThemeConfig extends ConfigManager {
 
         cfg.getYml().addDefault("theme.gray.input.background", "#404040");
         cfg.getYml().addDefault("theme.gray.input.foreground", "#00FF00");
+        cfg.getYml().addDefault("theme.gray.input.caret", "#00FF00");
         cfg.getYml().addDefault("theme.gray.input.border", "#000000:2");
         cfg.save();
         Theme.Init();

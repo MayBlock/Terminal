@@ -2,6 +2,7 @@ package cn.newcraft.terminal;
 
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
+import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
@@ -44,6 +45,10 @@ public class Terminal {
 
     public static Update getUpdate() {
         return update;
+    }
+
+    public static Theme getTheme(String id) {
+        return Theme.getThemeMap().get(id);
     }
 
     public static boolean isDebug() {

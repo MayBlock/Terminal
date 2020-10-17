@@ -1,6 +1,6 @@
 # Terminal
 
-##导入Terminal作为依赖
+## 导入Terminal作为依赖
 ```maven
 1.将存储库添加到你的Maven构建中
 <repositories>
@@ -32,7 +32,7 @@ dependencies {
 }
 ```
 
-###配置主类
+### 配置主类
 ```main
 public class ExamplePlugin extends MainPlugin {
 

@@ -58,3 +58,15 @@ public class ExamplePlugin extends MainPlugin {
         // override onDisable()
     }
 }
+```
+
+##添加引导
+在项目根目录创建名为“plugin.yml”的文件夹并如下进行配置
+```plugin
+name: ExamplePlugin // 项目名（必填）
+main: cn.newcraft.lmachine.Main // 项目主类路径（必填）
+version: 1.0.0 // 项目版本（必填）
+author: May_Block // 项目作者（选填）
+prefix: ExamplePlugin // 项目前缀（选填）
+api-version: 4 // 支持Terminal的API版本（选填）
+```

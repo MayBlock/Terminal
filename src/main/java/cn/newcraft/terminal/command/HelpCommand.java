@@ -10,7 +10,7 @@ import java.util.*;
 public class HelpCommand extends CommandManager {
 
     public HelpCommand() {
-        super("help", "获取所有命令帮助", "help <Command>");
+        super("help", "获取所有命令帮助", "help <Command>", "?");
     }
 
     private static Comparator comparator = Collator.getInstance(Locale.ENGLISH);
@@ -23,22 +23,30 @@ public class HelpCommand extends CommandManager {
             List<String> commands = Lists.newArrayList();
             /* 获取Terminal命令并使用forEach遍历存储至commands中 */
             List<CommandInfo> terminal = getCommandsInfo().get("Terminal");
-            terminal.forEach(info -> commands.add(info.getCommand()));
+            terminal.forEach(info -> {
+                System.out.println(info.getCommand());
+                commands.add(info.getCommand().split(":")[1]);
+            });
 
             /* 获取插件的Key并使用forEach遍历存储至commands中 */
             Set<String> plugins = PluginManager.getPlugins().keySet();
             plugins.forEach(name -> {
                 List<CommandInfo> pluginInfo = getCommandsInfo().get(PluginManager.getPlugin(name).getPluginName());
-                pluginInfo.forEach(info -> commands.add(info.getCommand()));
+                pluginInfo.forEach(info -> {
+                    System.out.println(info.getCommand());
+                    commands.add(info.getCommand().split(":")[1]);
+                });
             });
+
+            System.out.println("List: " + commands.toString());
 
             /* 排序commands并使用forEach遍历并输出 */
             commands.sort(comparator);
-            commands.forEach(command -> screen.sendMessage(command.split(":")[1] + " - " + CommandManager.getCommands().get(command).getDesc()));
+            commands.forEach(command -> screen.sendMessage(command + " - " + CommandManager.getCommands().get(CommandManager.exist(command)).getDesc()));
             screen.sendMessage("\n小提示：输入\"help <命令>\"可以查看该命令的详细用法哦\n");
             return;
         }
-        String existCommand = CommandManager.isExist(args[1]);
+        String existCommand = CommandManager.exist(args[1]);
         System.out.println(existCommand);
         if (existCommand != null) {
             screen.sendMessage("#---------- 命令 '" + existCommand.split(":")[1] + "' 的帮助 ----------#");

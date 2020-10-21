@@ -6,7 +6,7 @@
 
     <groupId>cn.newcraft.terminal</groupId>
     <artifactId>terminal</artifactId>
-    <version>1.1.0.201017_release</version>
+    <version>1.1.1.201021_release</version>
     <packaging>jar</packaging>
 
     <name>Terminal</name>
@@ -125,5 +125,4 @@
             <version>1.15</version>
         </dependency>
     </dependencies>
-
 </project>

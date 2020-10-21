@@ -3,11 +3,8 @@ package cn.newcraft.terminal.console;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.event.Event;
-import com.google.common.collect.Lists;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
 
 public class SendCommand {
 
@@ -19,7 +16,7 @@ public class SendCommand {
             Terminal.printException(this.getClass(), e);
         }
         if (commandEvent.isCancelled()) return;
-        String exitsCommand = CommandManager.isExist(command[0]);
+        String exitsCommand = CommandManager.exist(command[0]);
         if (exitsCommand == null) {
             Terminal.getScreen().sendMessage("命令不存在，输入 \"help\" 获取命令帮助");
             return;

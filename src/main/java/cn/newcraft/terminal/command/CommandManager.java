@@ -13,7 +13,6 @@ import java.util.List;
 
 public abstract class CommandManager extends CommandInfo {
 
-
     private static HashMap<String, CommandManager> commands = new HashMap<>();
     private static HashMap<String, List<CommandInfo>> commandsInfo = new HashMap<>();
 
@@ -33,16 +32,16 @@ public abstract class CommandManager extends CommandInfo {
         return commands;
     }
 
-    public static String isExist(String command) {
+    public static String exist(String command) {
         if (CommandManager.getCommands().get(command) != null) {
             return command;
         }
+        if (CommandManager.getCommands().get("terminal:" + command.toLowerCase()) != null) {
+            return "terminal:" + command.toLowerCase();
+        }
         for (String plugin : PluginManager.getPlugins().keySet()) {
-            System.out.println((plugin + ":" + command).toLowerCase());
             if (CommandManager.getCommands().get((plugin + ":" + command).toLowerCase()) != null) {
                 return (plugin + ":" + command).toLowerCase();
-            } else if (CommandManager.getCommands().get("terminal:" + command.toLowerCase()) != null) {
-                return "terminal:" + command.toLowerCase();
             }
         }
         for (String cmd : getCommands().keySet()) {

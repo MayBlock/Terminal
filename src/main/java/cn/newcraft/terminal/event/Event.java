@@ -13,28 +13,27 @@ public class Event {
 
     private static HashMap<Plugin, List<Listener>> listenerMap = new HashMap<>();
 
-    public static HashMap<Plugin, List<Listener>> getListener() {
+    public static HashMap<Plugin, List<Listener>> getListeners() {
         return listenerMap;
     }
 
     public static void regListener(Plugin plugin, Listener listener) {
-        List<Listener> listeners;
-        if (listenerMap.get(plugin) == null) {
-            listeners = Lists.newArrayList();
+        List<Listener> list;
+        if (listenerMap.get(plugin) != null) {
+            list = listenerMap.get(plugin);
         } else {
-            listeners = listenerMap.get(plugin);
+            list = Lists.newArrayList();
         }
-        listeners.add(listener);
-        listenerMap.put(plugin, listeners);
+        list.add(listener);
+        listenerMap.put(plugin, list);
     }
 
     public static void callEvent(Event event) throws InvocationTargetException, IllegalAccessException {
-        for (List<Listener> listenerList : listenerMap.values()) {
-            for (Listener listener : listenerList) {
+        for (List<Listener> listeners : listenerMap.values()) {
+            for (Listener listener : listeners) {
                 for (Method m : listener.getClass().getMethods()) {
                     if (m.isAnnotationPresent(SubscribeEvent.class)) {
-                        Parameter[] parameters = m.getParameters();
-                        for (Parameter parameter : parameters) {
+                        for (Parameter parameter : m.getParameters()) {
                             if (parameter.getType() == event.getClass()) {
                                 m.invoke(listener, event);
                             }

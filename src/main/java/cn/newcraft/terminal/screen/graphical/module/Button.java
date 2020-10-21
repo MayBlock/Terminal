@@ -4,7 +4,6 @@ import cn.newcraft.terminal.console.Theme;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class Button extends JButton {
 

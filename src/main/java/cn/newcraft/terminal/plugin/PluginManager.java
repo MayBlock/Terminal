@@ -161,8 +161,8 @@ public class PluginManager {
             screen.sendMessage("\n ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑===");
         }
         CommandManager.getCommandsInfo().remove(name);
-        if (Event.getListener().get(plugin) != null) {
-            Event.getListener().remove(plugin);
+        if (Event.getListeners().get(plugin) != null) {
+            Event.getListeners().remove(plugin);
         }
         plugins.remove(name);
     }

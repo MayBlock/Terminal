@@ -8,16 +8,13 @@ import java.awt.*;
 
 public class ScrollPane extends BasicScrollBarUI {
 
-    /**
-     * 设置滚动条的宽度
-     */
-
     @Override
     public Dimension getPreferredSize(JComponent c) {
         c.setPreferredSize(new Dimension(20, 0));
         return super.getPreferredSize(c);
     }
 
+    @Override
     public void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
         Graphics2D g2 = (Graphics2D) g;
         GradientPaint gp = null;
@@ -41,35 +38,22 @@ public class ScrollPane extends BasicScrollBarUI {
 
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-
         g.translate(thumbBounds.x, thumbBounds.y);
         g.setColor(Theme.getCurrentTheme().getScrollTrack());
-
         Graphics2D g2 = (Graphics2D) g;
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.addRenderingHints(rh);
         // 半透明
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         // 填充圆角矩形
-
         g2.fillRoundRect(0, 0, thumbBounds.width - 1, thumbBounds.height - 1, 10, 10);
 
     }
 
-
-    /**
-     * 创建滚动条上方的按钮
-     */
-
     @Override
-
     protected JButton createIncreaseButton(int orientation) {
         return new Button(0, 0);
     }
-
-    /**
-     * 创建滚动条下方的按钮
-     */
 
     @Override
     protected JButton createDecreaseButton(int orientation) {

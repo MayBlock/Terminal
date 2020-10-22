@@ -10,6 +10,7 @@ import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
+import cn.newcraft.terminal.screen.ScreenColor;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.logging.log4j.LogManager;
@@ -101,7 +102,7 @@ public class Terminal {
                             "Terminal\n" +
                             "       Welcome!\n" +
                             "---------------------------------\n");
-            screen.sendMessage("Terminal starting...");
+            screen.sendMessage(ScreenColor.RED + ScreenColor.BOLD + ScreenColor.ITALIC + "Terminal starting...");
             String s = instance.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
             programName = s.substring(s.lastIndexOf("/") + 1);
             port = ServerConfig.getPort();

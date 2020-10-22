@@ -11,25 +11,25 @@ import java.util.List;
 
 public class Event {
 
-    private static HashMap<Plugin, List<Listener>> listenerMap = new HashMap<>();
+    private static HashMap<Plugin, List<Listener>> listeners = new HashMap<>();
 
     public static HashMap<Plugin, List<Listener>> getListeners() {
-        return listenerMap;
+        return listeners;
     }
 
     public static void regListener(Plugin plugin, Listener listener) {
         List<Listener> list;
-        if (listenerMap.get(plugin) != null) {
-            list = listenerMap.get(plugin);
+        if (listeners.get(plugin) != null) {
+            list = listeners.get(plugin);
         } else {
             list = Lists.newArrayList();
         }
         list.add(listener);
-        listenerMap.put(plugin, list);
+        listeners.put(plugin, list);
     }
 
     public static void callEvent(Event event) throws InvocationTargetException, IllegalAccessException {
-        for (List<Listener> listeners : listenerMap.values()) {
+        for (List<Listener> listeners : listeners.values()) {
             for (Listener listener : listeners) {
                 for (Method m : listener.getClass().getMethods()) {
                     if (m.isAnnotationPresent(SubscribeEvent.class)) {

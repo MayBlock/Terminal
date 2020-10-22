@@ -2,6 +2,7 @@ package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.console.ConsoleEvent;
+import cn.newcraft.terminal.screen.ScreenColor;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
@@ -21,15 +22,17 @@ import cn.newcraft.terminal.util.JsonUtils;
 import com.google.common.collect.Lists;
 
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
 public class GraphicalScreen extends JFrame implements Screen {
 
-    private static JTextArea text;
+    private static JTextPane text;
     private static JTextField input;
     private JLabel copyright;
     private JLabel version;
@@ -47,7 +50,7 @@ public class GraphicalScreen extends JFrame implements Screen {
         return input;
     }
 
-    public JTextArea getTextArea() {
+    public JTextPane getTextArea() {
         return text;
     }
 
@@ -95,11 +98,11 @@ public class GraphicalScreen extends JFrame implements Screen {
             setSize(900, 820);
             setLocationRelativeTo(null);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
-            text = new JTextArea();
+            text = new JTextPane();
             text.setCursor(new Cursor(Cursor.TEXT_CURSOR));
             text.setFont(new Font("宋体", Font.PLAIN, 15));
-            text.setLineWrap(true);
-            text.setWrapStyleWord(true);
+            //text.setLineWrap(true);
+            //text.setWrapStyleWord(true);
             text.setEditable(false);
             add(text);
 
@@ -131,13 +134,21 @@ public class GraphicalScreen extends JFrame implements Screen {
             max_cache = ServerConfig.cfg.getYml().getInt("server.max_input_cache");
             input = new JTextField();
             int[] inputLogOffset = {200, 95};
+            input.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    if (String.valueOf(e.getKeyChar()).equals("§")) {
+                        e.consume();
+                    }
+                }
+            });
             input.addActionListener(e -> {
                 if (input.getText().isEmpty()) {
                     input.requestFocus();
                     return;
                 }
                 if (Initialization.isInitialization) {
-                    init.initFirst(input.getText());
+                    init.initFirst(input.getText().replace("§", ""));
                 } else {
                     Terminal.dispatchCommand(input.getText());
                     if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
@@ -389,14 +400,46 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public void sendMessage(Object str) {
+        String string = String.valueOf(str);
         try {
             Event.callEvent(new ScreenEvent.ScreenRefreshEvent(this));
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }
-        Terminal.getLogger().info(str);
-        text.append(str + "\n");
-        System.out.println(str);
+        try {
+            StyledDocument d = text.getStyledDocument();
+            SimpleAttributeSet attr = new SimpleAttributeSet();
+            if (string.contains("§")) {
+                for (String s : string.split("§")) {
+                    if (!s.isEmpty()) {
+                        ScreenColor screenColor = new ScreenColor("§" + s);
+                        if (screenColor.getColor() != null) {
+                            StyleConstants.setForeground(attr, screenColor.getColor());
+                        }
+                        if (("§" + s).contains("§l")) {
+                            StyleConstants.setBold(attr, true);
+                        }
+                        if (("§" + s).contains("§n")) {
+                            StyleConstants.setUnderline(attr, true);
+                        }
+                        if (("§" + s).contains("§m")) {
+                            StyleConstants.setStrikeThrough(attr, true);
+                        }
+                        if (("§" + s).contains("§o")) {
+                            StyleConstants.setItalic(attr, true);
+                        }
+                        d.insertString(d.getLength(), s.substring(1), attr);
+                    }
+                }
+                d.insertString(d.getLength(), "\n", attr);
+                return;
+            }
+            d.insertString(d.getLength(), string + "\n", attr);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        Terminal.getLogger().info(string);
+        System.out.println(string);
     }
 
     private void initTray() {

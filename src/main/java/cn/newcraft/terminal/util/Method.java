@@ -39,6 +39,19 @@ public class Method {
         br.close();
     }
 
+    public static int getStringCount(String str, String key) {
+        if (str == null || key == null || "".equals(str.trim()) || "".equals(key.trim())) {
+            return 0;
+        }
+        int count = 0;
+        int index = 0;
+        while ((index = str.indexOf(key, index)) != -1) {
+            index = index + key.length();
+            count++;
+        }
+        return count;
+    }
+
     public static void copyFile(String oldPath, String newPath) throws IOException, InterruptedException {
         FileOutputStream writer = null;
         FileInputStream reader = null;

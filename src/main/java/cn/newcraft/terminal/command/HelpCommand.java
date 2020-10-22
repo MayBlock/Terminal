@@ -33,7 +33,6 @@ public class HelpCommand extends CommandManager {
             plugins.forEach(name -> {
                 List<CommandInfo> pluginInfo = getCommandsInfo().get(PluginManager.getPlugin(name).getPluginName());
                 pluginInfo.forEach(info -> {
-                    System.out.println(info.getCommand());
                     commands.add(info.getCommand().split(":")[1]);
                 });
             });

@@ -46,7 +46,6 @@ public class HelpCommand extends CommandManager {
             return;
         }
         String existCommand = CommandManager.exist(args[1]);
-        System.out.println(existCommand);
         if (existCommand != null) {
             screen.sendMessage("#---------- 命令 '" + existCommand.split(":")[1] + "' 的帮助 ----------#");
             screen.sendMessage("主命令：" + existCommand.split(":")[1] + " (" + existCommand + ")");

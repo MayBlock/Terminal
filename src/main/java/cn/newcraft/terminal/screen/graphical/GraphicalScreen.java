@@ -19,6 +19,7 @@ import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
+import com.google.common.base.Ascii;
 import com.google.common.collect.Lists;
 
 import javax.swing.*;
@@ -127,6 +128,7 @@ public class GraphicalScreen extends JFrame implements Screen {
             add(copyright);
 
             scrollPane = new JScrollPane(text);
+            scrollPane.getVerticalScrollBar().setUnitIncrement(20);
             scrollPane.getVerticalScrollBar().setUI(new ScrollPane());
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             add(scrollPane);
@@ -137,7 +139,8 @@ public class GraphicalScreen extends JFrame implements Screen {
             input.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
-                    if (String.valueOf(e.getKeyChar()).equals("§")) {
+                    String read = String.valueOf(e.getKeyChar());
+                    if (read.equals("§")) {
                         e.consume();
                     }
                 }
@@ -148,51 +151,50 @@ public class GraphicalScreen extends JFrame implements Screen {
                     return;
                 }
                 if (Initialization.isInitialization) {
-                    init.initFirst(input.getText().replace("§", ""));
+                    init.initFirst(input.getText());
                 } else {
-                    Terminal.dispatchCommand(input.getText());
-                    if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
+                    String text = input.getText().replace("§", "");
+                    Terminal.dispatchCommand(text);
+                    if (!cache.isEmpty() && text.equals(cache.get(cache.size() - 1))) {
                         input.setText("");
                         input.requestFocus();
                         return;
                     }
-                    cache.add(input.getText());
+                    cache.add(text);
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
                     }
                     if (Terminal.isDebug()) {
-                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + input.getText());
+                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + text);
                     }
                 }
                 input.setText("");
                 input.requestFocus();
             });
             input.addKeyListener(new KeyAdapter() {
-                int timesUp = 0;
-                int timesDown = 0;
-
+                int count = cache.size() + 1;
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_UP) {
-                        try {
-                            input.setText(cache.get(cache.size() - 1 - timesUp));
-                            timesUp++;
-                        } catch (ArrayIndexOutOfBoundsException ignored) {
+                    if (count >= cache.size()) {
+                        count--;
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_UP && !cache.isEmpty()) {
+                        if (count <= 0) {
+                            return;
                         }
-                        timesDown = 0;
+                        count--;
+                        input.setText(cache.get(count));
                         return;
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                        try {
-                            input.setText(cache.get(timesDown));
-                            timesDown++;
-                        } catch (IndexOutOfBoundsException ignored) {
+                    if (e.getKeyCode() == KeyEvent.VK_DOWN && !cache.isEmpty()) {
+                        if (count >= cache.size() - 1) {
+                            return;
                         }
-                        timesUp = 0;
+                        count++;
+                        input.setText(cache.get(count));
                         return;
                     }
-                    timesUp = 0;
-                    timesDown = 0;
+                    count = cache.size() + 1;
                 }
             });
             add(input);
@@ -208,18 +210,19 @@ public class GraphicalScreen extends JFrame implements Screen {
                 if (Initialization.isInitialization) {
                     init.initFirst(input.getText());
                 } else {
-                    Terminal.dispatchCommand(input.getText());
-                    if (!cache.isEmpty() && input.getText().equals(cache.get(cache.size() - 1))) {
+                    String text = input.getText().replace("§", "");
+                    Terminal.dispatchCommand(text);
+                    if (!cache.isEmpty() && text.equals(cache.get(cache.size() - 1))) {
                         input.setText("");
                         input.requestFocus();
                         return;
                     }
-                    cache.add(input.getText());
+                    cache.add(text);
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
                     }
                     if (Terminal.isDebug()) {
-                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + input.getText());
+                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + text);
                     }
                 }
                 input.setText("");
@@ -412,23 +415,24 @@ public class GraphicalScreen extends JFrame implements Screen {
             if (string.contains("§")) {
                 for (String s : string.split("§")) {
                     if (!s.isEmpty()) {
-                        ScreenColor screenColor = new ScreenColor("§" + s);
+                        String s1 = "§" + s;
+                        ScreenColor screenColor = new ScreenColor(s1);
                         if (screenColor.getColor() != null) {
                             StyleConstants.setForeground(attr, screenColor.getColor());
                         }
-                        if (("§" + s).contains("§l")) {
+                        if (s1.contains("§l")) {
                             StyleConstants.setBold(attr, true);
                         }
-                        if (("§" + s).contains("§n")) {
+                        if (s1.contains("§n")) {
                             StyleConstants.setUnderline(attr, true);
                         }
-                        if (("§" + s).contains("§m")) {
+                        if (s1.contains("§m")) {
                             StyleConstants.setStrikeThrough(attr, true);
                         }
-                        if (("§" + s).contains("§o")) {
+                        if (s1.contains("§o")) {
                             StyleConstants.setItalic(attr, true);
                         }
-                        d.insertString(d.getLength(), s.substring(1), attr);
+                        d.insertString(d.getLength(), ScreenColor.codeTo(screenColor.getString(), false), attr);
                     }
                 }
                 d.insertString(d.getLength(), "\n", attr);

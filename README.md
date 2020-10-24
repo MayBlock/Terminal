@@ -16,7 +16,7 @@
 <dependency>
 	<groupId>com.github.MayBlock</groupId>
 	<artifactId>Terminal</artifactId>
-	<version>Tag</version>
+	<version>1.2.1.201024_release</version>
 </dependency>
 ```
 ### Grade
@@ -31,7 +31,7 @@ allprojects {
 
 2.添加依赖
 dependencies {
-	implementation 'com.github.MayBlock:Terminal:Tag'
+	implementation 'com.github.MayBlock:Terminal:1.2.1.201024_release'
 }
 ```
 

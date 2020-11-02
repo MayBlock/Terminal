@@ -1,8 +1,6 @@
 package cn.newcraft.terminal.screen;
 
-import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Theme;
-import cn.newcraft.terminal.util.Method;
 
 import java.awt.*;
 
@@ -10,39 +8,30 @@ public class ScreenColor {
 
     private String code;
     private Color color;
-    private String consoleColor;
     private String string;
 
     public ScreenColor(String str) {
         if (str.contains("§0")) {
             code = "§0";
             color = new Color(0, 0, 0);
-            consoleColor = "\033[30;0m";
-
         } else if (str.contains("§1")) {
             code = "§1";
             color = new Color(40, 100, 255);
-            consoleColor = "\033[31;0m";
         } else if (str.contains("§2")) {
             code = "§2";
             color = new Color(0, 150, 0);
-            consoleColor = "\033[32;0m";
         } else if (str.contains("§3")) {
             code = "§3";
             color = new Color(50, 100, 150);
-            consoleColor = "\033[33;0m";
         } else if (str.contains("§4")) {
             code = "§4";
-            color = new Color(200, 0, 0);
-            consoleColor = "\033[34;0m";
+            color = new Color(150, 0, 0);
         } else if (str.contains("§5")) {
             code = "§5";
-            color = new Color(200, 50, 200);
-            consoleColor = "\033[35;0m";
+            color = new Color(200, 0, 200);
         } else if (str.contains("§6")) {
             code = "§6";
             color = new Color(255, 200, 0);
-            consoleColor = "\033[36;0m";
         } else if (str.contains("§7")) {
             code = "§7";
             color = new Color(170, 170, 170);
@@ -91,10 +80,6 @@ public class ScreenColor {
 
     public String getString() {
         return string;
-    }
-
-    public String getConsoleColor() {
-        return consoleColor;
     }
 
     public static String codeTo(String replacement, boolean consoleCode) {

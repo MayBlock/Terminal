@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.network;
 
+import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.network.packet.HeartbeatPacket;
 import cn.newcraft.terminal.Terminal;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class ServerThread extends Thread {
 
     private static Socket socket;
     private static boolean serverEnable = false;
-    protected static Map<Integer, Sender> senderMap = new HashMap<>();
+    private static Map<Integer, Sender> senderMap = new HashMap<>();
 
     public static boolean isServer() {
         return serverEnable;
@@ -32,10 +34,12 @@ public class ServerThread extends Thread {
     public static void startServerThread() {
         serverEnable = true;
         new ServerThread().listenThread().start();
+        new ServerThread().heartThread().start();
     }
 
     public static void stopServerThread() {
         serverEnable = false;
+        new ServerThread().heartThread().stop();
         new ServerThread().listenThread().stop();
     }
 
@@ -45,10 +49,16 @@ public class ServerThread extends Thread {
         ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConnect());
         /** Init Connect **/
         byte[] chancel;
+        InputStream inputStream = null;
+        try {
+            inputStream = socket.getInputStream();
+        } catch (IOException e) {
+            Terminal.printException(this.getClass(), e);
+        }
         while (true) {
             ObjectInputStream ois;
             try {
-                ois = new ObjectInputStream(socket.getInputStream());
+                ois = new ObjectInputStream(new BufferedInputStream(inputStream));
                 int chancelLength = ois.read();
                 chancel = new byte[chancelLength];
                 ois.read(chancel);
@@ -70,18 +80,20 @@ public class ServerThread extends Thread {
                         return;
                     }
                     /* ClientConnectedEvent */
-                    senderMap.put(id, new Sender(socket, getHeartThread(id), id));
+                    senderMap.put(id, new Sender(socket, id));
                     Sender sender = senderMap.get(id);
-                    sender.getHeartThread().start();
                     Event.callEvent(new NetworkEvent.ClientConnectedEvent(sender));
                     Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
                 }
                 threadPool.submit(new ServerInputRunnable(senderMap.get(id), ois.readObject()));
             } catch (IOException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
-                if (e.getMessage().equals("Socket closed")) {
+                if (e.getMessage().equalsIgnoreCase("Socket closed")) {
                     return;
                 }
-                if (e.getMessage().equals("Connection reset")) {
+                if (e.getMessage().equalsIgnoreCase("Stream closed.")) {
+                    return;
+                }
+                if (e.getMessage().equalsIgnoreCase("Connection reset")) {
                     try {
                         senderMap.get(id).disconnect(e.toString());
                     } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
@@ -107,30 +119,33 @@ public class ServerThread extends Thread {
         });
     }
 
-    private Thread getHeartThread(Integer id) {
+    private Thread heartThread() {
         return new Thread(() -> {
-            int i = id;
-            Sender sender = senderMap.get(i);
             while (true) {
+                if (!senderMap.isEmpty()) {
+                    for (Sender sender : senderMap.values()) {
+                        try {
+                            if (sender.getTimeoutCount() >= 5) {
+                                sender.disconnect("Time out");
+                                continue;
+                            }
+                            sender.sendPacket(new HeartbeatPacket());
+                            sender.setTimeoutCount(sender.getTimeoutCount() + 1);
+                            if (Terminal.isDebug()) {
+                                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 发送心跳包");
+                            }
+                        } catch (IOException | InvocationTargetException | IllegalAccessException e) {
+                            try {
+                                sender.disconnect(e.getMessage());
+                            } catch (IOException | InvocationTargetException | IllegalAccessException ignored) {
+
+                            }
+                        }
+                    }
+                }
                 try {
-                    if (sender.getTimeoutCount() >= 2) {
-                        sender.disconnect("Time out");
-                        break;
-                    }
-                    Thread.sleep(5 * 1000);
-                    sender.sendPacket(new HeartbeatPacket());
-                    sender.setTimeoutCount(sender.getTimeoutCount() + 1);
-                    if (Terminal.isDebug()) {
-                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 发送心跳包");
-                    }
-                } catch (InterruptedException | IOException e) {
-                    try {
-                        sender.disconnect(e.toString());
-                    } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
-                        Terminal.printException(this.getClass(), ex);
-                    }
-                    break;
-                } catch (IllegalAccessException | InvocationTargetException e) {
+                    Thread.sleep(ServerConfig.cfg.getYml().getInt("server.heart_packet_delay"));
+                } catch (InterruptedException e) {
                     Terminal.printException(this.getClass(), e);
                 }
             }
@@ -150,7 +165,7 @@ class ServerInputRunnable implements Runnable {
 
     @Override
     public void run() {
-        if (input == null || new String((byte[]) input, StandardCharsets.UTF_8).isEmpty()) {
+        if (input == null) {
             return;
         }
         try {
@@ -158,6 +173,7 @@ class ServerInputRunnable implements Runnable {
         } catch (IllegalAccessException | InvocationTargetException e) {
             Terminal.printException(this.getClass(), e);
         }
+        sender.setTimeoutCount(0);
         if (Terminal.isDebug()) {
             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 与终端交互");
             if (input instanceof String || input instanceof Integer || input instanceof Long) {
@@ -167,6 +183,10 @@ class ServerInputRunnable implements Runnable {
             } else if (input instanceof byte[]) {
                 Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");
                 Terminal.getScreen().sendMessage(new String((byte[]) input, StandardCharsets.UTF_8));
+                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " -------End-------");
+            } else {
+                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " ------Info------");
+                Terminal.getScreen().sendMessage(input.getClass().getName());
                 Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " -------End-------");
             }
         }

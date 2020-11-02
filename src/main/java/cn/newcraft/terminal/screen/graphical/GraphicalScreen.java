@@ -35,6 +35,7 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     private static JTextPane text;
     private static JTextField input;
+    private JLabel announcement;
     private JLabel copyright;
     private JLabel version;
     private JScrollPane scrollPane;
@@ -45,7 +46,6 @@ public class GraphicalScreen extends JFrame implements Screen {
     private int max_cache;
     private int jOptionPane = JOptionPane.DEFAULT_OPTION;
     private int messageType = JOptionPane.INFORMATION_MESSAGE;
-    private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
 
     public JTextField getInput() {
         return input;
@@ -79,6 +79,10 @@ public class GraphicalScreen extends JFrame implements Screen {
         return version;
     }
 
+    public JLabel getAnnouncement() {
+        return announcement;
+    }
+
     public SystemTray getTray() {
         return tray;
     }
@@ -98,6 +102,9 @@ public class GraphicalScreen extends JFrame implements Screen {
             setTitle(Terminal.getName() + " - " + Terminal.getOptions().getVersion());
             setSize(900, 820);
             setLocationRelativeTo(null);
+            Dimension dimension = new Dimension();
+            dimension.setSize(754, 480);
+            setMinimumSize(dimension);
             enableEvents(AWTEvent.WINDOW_EVENT_MASK);
             text = new JTextPane();
             text.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -113,11 +120,10 @@ public class GraphicalScreen extends JFrame implements Screen {
             title.setBounds(20, 20, 150, 20);
             add(title);
 
-            JLabel str = new JLabel("公告：" + announcement, JLabel.CENTER);
-            str.setForeground(Color.RED);
-            str.setFont(new Font("宋体", Font.BOLD, 14));
-            str.setBounds(180, 5, 500, 20);
-            add(str);
+            announcement = new JLabel("公告：" + JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true), JLabel.CENTER);
+            announcement.setForeground(Color.RED);
+            announcement.setFont(new Font("宋体", Font.BOLD, 14));
+            add(announcement);
 
             version = new JLabel("Version:  " + Terminal.getOptions().getCanonicalVersion());
             int[] versionLogOffset = {195, 60};
@@ -175,7 +181,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 int count = cache.size() + 1;
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    if (count >= cache.size()) {
+                    if (count > cache.size()) {
                         count--;
                     }
                     if (e.getKeyCode() == KeyEvent.VK_UP && !cache.isEmpty()) {
@@ -247,7 +253,6 @@ public class GraphicalScreen extends JFrame implements Screen {
                 }
             });
             add(clearLog);
-
             theme = new Button("切换主题");
             int[] themeOffset = {145, 740};
             theme.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -294,11 +299,13 @@ public class GraphicalScreen extends JFrame implements Screen {
                     text.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     scrollPane.setBounds(20, 40, getWidth() - 170, getHeight() - 150);
                     input.setBounds(20, d.height - inputLogOffset[1], d.width - inputLogOffset[0], 30);
-                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], 200, 20);
-                    copyright.setBounds(5, d.height - copyrightOffset[1], 250, 20);
+                    version.setBounds(d.width - versionLogOffset[0], d.height - versionLogOffset[1], d.width, 20);
+                    copyright.setBounds(5, d.height - copyrightOffset[1], getWidth() - 200, 20);
+                    announcement.setBounds(80, 5, getWidth() - 200, 20);
                     execute.setBounds(d.width - executeLogOffset[0], d.height - executeLogOffset[1], 41, 30);
                     clearLog.setBounds(d.width - clearLogOffset[0], 40, 125, 30);
                     theme.setBounds(d.width - themeOffset[0], 80, 125, 30);
+                    super.componentResized(e);
                 }
             });
             this.getExecute().setEnabled(false);

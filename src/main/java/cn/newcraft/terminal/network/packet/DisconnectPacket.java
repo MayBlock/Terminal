@@ -33,7 +33,6 @@ public class DisconnectPacket implements Packet {
         Socket socket = sender.getSocket();
 
         ServerThread.getSenderMap().remove(sender.getId());
-        sender.getHeartThread().stop();
 
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("DISCONNECT");
@@ -43,7 +42,6 @@ public class DisconnectPacket implements Packet {
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }
-
         socket.close();
     }
 }

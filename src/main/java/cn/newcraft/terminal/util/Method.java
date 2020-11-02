@@ -13,13 +13,11 @@ import java.util.List;
 
 public class Method {
 
-    private static OperatingSystemMXBean osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-
     public static boolean isLocalPortUsing(int port) {
         boolean flag = true;
         try {
             flag = isPortUsing("127.0.0.1", port);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return flag;
     }
@@ -37,19 +35,6 @@ public class Method {
             Terminal.getScreen().sendMessage(line);
         }
         br.close();
-    }
-
-    public static int getStringCount(String str, String key) {
-        if (str == null || key == null || "".equals(str.trim()) || "".equals(key.trim())) {
-            return 0;
-        }
-        int count = 0;
-        int index = 0;
-        while ((index = str.indexOf(key, index)) != -1) {
-            index = index + key.length();
-            count++;
-        }
-        return count;
     }
 
     public static void copyFile(String oldPath, String newPath) throws IOException, InterruptedException {
@@ -105,8 +90,17 @@ public class Method {
         return list.subList(fromIndex, toIndex);
     }
 
+    public static void sendObject(Socket socket, String chancel, Object output) throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        out.write(chancel.getBytes().length);
+        out.write(chancel.getBytes());
+        out.writeObject(output);
+        out.flush();
+    }
+
+    @Deprecated
     public static void sendByte(Socket socket, String chancel, Object output) throws IOException {
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         out.write(chancel.getBytes().length);
         out.write(chancel.getBytes());
         out.writeObject(output);

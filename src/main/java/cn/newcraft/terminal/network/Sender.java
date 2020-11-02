@@ -6,6 +6,7 @@ import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.network.packet.DisconnectPacket;
 import cn.newcraft.terminal.network.packet.Packet;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -16,12 +17,10 @@ public class Sender {
 
     private int id;
     private int timeoutCount = 0;
-    private Thread heartThread;
     private Socket socket;
 
-    public Sender(Socket socket, Thread heartThread, int id) {
+    public Sender(Socket socket, int id) {
         this.id = id;
-        this.heartThread = heartThread;
         this.socket = socket;
     }
 
@@ -31,10 +30,6 @@ public class Sender {
 
     public Socket getSocket() {
         return socket;
-    }
-
-    public Thread getHeartThread() {
-        return heartThread;
     }
 
     public String getCanonicalName() {
@@ -63,7 +58,7 @@ public class Sender {
 
     public void sendMessage(String str) {
         try {
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
+            PrintWriter pw = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()));
             pw.write(str);
             pw.flush();
         } catch (IOException e) {
@@ -77,7 +72,7 @@ public class Sender {
         if (event.isCancelled()) {
             return;
         }
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         if (length) out.write(bytes.length);
         out.writeObject(bytes);
         out.flush();

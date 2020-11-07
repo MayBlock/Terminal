@@ -10,7 +10,6 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +30,24 @@ public class ServerThread extends Thread {
         return senderMap;
     }
 
+    public static void disconnectAll() {
+        disconnectAll("Server Closed");
+    }
+
+    public static void disconnectAll(String reason) {
+        if (ServerThread.getSenderMap().isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < senderMap.size(); i++) {
+            try {
+                senderMap.get(i).disconnect(reason);
+            } catch (IOException ignored) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                Terminal.printException(Terminal.class, e);
+            }
+        }
+    }
+
     public static void startServerThread() {
         serverEnable = true;
         new ServerThread().listenThread().start();
@@ -48,7 +65,7 @@ public class ServerThread extends Thread {
         int id = Sender.spawnNewId();
         ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConnect());
         /** Init Connect **/
-        byte[] chancel;
+        byte[] channel;
         InputStream inputStream = null;
         try {
             inputStream = socket.getInputStream();
@@ -60,8 +77,8 @@ public class ServerThread extends Thread {
             try {
                 ois = new ObjectInputStream(new BufferedInputStream(inputStream));
                 int chancelLength = ois.read();
-                chancel = new byte[chancelLength];
-                ois.read(chancel);
+                channel = new byte[chancelLength];
+                ois.read(channel);
             } catch (Exception e) {
                 try {
                     socket.close();
@@ -73,7 +90,7 @@ public class ServerThread extends Thread {
             try {
                 /* ClientConnectEvent */
                 if (senderMap.get(id) == null) {
-                    NetworkEvent.ClientConnectEvent connectEvent = new NetworkEvent.ClientConnectEvent(new String(chancel), socket);
+                    NetworkEvent.ClientConnectEvent connectEvent = new NetworkEvent.ClientConnectEvent(new String(channel), socket);
                     Event.callEvent(connectEvent);
                     if (connectEvent.isCancelled()) {
                         socket.close();
@@ -138,7 +155,6 @@ public class ServerThread extends Thread {
                             try {
                                 sender.disconnect(e.getMessage());
                             } catch (IOException | InvocationTargetException | IllegalAccessException ignored) {
-
                             }
                         }
                     }

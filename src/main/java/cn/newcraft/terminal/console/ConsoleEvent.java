@@ -7,9 +7,9 @@ import cn.newcraft.terminal.util.Method;
 
 import java.util.TimeZone;
 
-public class ConsoleEvent {
+public class ConsoleEvent extends Event {
 
-    public static class SendCommandEvent extends Event implements Cancellable {
+    public static class SendCommandEvent extends ConsoleEvent implements Cancellable {
         private String[] command;
         private boolean cancelled = false;
 
@@ -32,7 +32,7 @@ public class ConsoleEvent {
         }
     }
 
-    public static class ChangeThemeEvent extends Event {
+    public static class ChangeThemeEvent extends ConsoleEvent {
         private Theme theme;
 
         public ChangeThemeEvent(Theme theme) {
@@ -44,7 +44,7 @@ public class ConsoleEvent {
         }
     }
 
-    public static class ClearMessageEvent extends Event {
+    public static class ClearMessageEvent extends ConsoleEvent {
 
         private TimeZone currentTime;
 
@@ -61,7 +61,7 @@ public class ConsoleEvent {
         }
     }
 
-    public static class UpdateEvent extends Event {
+    public static class UpdateEvent extends ConsoleEvent {
 
         private String newVersion;
         private String description;

@@ -4,9 +4,9 @@ import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.network.packet.Packet;
 
-public class SocketEvent {
+public class SocketEvent extends Event {
 
-    public static class SendByteToClientEvent extends Event implements Cancellable {
+    public static class SendByteToClientEvent extends SocketEvent implements Cancellable {
 
         private Sender sender;
         private byte[] bytes;
@@ -36,7 +36,7 @@ public class SocketEvent {
         }
     }
 
-    public static class SendPacketToClientEvent extends Event implements Cancellable {
+    public static class SendPacketToClientEvent extends SocketEvent implements Cancellable {
 
         private Sender sender;
         private Packet packet;

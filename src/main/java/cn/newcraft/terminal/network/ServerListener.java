@@ -2,8 +2,10 @@ package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
+import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.event.Listener;
 import cn.newcraft.terminal.event.SubscribeEvent;
+import cn.newcraft.terminal.screen.ScreenEvent;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -20,7 +22,7 @@ public class ServerListener implements Listener {
 
     @SubscribeEvent
     public void onConnect(NetworkEvent.ClientConnectEvent e) {
-        if (e.getChancel().equals("TERMINAL")) {
+        if (e.getChannel().equals("TERMINAL")) {
             sockets.add(e.getSocket());
         }
     }

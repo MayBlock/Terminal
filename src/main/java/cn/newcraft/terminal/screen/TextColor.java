@@ -4,13 +4,13 @@ import cn.newcraft.terminal.console.Theme;
 
 import java.awt.*;
 
-public class ScreenColor {
+public class TextColor {
 
     private String code;
     private Color color;
     private String string;
 
-    public ScreenColor(String str) {
+    public TextColor(String str) {
         if (str.contains("§0")) {
             code = "§0";
             color = new Color(0, 0, 0);

@@ -5,9 +5,9 @@ import cn.newcraft.terminal.event.Event;
 
 import java.net.Socket;
 
-public class NetworkEvent {
+public class NetworkEvent extends Event {
 
-    public static class ClientConnectedEvent extends Event {
+    public static class ClientConnectedEvent extends NetworkEvent {
 
         private Sender sender;
 
@@ -20,14 +20,14 @@ public class NetworkEvent {
         }
     }
 
-    public static class ClientConnectEvent extends Event implements Cancellable {
+    public static class ClientConnectEvent extends NetworkEvent implements Cancellable {
 
-        private String chancel;
+        private String channel;
         private Socket socket;
         private boolean cancelled = false;
 
-        public ClientConnectEvent(String chancel, Socket socket) {
-            this.chancel = chancel;
+        public ClientConnectEvent(String channel, Socket socket) {
+            this.channel = channel;
             this.socket = socket;
         }
 
@@ -35,8 +35,8 @@ public class NetworkEvent {
             return socket;
         }
 
-        public String getChancel() {
-            return chancel;
+        public String getChannel() {
+            return channel;
         }
 
         @Override
@@ -50,7 +50,7 @@ public class NetworkEvent {
         }
     }
 
-    public static class ClientDisconnectEvent extends Event {
+    public static class ClientDisconnectEvent extends NetworkEvent {
 
         private Sender sender;
 
@@ -63,7 +63,7 @@ public class NetworkEvent {
         }
     }
 
-    public static class ServerReceivedEvent extends Event {
+    public static class ServerReceivedEvent extends NetworkEvent {
 
         private Sender sender;
         private Object input;
@@ -82,13 +82,13 @@ public class NetworkEvent {
         }
     }
 
-    public static class ServerStartEvent extends Event {
+    public static class ServerStartEvent extends NetworkEvent {
 
         public ServerStartEvent() {
         }
     }
 
-    public static class ServerStopEvent extends Event {
+    public static class ServerStopEvent extends NetworkEvent {
 
         public ServerStopEvent() {
         }

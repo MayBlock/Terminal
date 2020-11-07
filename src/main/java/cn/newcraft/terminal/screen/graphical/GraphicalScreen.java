@@ -2,7 +2,7 @@ package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.console.ConsoleEvent;
-import cn.newcraft.terminal.screen.ScreenColor;
+import cn.newcraft.terminal.screen.TextColor;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
@@ -19,14 +19,12 @@ import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
-import com.google.common.base.Ascii;
 import com.google.common.collect.Lists;
 
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
@@ -423,7 +421,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 for (String s : string.split("§")) {
                     if (!s.isEmpty()) {
                         String s1 = "§" + s;
-                        ScreenColor screenColor = new ScreenColor(s1);
+                        TextColor screenColor = new TextColor(s1);
                         if (screenColor.getColor() != null) {
                             StyleConstants.setForeground(attr, screenColor.getColor());
                         }
@@ -439,7 +437,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                         if (s1.contains("§o")) {
                             StyleConstants.setItalic(attr, true);
                         }
-                        d.insertString(d.getLength(), ScreenColor.codeTo(screenColor.getString(), false), attr);
+                        d.insertString(d.getLength(), TextColor.codeTo(screenColor.getString(), false), attr);
                     }
                 }
                 d.insertString(d.getLength(), "\n", attr);

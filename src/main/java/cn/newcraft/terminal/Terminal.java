@@ -10,7 +10,7 @@ import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
-import cn.newcraft.terminal.screen.ScreenColor;
+import cn.newcraft.terminal.screen.TextColor;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.logging.log4j.LogManager;
@@ -18,19 +18,22 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 
 public class Terminal {
 
     private static int port;
     private static Logger logger;
     private static boolean debug;
-    private static Terminal instance;
+    private static Terminal terminal;
     private static final Options options = new Options();
     private static Screen screen;
     private static Update update;
     private static final String name = "Terminal";
     private static String programName;
+
+    public static Terminal getTerminal() {
+        return terminal;
+    }
 
     public static String getName() {
         return name;
@@ -89,8 +92,8 @@ public class Terminal {
     }
 
     public static void main(String[] str) {
+        terminal = new Terminal();
         try {
-            instance = new Terminal();
             ServerConfig.init();
             ThemeConfig.init();
             PluginManager.spawnFile();
@@ -102,8 +105,8 @@ public class Terminal {
                             "Terminal\n" +
                             "       Welcome!\n" +
                             "---------------------------------\n");
-            screen.sendMessage(ScreenColor.RED + ScreenColor.BOLD + ScreenColor.ITALIC + "Terminal starting...");
-            String s = instance.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
+            screen.sendMessage(TextColor.RED + TextColor.BOLD + TextColor.ITALIC + "Terminal starting...");
+            String s = terminal.getClass().getProtectionDomain().getCodeSource().getLocation().toString();
             programName = s.substring(s.lastIndexOf("/") + 1);
             port = ServerConfig.getPort();
             if (port == 0) {
@@ -140,14 +143,7 @@ public class Terminal {
                 }
             }).start();
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
-                    try {
-                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
-                    } catch (IOException ignored) {
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        Terminal.printException(Terminal.class, e);
-                    }
-                }
+                ServerThread.disconnectAll();
                 ServerThread.stopServerThread();
             }
             screen.onDisable();
@@ -170,14 +166,7 @@ public class Terminal {
                 }
             }).start();
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
-                    try {
-                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
-                    } catch (IOException ignored) {
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        Terminal.printException(Terminal.class, e);
-                    }
-                }
+                ServerThread.disconnectAll();
                 ServerThread.stopServerThread();
             }
             screen.onDisable();
@@ -191,14 +180,7 @@ public class Terminal {
         new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
             if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
-                    try {
-                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
-                    } catch (IOException ignored) {
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        Terminal.printException(Terminal.class, e);
-                    }
-                }
+                ServerThread.disconnectAll();
                 ServerThread.stopServerThread();
             }
             screen.onDisable();
@@ -208,13 +190,12 @@ public class Terminal {
     }
 
     public static void printException(Class clazz, Throwable ex) {
-        ex.printStackTrace();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(os);
         ex.printStackTrace(ps);
         try {
             String output = os.toString("UTF-8");
-            Terminal.getScreen().sendMessage("§c\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
+            Terminal.getScreen().sendMessage(TextColor.RED + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
         } catch (UnsupportedEncodingException ignored) {
         }
     }

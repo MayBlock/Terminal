@@ -40,7 +40,7 @@ public class Initialization {
                     }
                     return;
                 }
-                new Terminal().setPort(port);
+                Terminal.getTerminal().setPort(port);
                 ServerConfig.setPort(port);
                 Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 成功设置端口为 " + port);
                 initTerminal();
@@ -82,7 +82,7 @@ public class Initialization {
     public void initTerminal() {
         try {
             Terminal.getScreen().setComponentEnabled(false);
-            new Terminal().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
+            Terminal.getTerminal().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
             int port = Terminal.getPort();
             if (port >= 1 && port <= 65535) {
                 if (Method.isLocalPortUsing(port)) {
@@ -119,7 +119,6 @@ public class Initialization {
             Event.regListener(plugin, new GraphicalListener());
             Event.regListener(plugin, new ServerListener());
             OperateManager.regOperate(new DisconnectOperate());
-
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
             new ServerThread();
             ServerThread.startServerThread();
@@ -143,7 +142,7 @@ public class Initialization {
     }
 
     private void initConsoleScreen() throws InterruptedException {
-        Terminal terminal = new Terminal();
+        Terminal terminal = Terminal.getTerminal();
         if (!Method.isConnect()) {
             System.out.println(Prefix.TERMINAL_ERROR.getPrefix() + " 你的电脑尚未联网，无法启动终端！");
             Thread.sleep(1000);
@@ -155,7 +154,7 @@ public class Initialization {
     }
 
     private void initGraphicalScreen() {
-        Terminal terminal = new Terminal();
+        Terminal terminal = Terminal.getTerminal();
         if (!Method.isConnect()) {
             JOptionPane.showConfirmDialog(null, "你的电脑尚未联网，无法启动终端！", Prefix.TERMINAL_ERROR.getPrefix(), JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
             System.exit(0);

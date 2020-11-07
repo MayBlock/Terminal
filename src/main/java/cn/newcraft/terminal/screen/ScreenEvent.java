@@ -4,9 +4,9 @@ import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 
-public class ScreenEvent {
+public class ScreenEvent extends Event {
 
-    public static class ScreenRefreshEvent extends Event {
+    public static class ScreenRefreshEvent extends ScreenEvent {
 
         private Screen screen;
 
@@ -19,7 +19,7 @@ public class ScreenEvent {
         }
     }
 
-    public static class ShowPaneEvent extends Event {
+    public static class ShowPaneEvent extends ScreenEvent {
 
         private String title;
         private String message;
@@ -38,8 +38,8 @@ public class ScreenEvent {
         }
     }
 
-    public static class GraphicalEvent {
-        public static class ScreenResizeEvent extends Event {
+    public static class GraphicalEvent extends ScreenEvent {
+        public static class ScreenResizeEvent extends GraphicalEvent {
 
             private GraphicalScreen graphicalScreen;
             private int width;
@@ -64,7 +64,7 @@ public class ScreenEvent {
             }
         }
 
-        public static class ShowPromptEvent extends Event implements Cancellable {
+        public static class ShowPromptEvent extends GraphicalEvent implements Cancellable {
 
             private String title;
             private String message;

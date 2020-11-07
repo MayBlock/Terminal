@@ -1,13 +1,18 @@
 package cn.newcraft.terminal.event;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.plugin.Plugin;
+import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Event {
 
@@ -28,16 +33,22 @@ public class Event {
         listeners.put(plugin, list);
     }
 
+    public static Plugin getPluginFromListener(Listener listener) {
+        for (Map.Entry<Plugin, List<Listener>> entry : listeners.entrySet()) {
+            if (entry.getValue().contains(listener)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
     public static void callEvent(Event event) throws InvocationTargetException, IllegalAccessException {
-        for (List<Listener> listeners : listeners.values()) {
-            for (Listener listener : listeners) {
-                for (Method m : listener.getClass().getMethods()) {
-                    if (m.isAnnotationPresent(SubscribeEvent.class)) {
-                        for (Parameter parameter : m.getParameters()) {
-                            if (parameter.getType() == event.getClass()) {
-                                m.invoke(listener, event);
-                            }
-                        }
+        for (Listener listener : listeners.values().stream().flatMap(Collection::stream).collect(Collectors.toList())) {
+            for (Method m : listener.getClass().getMethods()) {
+                if (m.getAnnotation(SubscribeEvent.class) != null) {
+                    final Class<? extends Event> eventClass = m.getParameterTypes()[0].asSubclass(Event.class);
+                    if (m.getParameterTypes().length == 1 && eventClass.isAssignableFrom(event.getClass())) {
+                        m.invoke(listener, event);
                     }
                 }
             }

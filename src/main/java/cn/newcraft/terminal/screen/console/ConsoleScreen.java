@@ -5,14 +5,13 @@ import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.screen.ScreenColor;
+import cn.newcraft.terminal.screen.TextColor;
 import cn.newcraft.terminal.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
 import org.jline.reader.*;
 import org.jline.terminal.TerminalBuilder;
 
-import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -61,13 +60,13 @@ public class ConsoleScreen extends Thread implements Screen {
                 Terminal.printException(this.getClass(), e);
             }
             Terminal.getLogger().info(str);
-            System.out.format(ScreenColor.codeTo(str + "\n", true));
+            System.out.format(TextColor.codeTo(str + "\n", true));
         }
     }
 
     @Override
     public void onScreen() {
-        System.out.format(ScreenColor.codeTo(ScreenColor.RED + "Warning! 在控制台模式下运行Terminal部分窗口模式功能将无法使用！\n", true));
+        System.out.format(TextColor.codeTo(TextColor.RED + "Warning! 在控制台模式下运行Terminal部分窗口模式功能将无法使用！\n", true));
         this.start();
     }
 

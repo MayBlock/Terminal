@@ -6,6 +6,7 @@ import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.network.ServerListener;
 import cn.newcraft.terminal.operate.DisconnectOperate;
 import cn.newcraft.terminal.operate.OperateManager;
+import cn.newcraft.terminal.screen.TextColor;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.graphical.GraphicalListener;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
@@ -120,8 +121,11 @@ public class Initialization {
             Event.regListener(plugin, new ServerListener());
             OperateManager.regOperate(new DisconnectOperate());
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
-            new ServerThread();
-            ServerThread.startServerThread();
+            Terminal.getTerminal().setServer(new ServerThread());
+            Terminal.getServer().onServer();
+            if (!Terminal.getServer().isEnabled()) {
+                throw new RuntimeException("The server failed to start");
+            }
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 创建监听连接进程完毕！");
             Terminal.getScreen().setComponentEnabled(true);
             isInitialization = false;
@@ -137,7 +141,10 @@ public class Initialization {
             }).start();
             Terminal.getScreen().onInitComplete();
         } catch (Exception e) {
+            Terminal.getScreen().sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓===");
             Terminal.printException(this.getClass(), e);
+            Terminal.getScreen().sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
+            Terminal.printSeriousException(e, "Terminal Initialization failed!");
         }
     }
 

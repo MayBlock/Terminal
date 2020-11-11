@@ -7,6 +7,8 @@ import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
+import cn.newcraft.terminal.network.Sender;
+import cn.newcraft.terminal.network.Server;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
@@ -22,6 +24,7 @@ import java.io.*;
 public class Terminal {
 
     private static int port;
+    private static Server server;
     private static Logger logger;
     private static boolean debug;
     private static Terminal terminal;
@@ -51,6 +54,10 @@ public class Terminal {
         return update;
     }
 
+    public static Server getServer() {
+        return server;
+    }
+
     public static Theme getTheme(String id) {
         return Theme.getThemeMap().get(id);
     }
@@ -77,6 +84,10 @@ public class Terminal {
 
     public void setUpdate(Update update) {
         this.update = update;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
     }
 
     public void setScreen(Screen screen) {
@@ -125,7 +136,7 @@ public class Terminal {
                 init.initTerminal();
             }
         } catch (Exception ex) {
-            printException(Terminal.class, ex);
+            printSeriousException(ex, "A serious error occurred while Terminal was running!");
         }
     }
 
@@ -142,9 +153,9 @@ public class Terminal {
                     printException(Terminal.class, ex);
                 }
             }).start();
-            if (ServerThread.isServer()) {
-                ServerThread.disconnectAll();
-                ServerThread.stopServerThread();
+            if (server.isEnabled()) {
+                Sender.disconnectAll();
+                server.shutdown();
             }
             screen.onDisable();
             screen = null;
@@ -165,9 +176,9 @@ public class Terminal {
                     printException(Terminal.class, ex);
                 }
             }).start();
-            if (ServerThread.isServer()) {
-                ServerThread.disconnectAll();
-                ServerThread.stopServerThread();
+            if (server.isEnabled()) {
+                Sender.disconnectAll();
+                server.shutdown();
             }
             screen.onDisable();
             screen = null;
@@ -179,9 +190,9 @@ public class Terminal {
         screen.sendMessage("Terminal stopping...");
         new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
-            if (ServerThread.isServer()) {
-                ServerThread.disconnectAll();
-                ServerThread.stopServerThread();
+            if (server.isEnabled()) {
+                Sender.disconnectAll();
+                server.shutdown();
             }
             screen.onDisable();
             screen = null;
@@ -195,8 +206,23 @@ public class Terminal {
         ex.printStackTrace(ps);
         try {
             String output = os.toString("UTF-8");
+            //System.err.println("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
             Terminal.getScreen().sendMessage(TextColor.RED + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
         } catch (UnsupportedEncodingException ignored) {
+        }
+    }
+
+    public static void printSeriousException(Throwable ex, String reason) {
+        if (server != null && server.isEnabled()) {
+            server.shutdown();
+        }
+        if (screen == null) {
+            System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason + " (" + ex.toString() + ")");
+            System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " Please submit a report on \"https://github.com/MayBlock/Terminal/issues/new/choose\" to resolve this issue!");
+        } else {
+            screen.setComponentEnabled(false);
+            screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " " + reason + " (" + ex.toString() + ")");
+            screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " Please submit a report on https://github.com/MayBlock/Terminal/issues/new/choose/ to resolve this issue!");
         }
     }
 }

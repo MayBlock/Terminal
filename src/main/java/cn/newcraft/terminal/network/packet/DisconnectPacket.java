@@ -4,7 +4,6 @@ import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.network.NetworkEvent;
 import cn.newcraft.terminal.network.Sender;
-import cn.newcraft.terminal.network.ServerThread;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -32,7 +31,7 @@ public class DisconnectPacket implements Packet {
         }
         Socket socket = sender.getSocket();
 
-        ServerThread.getSenderMap().remove(sender.getId());
+        Terminal.getServer().getSenderMap().remove(sender.getId());
 
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("DISCONNECT");

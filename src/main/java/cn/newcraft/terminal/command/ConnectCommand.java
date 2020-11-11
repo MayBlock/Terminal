@@ -1,7 +1,7 @@
 package cn.newcraft.terminal.command;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.network.ServerThread;
 
 public class ConnectCommand extends CommandManager {
 
@@ -11,6 +11,6 @@ public class ConnectCommand extends CommandManager {
 
     @Override
     public void onCommand(Screen screen, String[] args) {
-        screen.sendMessage("当前正在连接终端的数量：" + ServerThread.getSenderMap().size());
+        screen.sendMessage("当前正在连接终端的数量：" + Terminal.getServer().getSenderMap().size());
     }
 }

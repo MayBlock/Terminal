@@ -10,6 +10,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
@@ -42,11 +43,11 @@ public class ServerListener implements Listener {
         if (sockets.contains(e.getSender().getSocket())) {
             Sender sender = e.getSender();
             if (e.getInput() instanceof byte[]) {
-                ByteArrayDataInput in = ByteStreams.newDataInput((byte[]) e.getInput());
-                String chancel = in.readUTF();
-                if (chancel.equals("GET")) {
-                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                    try {
+                try {
+                    ByteArrayDataInput in = ByteStreams.newDataInput((byte[]) e.getInput());
+                    String chancel = in.readUTF();
+                    if (chancel.equals("GET")) {
+                        ByteArrayDataOutput out = ByteStreams.newDataOutput();
                         String subChancel = in.readUTF();
                         switch (subChancel) {
                             case "ID":
@@ -80,16 +81,12 @@ public class ServerListener implements Listener {
                                 out.writeUTF("FINISH");
                                 sender.sendByte(out.toByteArray(), false);
                         }
-                    } catch (IOException | IllegalAccessException | InvocationTargetException ex) {
-                        Terminal.printException(this.getClass(), ex);
                     }
-                }
-                if (chancel.equals("DISCONNECT")) {
-                    try {
+                    if (chancel.equals("DISCONNECT")) {
                         sender.disconnect(in.readUTF());
-                    } catch (IOException | InvocationTargetException | IllegalAccessException ex) {
-                        Terminal.printException(this.getClass(), ex);
                     }
+                } catch (InvocationTargetException | IllegalAccessException | IOException ex) {
+                    Terminal.printException(this.getClass(), ex);
                 }
             }
         }

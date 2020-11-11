@@ -5,7 +5,6 @@ import cn.newcraft.terminal.console.ConsoleEvent;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.other.PromptScreen;
-import cn.newcraft.terminal.network.ServerThread;
 import cn.newcraft.terminal.update.Download;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
@@ -111,17 +110,7 @@ public class GraphicalUpdate extends JFrame implements Update {
             screen.sendMessage("Terminal updating...");
             screen.getGraphicalScreen().setEnabled(false);
             screen.getGraphicalScreen().setComponentEnabled(false);
-            if (ServerThread.isServer()) {
-                for (int i = 0; i < ServerThread.getSenderMap().size(); i++) {
-                    try {
-                        ServerThread.getSenderMap().get(i).disconnect("Server Closed");
-                    } catch (IOException ignored) {
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        Terminal.printException(this.getClass(), e);
-                    }
-                }
-                ServerThread.stopServerThread();
-            }
+            Terminal.getServer().shutdown();
             ImageIcon icon = new ImageIcon(this.getClass().getResource("/console.png"));
             setIconImage(icon.getImage());
             setLayout(null);

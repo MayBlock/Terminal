@@ -6,6 +6,7 @@ import cn.newcraft.terminal.configuration.file.YamlConfiguration;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.screen.TextColor;
 import com.google.common.collect.Lists;
 
 import java.io.*;
@@ -108,9 +109,9 @@ public class PluginManager {
             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + file.getName().replace(".jar", "") + " 加载失败，该报错非为Terminal问题，请联系该插件开发者");
             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 请检查插件内是否包含 plugin.yml 文件且保证语法正确");
 
-            screen.sendMessage("\n ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓===");
             Terminal.printException(this.getClass(), e);
-            screen.sendMessage("\n ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
         }
     }
 
@@ -132,9 +133,9 @@ public class PluginManager {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | ClassNotFoundException | InstantiationException e) {
             loadFailed++;
             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 启用失败，该报错非为Terminal问题，请联系该插件开发者");
-            screen.sendMessage("\n===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓===");
             Terminal.printException(this.getClass(), e);
-            screen.sendMessage("\n===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
             new PluginManager(Status.DISABLE);
         }
     }
@@ -156,9 +157,9 @@ public class PluginManager {
             screen.sendMessage("[" + name + "] Disabled!");
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | InstantiationException | ClassNotFoundException e) {
             screen.sendMessage("\n" + Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 卸载失败，该报错非为Terminal问题，请联系该插件开发者");
-            screen.sendMessage("\n ===↓=↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓=↓===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓===");
             Terminal.printException(this.getClass(), e);
-            screen.sendMessage("\n ===↑=↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑=↑===");
+            screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
         }
         CommandManager.getCommandsInfo().remove(name);
         if (Event.getListeners().get(plugin) != null) {

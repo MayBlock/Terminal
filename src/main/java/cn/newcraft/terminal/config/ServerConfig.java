@@ -14,7 +14,7 @@ public class ServerConfig extends ConfigManager {
         cfg.getYml().addDefault("server.port", null);
         cfg.getYml().addDefault("server.enable_plugin", true);
         cfg.getYml().addDefault("server.debug", false);
-        cfg.getYml().addDefault("server.max_connect", 100);
+        cfg.getYml().addDefault("server.max_concurrent", 100);
         cfg.getYml().addDefault("server.reboot_script", "java -jar {path}/{name}");
         cfg.getYml().addDefault("server.heart_packet_delay", 1500);
         cfg.getYml().addDefault("server.timezone", System.getProperty("user.timezone"));

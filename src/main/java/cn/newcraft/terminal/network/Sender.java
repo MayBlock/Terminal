@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.util.Map;
 
 public class Sender {
 
@@ -95,19 +96,39 @@ public class Sender {
     }
 
     public static Sender getSender(int id) {
-        return ServerThread.getSenderMap().get(id);
+        return Terminal.getServer().getSenderMap().get(id);
     }
 
     public static int spawnNewId() {
         int id = 0;
+        Map<Integer, Sender> senderMap = Terminal.getServer().getSenderMap();
         while (true) {
-            if (ServerThread.getSenderMap().isEmpty()) {
+            if (senderMap.isEmpty()) {
                 return id;
             }
-            if (ServerThread.getSenderMap().get(id) != null) {
+            if (senderMap.get(id) != null) {
                 id++;
             } else {
                 return id;
+            }
+        }
+    }
+
+    public static void disconnectAll() {
+        disconnectAll("Server Closed");
+    }
+
+    public static void disconnectAll(String reason) {
+        Map<Integer, Sender> senderMap = Terminal.getServer().getSenderMap();
+        if (senderMap.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < senderMap.size(); i++) {
+            try {
+                senderMap.get(i).disconnect(reason);
+            } catch (IOException ignored) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                Terminal.printException(Terminal.class, e);
             }
         }
     }

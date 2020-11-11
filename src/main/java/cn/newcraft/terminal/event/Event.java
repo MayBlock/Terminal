@@ -1,13 +1,10 @@
 package cn.newcraft.terminal.event;
 
-import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.plugin.Plugin;
-import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;

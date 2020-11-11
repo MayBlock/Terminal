@@ -2,6 +2,7 @@ package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.network.packet.HeartbeatPacket;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.console.Prefix;
@@ -16,54 +17,17 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ServerThread extends Thread {
+public class ServerThread extends Thread implements Server {
 
-    private static Socket socket;
-    private static boolean serverEnable = false;
-    private static Map<Integer, Sender> senderMap = new HashMap<>();
-
-    public static boolean isServer() {
-        return serverEnable;
-    }
-
-    public static Map<Integer, Sender> getSenderMap() {
-        return senderMap;
-    }
-
-    public static void disconnectAll() {
-        disconnectAll("Server Closed");
-    }
-
-    public static void disconnectAll(String reason) {
-        if (ServerThread.getSenderMap().isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < senderMap.size(); i++) {
-            try {
-                senderMap.get(i).disconnect(reason);
-            } catch (IOException ignored) {
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                Terminal.printException(Terminal.class, e);
-            }
-        }
-    }
-
-    public static void startServerThread() {
-        serverEnable = true;
-        new ServerThread().listenThread().start();
-        new ServerThread().heartThread().start();
-    }
-
-    public static void stopServerThread() {
-        serverEnable = false;
-        new ServerThread().heartThread().stop();
-        new ServerThread().listenThread().stop();
-    }
+    private Socket socket;
+    private boolean enabled;
+    private Map<Integer, Sender> senderMap = new HashMap<>();
+    private ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConcurrent());
 
     @Override
     public void run() {
         int id = Sender.spawnNewId();
-        ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConnect());
+        System.out.println("ID: " + id + " connected to terminal!");
         /** Init Connect **/
         byte[] channel;
         InputStream inputStream = null;
@@ -128,7 +92,7 @@ public class ServerThread extends Thread {
                 ServerSocket serverSocket = new ServerSocket(Terminal.getPort());
                 while (true) {
                     socket = serverSocket.accept();
-                    new ServerThread().start();
+                    Terminal.getServer().getThread().start();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -167,6 +131,45 @@ public class ServerThread extends Thread {
             }
         });
     }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public Map<Integer, Sender> getSenderMap() {
+        return senderMap;
+    }
+
+    @Override
+    public void onServer() {
+        System.out.println("start server thread!");
+        if (!enabled) {
+            this.listenThread().start();
+            this.heartThread().start();
+            enabled = true;
+        }
+    }
+
+    @Override
+    public void shutdown() {
+        if (enabled) {
+            this.listenThread().stop();
+            this.heartThread().stop();
+            enabled = false;
+        }
+    }
+
+    @Override
+    public Thread getThread() {
+        return this;
+    }
+
+    @Override
+    public int getPort() {
+        return this.getPort();
+    }
 }
 
 class ServerInputRunnable implements Runnable {
@@ -186,8 +189,11 @@ class ServerInputRunnable implements Runnable {
         }
         try {
             Event.callEvent(new NetworkEvent.ServerReceivedEvent(sender, input));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            Terminal.printException(this.getClass(), e);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            if (e.getCause() != null && e.getCause().toString().contains("java.io.EOFException")) {
+                return;
+            }
+            e.printStackTrace();
         }
         sender.setTimeoutCount(0);
         if (Terminal.isDebug()) {

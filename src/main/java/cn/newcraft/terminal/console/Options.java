@@ -7,8 +7,8 @@ import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.2.3";
-    private String canonicalVersion = "1.2.3.201107_release";
+    private String version = "1.2.4";
+    private String canonicalVersion = "1.2.4.201112_release";
     private int apiVersion = 4;
     private TimeZone timeZone = TimeZone.getDefault();
 
@@ -24,8 +24,8 @@ public class Options {
         return apiVersion;
     }
 
-    public int getMaxConnect() {
-        return ServerConfig.cfg.getYml().getInt("server.max_connect");
+    public int getMaxConcurrent() {
+        return ServerConfig.cfg.getYml().getInt("server.max_concurrent");
     }
 
     public String getCanonicalVersion() {
@@ -34,11 +34,6 @@ public class Options {
 
     public TimeZone getTimeZone() {
         return timeZone;
-    }
-
-    @Deprecated
-    public Theme getTheme(String id) {
-        return Theme.getThemeMap().get(id);
     }
 
     @Deprecated

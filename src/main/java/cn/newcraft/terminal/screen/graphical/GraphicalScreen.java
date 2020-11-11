@@ -263,7 +263,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 List<String> name = Lists.newArrayList();
                 for (String s : ThemeConfig.cfg.getYml().getConfigurationSection("theme").getKeys(false)) {
                     id.add(s);
-                    name.add(Terminal.getOptions().getTheme(s).getName());
+                    name.add(Terminal.getTheme(s).getName());
                 }
                 Object jOptionPane = JOptionPane.showInputDialog(this, "请选择主题", "主题",
                         JOptionPane.INFORMATION_MESSAGE, null,
@@ -274,7 +274,7 @@ public class GraphicalScreen extends JFrame implements Screen {
                 for (int i = 0; i < name.size(); i++) {
                     if (jOptionPane.equals(name.get(i))) {
                         Theme.changeTheme(id.get(i));
-                        sendMessage(Prefix.TERMINAL.getPrefix() + " 已切换主题 " + Terminal.getOptions().getTheme(id.get(i)).getName());
+                        sendMessage(Prefix.TERMINAL.getPrefix() + " 已切换主题 " + Terminal.getTheme(id.get(i)).getName());
                     }
                 }
             });
@@ -408,12 +408,14 @@ public class GraphicalScreen extends JFrame implements Screen {
 
     @Override
     public void sendMessage(Object str) {
+
         String string = String.valueOf(str);
         try {
             Event.callEvent(new ScreenEvent.ScreenRefreshEvent(this));
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }
+        System.out.format(TextColor.codeTo(string + "\n", true));
         try {
             StyledDocument d = text.getStyledDocument();
             SimpleAttributeSet attr = new SimpleAttributeSet();
@@ -448,7 +450,6 @@ public class GraphicalScreen extends JFrame implements Screen {
             e.printStackTrace();
         }
         Terminal.getLogger().info(string);
-        System.out.println(string);
     }
 
     private void initTray() {

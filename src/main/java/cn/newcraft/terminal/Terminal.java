@@ -7,11 +7,9 @@ import cn.newcraft.terminal.internal.Initialization;
 import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
-import cn.newcraft.terminal.network.Sender;
 import cn.newcraft.terminal.network.Server;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
-import cn.newcraft.terminal.network.ServerThread;
 import cn.newcraft.terminal.screen.TextColor;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
@@ -27,6 +25,7 @@ public class Terminal {
     private static Server server;
     private static Logger logger;
     private static boolean debug;
+    private static boolean internet = false;
     private static Terminal terminal;
     private static final Options options = new Options();
     private static Screen screen;
@@ -66,6 +65,10 @@ public class Terminal {
         return debug;
     }
 
+    public static boolean isInternetEnabled() {
+        return internet;
+    }
+
     public static Options getOptions() {
         return options;
     }
@@ -86,6 +89,10 @@ public class Terminal {
         this.update = update;
     }
 
+    public void setInternet(boolean b) {
+        this.internet = b;
+    }
+
     public void setServer(Server server) {
         this.server = server;
     }
@@ -98,7 +105,7 @@ public class Terminal {
         debug = b;
     }
 
-    public static void dispatchCommand(String command) {
+    public synchronized static void dispatchCommand(String command) {
         new SendCommand(command.split(" "));
     }
 
@@ -136,7 +143,9 @@ public class Terminal {
                 init.initTerminal();
             }
         } catch (Exception ex) {
-            printSeriousException(ex, "A serious error occurred while Terminal was running!");
+            printSeriousException(
+                    "A serious error occurred while Terminal was running! （" + ex.toString() + "）",
+                    "Please submit a report on \"https://github.com/MayBlock/Terminal/issues/new/choose\" to resolve this issue.");
         }
     }
 
@@ -154,7 +163,6 @@ public class Terminal {
                 }
             }).start();
             if (server.isEnabled()) {
-                Sender.disconnectAll();
                 server.shutdown();
             }
             screen.onDisable();
@@ -177,7 +185,6 @@ public class Terminal {
                 }
             }).start();
             if (server.isEnabled()) {
-                Sender.disconnectAll();
                 server.shutdown();
             }
             screen.onDisable();
@@ -191,7 +198,6 @@ public class Terminal {
         new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
             if (server.isEnabled()) {
-                Sender.disconnectAll();
                 server.shutdown();
             }
             screen.onDisable();
@@ -206,23 +212,24 @@ public class Terminal {
         ex.printStackTrace(ps);
         try {
             String output = os.toString("UTF-8");
-            //System.err.println("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
             Terminal.getScreen().sendMessage(TextColor.RED + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
         } catch (UnsupportedEncodingException ignored) {
         }
     }
 
-    public static void printSeriousException(Throwable ex, String reason) {
+    public static void printSeriousException(String... reasons) {
         if (server != null && server.isEnabled()) {
             server.shutdown();
         }
         if (screen == null) {
-            System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason + " (" + ex.toString() + ")");
-            System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " Please submit a report on \"https://github.com/MayBlock/Terminal/issues/new/choose\" to resolve this issue!");
+            for (String reason : reasons) {
+                System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
+            }
         } else {
             screen.setComponentEnabled(false);
-            screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " " + reason + " (" + ex.toString() + ")");
-            screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " Please submit a report on https://github.com/MayBlock/Terminal/issues/new/choose/ to resolve this issue!");
+            for (String reason : reasons) {
+                screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
+            }
         }
     }
 }

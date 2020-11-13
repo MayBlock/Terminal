@@ -119,14 +119,19 @@ public class Initialization {
 
             Event.regListener(plugin, new GraphicalListener());
             Event.regListener(plugin, new ServerListener());
-            OperateManager.regOperate(new DisconnectOperate());
+            OperateManager.regOperate(new DisconnectOperate.Target());
+            OperateManager.regOperate(new DisconnectOperate.All());
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
             Terminal.getTerminal().setServer(new ServerThread());
-            Terminal.getServer().onServer();
-            if (!Terminal.getServer().isEnabled()) {
-                throw new RuntimeException("The server failed to start");
+            if (Terminal.isInternetEnabled()) {
+                Terminal.getServer().onServer();
+                if (!Terminal.getServer().isEnabled()) {
+                    throw new RuntimeException("The server failed to start");
+                }
+                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功启动服务器监听线程！");
+            } else {
+                Terminal.getScreen().sendMessage(Prefix.TERMINAL_WARN.getPrefix() + " 由于您当前的设备尚未联网，服务器监听将不会启动，直到您的设备进行联网并重启终端！");
             }
-            Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 创建监听连接进程完毕！");
             Terminal.getScreen().setComponentEnabled(true);
             isInitialization = false;
             new PluginManager(PluginManager.Status.ENABLE);
@@ -144,17 +149,17 @@ public class Initialization {
             Terminal.getScreen().sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↓=↓=↓=↓=↓== 该错误并非为Terminal造成，请不要报告该错误 ==↓=↓=↓=↓=↓===");
             Terminal.printException(this.getClass(), e);
             Terminal.getScreen().sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
-            Terminal.printSeriousException(e, "Terminal Initialization failed!");
+            Terminal.printSeriousException(
+                    "Terminal initialization failed! （" + e.toString() + "）",
+                    "Please check if the plugin is loaded normally!",
+                    "Most of the problem is caused by plugin incompatibility.");
         }
     }
 
-    private void initConsoleScreen() throws InterruptedException {
+    private void initConsoleScreen() {
         Terminal terminal = Terminal.getTerminal();
-        if (!Method.isConnect()) {
-            System.out.println(Prefix.TERMINAL_ERROR.getPrefix() + " 你的电脑尚未联网，无法启动终端！");
-            Thread.sleep(1000);
-            System.exit(0);
-            return;
+        if (Method.isConnect()) {
+            terminal.setInternet(true);
         }
         terminal.setScreen(new ConsoleScreen());
         terminal.setUpdate(new ConsoleUpdate());
@@ -162,12 +167,10 @@ public class Initialization {
 
     private void initGraphicalScreen() {
         Terminal terminal = Terminal.getTerminal();
-        if (!Method.isConnect()) {
-            JOptionPane.showConfirmDialog(null, "你的电脑尚未联网，无法启动终端！", Prefix.TERMINAL_ERROR.getPrefix(), JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
-            return;
-        }
         new LoadScreen().show("Terminal正在启动中");
+        if (Method.isConnect()) {
+            terminal.setInternet(true);
+        }
         terminal.setScreen(new GraphicalScreen());
         terminal.setUpdate(new GraphicalUpdate());
     }

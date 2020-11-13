@@ -7,19 +7,32 @@ import cn.newcraft.terminal.network.Sender;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class DisconnectOperate extends OperateManager {
+public class DisconnectOperate {
 
-    public DisconnectOperate() {
-        super("disconnect", "与客户端断开连接");
+    public static class Target extends OperateManager {
+        public Target() {
+            super("disconnect", "与已连接的客户端断开连接");
+        }
+
+        @Override
+        public void onOperate(Screen screen, Sender sender) {
+            try {
+                sender.disconnect("disconnect");
+            } catch (IOException ignored) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                Terminal.printException(this.getClass(), e);
+            }
+        }
     }
 
-    @Override
-    public void onOperate(Screen screen, Sender sender) {
-        try {
-            sender.disconnect("disconnect");
-        } catch (IOException ignored) {
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            Terminal.printException(this.getClass(), e);
+    public static class All extends OperateManager {
+        public All() {
+            super("disconnectAll", "与当前所有已连接的客户端断开连接");
+        }
+
+        @Override
+        public void onOperate(Screen screen, Sender sender) {
+            Sender.disconnectAll();
         }
     }
 }

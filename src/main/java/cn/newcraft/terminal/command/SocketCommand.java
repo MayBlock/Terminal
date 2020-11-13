@@ -1,6 +1,7 @@
 package cn.newcraft.terminal.command;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.network.Sender;
@@ -21,7 +22,7 @@ public class SocketCommand extends CommandManager {
 
     @Override
     public void onCommand(Screen screen, String[] args) {
-        if (args.length >= 2 && args[1].equalsIgnoreCase("help")) {
+        if (args.length == 2) {
             if (args.length >= 3 && args[2].equalsIgnoreCase("operate")) {
                 screen.sendMessage("---- 所有可执行操作 ----");
                 screen.sendMessage("");
@@ -37,14 +38,61 @@ public class SocketCommand extends CommandManager {
                 }
                 return;
             }
-            screen.sendMessage("---- " + getCommand() + " 命令用法 ----");
-            screen.sendMessage("");
-            screen.sendMessage(getCommand() + " help - 查看" + getCommand() + "命令所有帮助");
-            screen.sendMessage(getCommand() + " help operate - 查看所有的可执行操作");
-            screen.sendMessage(getCommand() + " <id> <operate> - 执行指定操作");
-            screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
-            screen.sendMessage(getCommand() + " <id> send - 向客户端发送已添加的Byte数据");
-            screen.sendMessage("");
+            switch (args[1].toLowerCase()) {
+                case "help":
+                    screen.sendMessage("---- " + getCommand() + " 命令用法 ----");
+                    screen.sendMessage("");
+                    screen.sendMessage(getCommand() + " help - 查看" + getCommand() + "命令所有帮助");
+                    screen.sendMessage(getCommand() + " help operate - 查看所有的可执行操作");
+                    screen.sendMessage(getCommand() + " active - 查看当前服务器监听是否正常开启");
+                    screen.sendMessage(getCommand() + " start/shutdown/reboot - 启动/关闭/重启服务器监听");
+                    screen.sendMessage(getCommand() + " <id> <operate> - 执行指定操作");
+                    screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
+                    screen.sendMessage(getCommand() + " <id> send - 向客户端发送已添加的Byte数据 [以ByteArrayDataOutput形式发送]");
+                    screen.sendMessage("");
+                    break;
+                case "active":
+                    screen.sendMessage("当前服务器监听状态：" + Terminal.getServer().isEnabled());
+                    break;
+                case "start":
+                    if (Terminal.getServer().isEnabled()) {
+                        screen.sendMessage("启动失败，当前服务器监听已经为开启状态！");
+                        break;
+                    }
+                    Terminal.getScreen().sendMessage("正在尝试启动服务器监听...");
+                    if (Terminal.getServer().onServer()) {
+                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功启动服务器监听线程！");
+                    } else {
+                        Terminal.getScreen().sendMessage("服务器启动监听线程失败，可能是由于一些未知原因造成的，请检查当前服务器监听端口未被占用或尝试再次启动！");
+                    }
+                    break;
+                case "shutdown":
+                    if (!Terminal.getServer().isEnabled()) {
+                        screen.sendMessage("关闭失败，当前服务器监听已经为关闭状态！");
+                        break;
+                    }
+                    Terminal.getScreen().sendMessage("正在尝试关闭服务器监听...");
+                    if (Terminal.getServer().shutdown()) {
+                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功关闭服务器监听线程！");
+                    } else {
+                        Terminal.getScreen().sendMessage("服务器关闭监听线程失败，可能是由于一些未知原因造成的，请尝试再次关闭！");
+                    }
+                    break;
+                case "reboot":
+                    if (!Terminal.getServer().isEnabled()) {
+                        screen.sendMessage("重启失败，你必须先启动服务器监听才能进行重启！");
+                        break;
+                    }
+                    Terminal.getScreen().sendMessage("正在尝试重启服务器监听...");
+                    if (Terminal.getServer().shutdown() && Terminal.getServer().onServer()) {
+                        Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功重启服务器监听线程！");
+                    } else {
+                        Terminal.getScreen().sendMessage("服务器重启监听线程失败，可能是由于一些未知原因造成的，请检查当前服务器监听端口未被占用或尝试再次启动！");
+                    }
+                    break;
+                default:
+                    screen.sendMessage("用法：" + getUsage());
+            }
             return;
         }
         if (args.length >= 3) {

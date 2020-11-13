@@ -28,6 +28,9 @@ import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class GraphicalScreen extends JFrame implements Screen {
 
@@ -168,9 +171,6 @@ public class GraphicalScreen extends JFrame implements Screen {
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
                     }
-                    if (Terminal.isDebug()) {
-                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + text);
-                    }
                 }
                 input.setText("");
                 input.requestFocus();
@@ -224,9 +224,6 @@ public class GraphicalScreen extends JFrame implements Screen {
                     cache.add(text);
                     if (cache.size() >= max_cache) {
                         cache.remove(0);
-                    }
-                    if (Terminal.isDebug()) {
-                        sendMessage(Prefix.DEBUG.getPrefix() + " 执行了命令：" + text);
                     }
                 }
                 input.setText("");
@@ -407,8 +404,7 @@ public class GraphicalScreen extends JFrame implements Screen {
     }
 
     @Override
-    public void sendMessage(Object str) {
-
+    public synchronized void sendMessage(Object str) {
         String string = String.valueOf(str);
         try {
             Event.callEvent(new ScreenEvent.ScreenRefreshEvent(this));

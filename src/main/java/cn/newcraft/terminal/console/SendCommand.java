@@ -9,22 +9,24 @@ import java.lang.reflect.InvocationTargetException;
 public class SendCommand {
 
     public SendCommand(String[] command) {
-        ConsoleEvent.SendCommandEvent commandEvent = new ConsoleEvent.SendCommandEvent(command);
-        try {
-            Event.callEvent(commandEvent);
-        } catch (InvocationTargetException | IllegalAccessException e) {
-            Terminal.printException(this.getClass(), e);
-        }
-        if (commandEvent.isCancelled()) return;
-        String exitsCommand = CommandManager.exist(command[0]);
-        if (exitsCommand == null) {
-            Terminal.getScreen().sendMessage("命令不存在，输入 \"help\" 获取命令帮助");
-            return;
-        }
-        try {
-            CommandManager.getCommands().get(exitsCommand).onCommand(Terminal.getScreen(), command);
-        } catch (Exception e) {
-            Terminal.printException(this.getClass(), e);
+        if (command.length > 0) {
+            ConsoleEvent.SendCommandEvent commandEvent = new ConsoleEvent.SendCommandEvent(command);
+            try {
+                Event.callEvent(commandEvent);
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                Terminal.printException(this.getClass(), e);
+            }
+            if (commandEvent.isCancelled()) return;
+            String exitsCommand = CommandManager.exist(command[0]);
+            if (exitsCommand == null) {
+                Terminal.getScreen().sendMessage("命令不存在，输入 \"help\" 获取命令帮助");
+                return;
+            }
+            try {
+                CommandManager.getCommands().get(exitsCommand).onCommand(Terminal.getScreen(), command);
+            } catch (Exception e) {
+                Terminal.printException(this.getClass(), e);
+            }
         }
     }
 }

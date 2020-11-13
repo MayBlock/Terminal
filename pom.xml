@@ -6,7 +6,7 @@
 
     <groupId>cn.newcraft.terminal</groupId>
     <artifactId>terminal</artifactId>
-    <version>1.2.4.201112_release</version>
+    <version>1.3.0.201114_release</version>
     <packaging>jar</packaging>
 
     <name>Terminal</name>

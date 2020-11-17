@@ -12,7 +12,7 @@
 </dependency>
 ```
 ### Grade
-```INI
+```properties
 <!-- 1.将Maven仓库添加到build.gradle中 -->
 allprojects {
 	repositories {

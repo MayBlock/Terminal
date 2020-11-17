@@ -4,7 +4,7 @@
 
 ### Maven
 ```xml
-1.添加依赖
+<!-- 1.添加依赖 -->
 <dependency>
     <groupId>cn.newcraft.terminal</groupId>
     <artifactId>Terminal</artifactId>
@@ -12,15 +12,15 @@
 </dependency>
 ```
 ### Grade
-```groovy
-1.将Maven仓库添加到build.gradle中
+```properties
+<!-- 1.将Maven仓库添加到build.gradle中 -->
 allprojects {
 	repositories {
 		maven { url 'http://repo1.maven.org/maven2' }
 	}
 }
 
-2.添加依赖
+<!-- 2.添加依赖 -->
 dependencies {
 	implementation 'cn.newcraft.terminal:Terminal:1.3.0.201114_release'
 }

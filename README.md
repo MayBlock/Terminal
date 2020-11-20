@@ -4,34 +4,25 @@
 
 ### Maven
 ```xml
-1.将存储库添加到你的Maven构建中
-<repositories>
-	<repository>
-		<id>jitpack.io</id>
-		<url>https://jitpack.io</url>
-	</repository>
-</repositories>
-
-2.添加依赖
+<!-- 1.添加依赖 -->
 <dependency>
-	<groupId>com.github.MayBlock</groupId>
-	<artifactId>Terminal</artifactId>
-	<version>1.2.1.201024_release</version>
+    <groupId>cn.newcraft.terminal</groupId>
+    <artifactId>Terminal</artifactId>
+    <version>1.3.0.201114_release</version>
 </dependency>
 ```
 ### Grade
 ```groovy
-1.将其添加到存储库末尾的build.gradle中
+<!-- 1.将Maven仓库添加到build.gradle中 -->
 allprojects {
 	repositories {
-		...
-		maven { url 'https://jitpack.io' }
+		maven { url 'http://repo1.maven.org/maven2' }
 	}
 }
 
-2.添加依赖
+<!-- 2.添加依赖 -->
 dependencies {
-	implementation 'com.github.MayBlock:Terminal:1.2.1.201024_release'
+	implementation 'cn.newcraft.terminal:Terminal:1.3.0.201114_release'
 }
 ```
 

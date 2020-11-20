@@ -7,18 +7,13 @@ import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.console.other.ConsoleProgressBar;
 import cn.newcraft.terminal.update.Download;
 import cn.newcraft.terminal.update.Update;
+import cn.newcraft.terminal.util.JsonUtils;
 import cn.newcraft.terminal.util.Method;
-import com.alibaba.fastjson.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 
 public class ConsoleUpdate implements Update {
 
@@ -38,16 +33,10 @@ public class ConsoleUpdate implements Update {
         try {
             this.canonicalVersion = Terminal.getOptions().getCanonicalVersion();
             URL url = new URL("https://api.newcraft.cn/update.php?version=" + canonicalVersion);
-            URLConnection conn = url.openConnection();
-            conn.setReadTimeout(5000);
-            conn.setDoOutput(true);
-            InputStream is = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String response = reader.readLine();
-            this.version = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("version");
-            this.newVersion = JSONObject.parseObject(response).getJSONObject("Terminal").getJSONObject("latest").getString("canonical");
-            this.description = JSONObject.parseObject(response).getJSONObject("Terminal").getString("description");
-            this.forceUpdate = JSONObject.parseObject(response).getJSONObject("Terminal").getBoolean("force_update");
+            this.version = JsonUtils.getJsonURL(url, "Terminal", "latest", "version").getAsString();
+            this.newVersion = JsonUtils.getJsonURL(url, "Terminal", "latest", "canonical").getAsString();
+            this.description = JsonUtils.getJsonURL(url, "Terminal", "description").getAsString();
+            this.forceUpdate = JsonUtils.getJsonURL(url, "Terminal", "force_update").getAsBoolean();
         } catch (IOException e) {
             Terminal.printException(this.getClass(), e);
         }

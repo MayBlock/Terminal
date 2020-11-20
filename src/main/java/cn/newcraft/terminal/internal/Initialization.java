@@ -22,6 +22,7 @@ import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
@@ -156,7 +157,7 @@ public class Initialization {
         }
     }
 
-    private void initConsoleScreen() {
+    private void initConsoleScreen() throws IOException {
         Terminal terminal = Terminal.getTerminal();
         if (Method.isConnect()) {
             terminal.setInternet(true);
@@ -165,7 +166,7 @@ public class Initialization {
         terminal.setUpdate(new ConsoleUpdate());
     }
 
-    private void initGraphicalScreen() {
+    private void initGraphicalScreen() throws IOException {
         Terminal terminal = Terminal.getTerminal();
         new LoadScreen().show("Terminal正在启动中");
         if (Method.isConnect()) {

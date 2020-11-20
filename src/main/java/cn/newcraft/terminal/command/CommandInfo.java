@@ -1,7 +1,5 @@
 package cn.newcraft.terminal.command;
 
-import javax.annotation.Nullable;
-
 public class CommandInfo {
 
     private String command;

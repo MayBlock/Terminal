@@ -11,7 +11,7 @@ public class DisconnectOperate {
 
     public static class Target extends OperateManager {
         public Target() {
-            super("disconnect", "与已连接的客户端断开连接");
+            super("disconnect", "与已连接的客户端断开连接", true);
         }
 
         @Override
@@ -27,11 +27,15 @@ public class DisconnectOperate {
 
     public static class All extends OperateManager {
         public All() {
-            super("disconnectAll", "与当前所有已连接的客户端断开连接");
+            super("disconnectAll", "与当前所有已连接的客户端断开连接", false);
         }
 
         @Override
         public void onOperate(Screen screen, Sender sender) {
+            if (Terminal.getServer().getSenderMap().size() <= 0) {
+                screen.sendMessage("当前尚未存在已连接的客户端！");
+                return;
+            }
             Sender.disconnectAll();
         }
     }

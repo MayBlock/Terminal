@@ -10,9 +10,9 @@ public interface Server {
 
     Map<Integer, Sender> getSenderMap();
 
-    boolean onServer();
+    void onServer();
 
-    boolean shutdown();
+    void shutdown();
 
     boolean isEnabled();
 }

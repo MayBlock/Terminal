@@ -2,104 +2,100 @@ package cn.newcraft.terminal.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class JsonUtils {
 
-    public static String getStringJson(String URL, String path_1, String path_2, boolean error) {
-        String str;
-        try {
-            URL url = new URL(URL);
-            URLConnection conn = url.openConnection();
-            conn.setReadTimeout(5000);
-            conn.setDoOutput(true);
-            InputStream is = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String response = reader.readLine();
-            JsonElement jsonElement = new JsonParser().parse(response);
-            if (!jsonElement.isJsonObject()) {
-                return null;
-            }
-            if (path_2 != null) {
-                str = jsonElement.getAsJsonObject().get(path_1).getAsJsonObject().get(path_2).getAsString();
-            } else {
-                str = jsonElement.getAsJsonObject().get(path_1).getAsString();
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            if (error) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-        return str;
+    /**
+     * 访问网址（String）
+     *
+     * @return 返回的信息
+     */
+    public static JsonElement getJsonURL(String url, String... paths) throws IOException {
+        return getJsonURL(new URL(url), StandardCharsets.UTF_8, paths);
     }
 
-    public static boolean getBooleanJson(String URL, String path_1, String path_2, boolean error) {
-        boolean bl;
-        try {
-            URL url = new URL(URL);
-            URLConnection conn = url.openConnection();
-            conn.setReadTimeout(5000);
-            conn.setDoOutput(true);
-            InputStream is = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String response = reader.readLine();
-            JsonElement jsonElement = new JsonParser().parse(response);
-            if (!jsonElement.isJsonObject()) {
-                return false;
-            }
-            if (path_2 != null) {
-                bl = jsonElement.getAsJsonObject().get(path_1).getAsJsonObject().get(path_2).getAsBoolean();
-            } else {
-                bl = jsonElement.getAsJsonObject().get(path_1).getAsBoolean();
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            if (error) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-        return bl;
+    /**
+     * 访问网址（URL）
+     *
+     * @return 返回的信息
+     */
+    public static JsonElement getJsonURL(URL url, String... paths) throws IOException {
+        return getJsonURL(url, StandardCharsets.UTF_8, paths);
     }
 
-    public static int getIntJson(String URL, String path_1, String path_2, boolean error) {
-        int it;
-        try {
-            URL url = new URL(URL);
-            URLConnection conn = url.openConnection();
-            conn.setReadTimeout(5000);
-            conn.setDoOutput(true);
-            InputStream is = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String response = reader.readLine();
-            JsonElement jsonElement = new JsonParser().parse(response);
-            if (!jsonElement.isJsonObject()) {
-                return 0;
-            }
-            if (path_2 != null) {
-                it = jsonElement.getAsJsonObject().get(path_1).getAsJsonObject().get(path_2).getAsInt();
-            } else {
-                it = jsonElement.getAsJsonObject().get(path_1).getAsInt();
-            }
-            reader.close();
+    /**
+     * 访问网址带Charset（String）
+     *
+     * @return 返回的信息
+     */
+    public static JsonElement getJsonURL(String url, Charset charsetName, String... paths) throws IOException {
+        return getJsonURL(new URL(url), charsetName, paths);
+    }
 
-        } catch (IOException e) {
-            if (error) {
-                e.printStackTrace();
+    /**
+     * 访问网址带Charset（URL）
+     *
+     * @return 返回的信息
+     */
+    public static JsonElement getJsonURL(URL url, Charset charsetName, String... paths) throws IOException {
+        URLConnection conn = url.openConnection();
+        conn.setReadTimeout(5000);
+        conn.setDoOutput(true);
+        InputStream is = url.openStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, charsetName));
+        return getJson(reader, paths);
+    }
+
+    /**
+     * 在Reader中解析Json
+     *
+     * @return 返回JsonElement对象
+     */
+    public static JsonElement getJson(Reader reader, String... paths) {
+        return getJson(new JsonParser().parse(reader), paths);
+    }
+
+    /**
+     * 在字符串中解析Json
+     *
+     * @return 返回JsonElement对象
+     */
+    public static JsonElement getJson(String json, String... paths) {
+        return getJson(new JsonParser().parse(json), paths);
+    }
+
+    /**
+     * 在JsonReader中解析Json
+     *
+     * @return 返回JsonElement对象
+     */
+    public static JsonElement getJson(JsonReader jsonReader, String... paths) {
+        return getJson(new JsonParser().parse(jsonReader), paths);
+    }
+
+    /**
+     * 在JsonElement中解析Json（原方法）
+     *
+     * @return 返回JsonElement对象
+     */
+    public static JsonElement getJson(JsonElement element, String... paths) {
+        JsonElement ret = null;
+        if (element.isJsonObject()) {
+            for (String path : paths) {
+                if (ret == null) {
+                    ret = element.getAsJsonObject().get(path);
+                } else {
+                    ret = ret.getAsJsonObject().get(path);
+                }
             }
-            return 0;
         }
-        return it;
+        return ret;
     }
 }

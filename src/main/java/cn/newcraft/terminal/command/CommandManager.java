@@ -10,11 +10,12 @@ import com.google.common.collect.Lists;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class CommandManager extends CommandInfo {
 
-    private static HashMap<String, CommandManager> commands = new HashMap<>();
-    private static HashMap<String, List<CommandInfo>> commandsInfo = new HashMap<>();
+    private static final Map<String, CommandManager> commands = new HashMap<>();
+    private static final Map<String, List<CommandInfo>> commandsInfo = new HashMap<>();
 
     public CommandManager(String command, String desc, String usage) {
         super(command, desc, usage);
@@ -24,28 +25,28 @@ public abstract class CommandManager extends CommandInfo {
         super(command, desc, usage, aliases);
     }
 
-    public static HashMap<String, List<CommandInfo>> getCommandsInfo() {
+    public static Map<String, List<CommandInfo>> getCommandsInfo() {
         return commandsInfo;
     }
 
-    public static HashMap<String, CommandManager> getCommands() {
+    public static Map<String, CommandManager> getCommandMap() {
         return commands;
     }
 
     public static String exist(String command) {
-        if (CommandManager.getCommands().get(command) != null) {
+        if (CommandManager.getCommandMap().get(command) != null) {
             return command;
         }
-        if (CommandManager.getCommands().get("terminal:" + command.toLowerCase()) != null) {
+        if (CommandManager.getCommandMap().get("terminal:" + command.toLowerCase()) != null) {
             return "terminal:" + command.toLowerCase();
         }
         for (String plugin : PluginManager.getPlugins().keySet()) {
-            if (CommandManager.getCommands().get((plugin + ":" + command).toLowerCase()) != null) {
+            if (CommandManager.getCommandMap().get((plugin + ":" + command).toLowerCase()) != null) {
                 return (plugin + ":" + command).toLowerCase();
             }
         }
-        for (String cmd : getCommands().keySet()) {
-            String[] aliases = getCommands().get(cmd).getAliases();
+        for (String cmd : getCommandMap().keySet()) {
+            String[] aliases = getCommandMap().get(cmd).getAliases();
             if (aliases != null && Arrays.asList(aliases).contains(command)) {
                 return cmd;
             }

@@ -1,5 +1,6 @@
 package cn.newcraft.terminal;
 
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.console.Theme;
@@ -8,6 +9,7 @@ import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.console.SendCommand;
 import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.network.Server;
+import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.screen.TextColor;
@@ -18,20 +20,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.*;
+import java.util.Map;
 
 public class Terminal {
 
-    private static int port;
     private static Server server;
     private static Logger logger;
-    private static boolean debug;
-    private static boolean internet = false;
     private static Terminal terminal;
-    private static final Options options = new Options();
     private static Screen screen;
     private static Update update;
-    private static final String name = "Terminal";
     private static String programName;
+    private static int port;
+    private static boolean debug;
+    private static boolean internet = false;
+    private static final String name = "Terminal";
+    private static final Options options = new Options();
+    private static final Map<String, OperateManager> operateMap = OperateManager.getOperateMap();
+    private static final Map<String, CommandManager> commandMap = CommandManager.getCommandMap();
 
     public static Terminal getTerminal() {
         return terminal;
@@ -75,6 +80,14 @@ public class Terminal {
 
     public static int getPort() {
         return port;
+    }
+
+    public static Map<String, OperateManager> getOperateMap() {
+        return operateMap;
+    }
+
+    public static Map<String, CommandManager> getCommandMap() {
+        return commandMap;
     }
 
     public static Logger getLogger() {
@@ -197,7 +210,7 @@ public class Terminal {
         screen.sendMessage("Terminal stopping...");
         new PluginManager(PluginManager.Status.DISABLE);
         new Thread(() -> {
-            if (server.isEnabled()) {
+            if (server != null && server.isEnabled()) {
                 server.shutdown();
             }
             screen.onDisable();

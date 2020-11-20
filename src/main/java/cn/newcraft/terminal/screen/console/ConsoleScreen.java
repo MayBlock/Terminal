@@ -21,7 +21,7 @@ public class ConsoleScreen extends Thread implements Screen {
     private boolean inputScreenEnabled = false;
     private boolean showMessageEnabled = true;
     private boolean showMessagePaneEnabled = true;
-    private String announcement = JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true);
+    private String announcement = null;
 
     public void setInputScreenEnabled(boolean b) {
         this.inputScreenEnabled = b;
@@ -72,7 +72,12 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void onInitComplete() {
-        sendMessage("-------------------------\n公告：" + announcement + "\n-------------------------");
+        try {
+            announcement = JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString();
+            sendMessage("-------------------------\n公告：" + announcement + "\n-------------------------");
+        } catch (IOException e) {
+            sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+        }
         System.out.print("> ");
     }
 

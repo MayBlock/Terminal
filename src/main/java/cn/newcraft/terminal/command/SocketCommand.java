@@ -5,6 +5,7 @@ import cn.newcraft.terminal.console.Prefix;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.network.Sender;
+import cn.newcraft.terminal.screen.TextColor;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -23,33 +24,32 @@ public class SocketCommand extends CommandManager {
     @Override
     public void onCommand(Screen screen, String[] args) {
         if (args.length == 2) {
-            if (args.length >= 3 && args[2].equalsIgnoreCase("operate")) {
-                screen.sendMessage("---- 所有可执行操作 ----");
-                screen.sendMessage("");
-                if (OperateManager.getRegOperate().size() <= 0) {
-                    screen.sendMessage("暂无任何可执行操作！");
-                    return;
-                }
-                int i = 0;
-                for (String key : OperateManager.getRegOperate().keySet()) {
-                    OperateManager o = OperateManager.getRegOperate().get(key);
-                    i++;
-                    screen.sendMessage(i + ". " + key + " - " + o.getDesc());
-                }
-                return;
-            }
             switch (args[1].toLowerCase()) {
                 case "help":
                     screen.sendMessage("---- " + getCommand() + " 命令用法 ----");
                     screen.sendMessage("");
                     screen.sendMessage(getCommand() + " help - 查看" + getCommand() + "命令所有帮助");
-                    screen.sendMessage(getCommand() + " help operate - 查看所有的可执行操作");
+                    screen.sendMessage(getCommand() + " operate - 查看所有的可执行操作");
                     screen.sendMessage(getCommand() + " active - 查看当前服务器监听是否正常开启");
                     screen.sendMessage(getCommand() + " start/shutdown/reboot - 启动/关闭/重启服务器监听");
-                    screen.sendMessage(getCommand() + " <id> <operate> - 执行指定操作");
+                    screen.sendMessage(getCommand() + " [id] <operate> - 执行指定操作");
                     screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
                     screen.sendMessage(getCommand() + " <id> send - 向客户端发送已添加的Byte数据 [以ByteArrayDataOutput形式发送]");
                     screen.sendMessage("");
+                    break;
+                case "operate":
+                    screen.sendMessage("---- 所有可执行操作 ----");
+                    screen.sendMessage("");
+                    if (Terminal.getOperateMap().size() <= 0) {
+                        screen.sendMessage("暂无任何可执行操作！");
+                        break;
+                    }
+                    int i = 0;
+                    for (String key : Terminal.getOperateMap().keySet()) {
+                        OperateManager o = Terminal.getOperateMap().get(key);
+                        i++;
+                        screen.sendMessage(i + ". " + key + " - " + o.getDesc());
+                    }
                     break;
                 case "active":
                     screen.sendMessage("当前服务器监听状态：" + Terminal.getServer().isEnabled());
@@ -60,7 +60,8 @@ public class SocketCommand extends CommandManager {
                         break;
                     }
                     Terminal.getScreen().sendMessage("正在尝试启动服务器监听...");
-                    if (Terminal.getServer().onServer()) {
+                    Terminal.getServer().onServer();
+                    if (Terminal.getServer().isEnabled()) {
                         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功启动服务器监听线程！");
                     } else {
                         Terminal.getScreen().sendMessage("服务器启动监听线程失败，可能是由于一些未知原因造成的，请检查当前服务器监听端口未被占用或尝试再次启动！");
@@ -72,7 +73,8 @@ public class SocketCommand extends CommandManager {
                         break;
                     }
                     Terminal.getScreen().sendMessage("正在尝试关闭服务器监听...");
-                    if (Terminal.getServer().shutdown()) {
+                    Terminal.getServer().shutdown();
+                    if (!Terminal.getServer().isEnabled()) {
                         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功关闭服务器监听线程！");
                     } else {
                         Terminal.getScreen().sendMessage("服务器关闭监听线程失败，可能是由于一些未知原因造成的，请尝试再次关闭！");
@@ -84,14 +86,26 @@ public class SocketCommand extends CommandManager {
                         break;
                     }
                     Terminal.getScreen().sendMessage("正在尝试重启服务器监听...");
-                    if (Terminal.getServer().shutdown() && Terminal.getServer().onServer()) {
+                    Terminal.getServer().shutdown();
+                    Terminal.getServer().onServer();
+                    if (Terminal.getServer().isEnabled()) {
                         Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " 已成功重启服务器监听线程！");
                     } else {
                         Terminal.getScreen().sendMessage("服务器重启监听线程失败，可能是由于一些未知原因造成的，请检查当前服务器监听端口未被占用或尝试再次启动！");
                     }
                     break;
                 default:
-                    screen.sendMessage("用法：" + getUsage());
+                    OperateManager manager = Terminal.getOperateMap().get(args[1]);
+                    if (manager == null) {
+                        screen.sendMessage(TextColor.RED + "操作 " + args[1] + " 不存在！");
+                        return;
+                    }
+                    if (manager.isTarget()) {
+                        screen.sendMessage(TextColor.RED + "该操作无法针对全局执行！");
+                        return;
+                    }
+                    manager.onOperate(screen, null);
+                    screen.sendMessage("操作 " + manager.getName() + " 已执行完毕！");
             }
             return;
         }
@@ -100,11 +114,11 @@ public class SocketCommand extends CommandManager {
             try {
                 sender = Sender.getSender(Integer.parseInt(args[1]));
                 if (sender == null) {
-                    screen.sendMessage("名为ID " + args[1] + " 的客户端不存在！");
+                    screen.sendMessage(TextColor.RED + "名为ID " + args[1] + " 的客户端不存在！");
                     return;
                 }
             } catch (NumberFormatException e) {
-                screen.sendMessage("你输入的ID不是一个数字！");
+                screen.sendMessage(TextColor.RED + "你输入的不是一个正确的ID！");
                 return;
             }
             switch (args[2]) {
@@ -139,11 +153,17 @@ public class SocketCommand extends CommandManager {
                     }
                     break;
                 default:
-                    if (OperateManager.getRegOperate().get(args[2]) == null) {
-                        screen.sendMessage("操作 " + args[2] + " 不存在！");
+                    OperateManager manager = Terminal.getOperateMap().get(args[2]);
+                    if (manager == null) {
+                        screen.sendMessage(TextColor.RED + "操作 " + args[2] + " 不存在！");
                         break;
                     }
-                    OperateManager.getRegOperate().get(args[2]).onOperate(Terminal.getScreen(), sender);
+                    if (!manager.isTarget()) {
+                        screen.sendMessage(TextColor.RED + "该操作无法针对目标执行！");
+                        break;
+                    }
+                    manager.onOperate(screen, sender);
+                    screen.sendMessage("操作 " + manager.getName() + " 已执行完毕！");
             }
             return;
         }

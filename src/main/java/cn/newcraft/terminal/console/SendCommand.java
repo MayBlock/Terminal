@@ -23,7 +23,7 @@ public class SendCommand {
                 return;
             }
             try {
-                CommandManager.getCommands().get(exitsCommand).onCommand(Terminal.getScreen(), command);
+                Terminal.getCommandMap().get(exitsCommand).onCommand(Terminal.getScreen(), command);
             } catch (Exception e) {
                 Terminal.printException(this.getClass(), e);
             }

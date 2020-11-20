@@ -22,8 +22,8 @@ public class Method {
         return flag;
     }
 
-    public static boolean isConnect() {
-        return JsonUtils.getBooleanJson("https://api.newcraft.cn/verify/internet.php", "internet", "active", true);
+    public static boolean isConnect() throws IOException {
+        return JsonUtils.getJsonURL("https://api.newcraft.cn/verify/internet.php", "internet", "active").getAsBoolean();
     }
 
     public static void runCmd(String command) throws IOException {
@@ -69,6 +69,15 @@ public class Method {
             Terminal.printException(Method.class, e);
             return true;
         }
+    }
+
+    public static boolean equals(Object prototype, Object... objects) {
+        for (Object obj : objects) {
+            if (prototype.equals(obj)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static List getListPage(int page, int pageSize, List list) {

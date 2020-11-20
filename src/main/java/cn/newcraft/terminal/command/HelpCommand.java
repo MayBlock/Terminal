@@ -1,5 +1,6 @@
 package cn.newcraft.terminal.command;
 
+import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import com.google.common.collect.Lists;
@@ -41,7 +42,7 @@ public class HelpCommand extends CommandManager {
 
             /* 排序commands并使用forEach遍历并输出 */
             commands.sort(comparator);
-            commands.forEach(command -> screen.sendMessage(command + " - " + CommandManager.getCommands().get(CommandManager.exist(command)).getDesc()));
+            commands.forEach(command -> screen.sendMessage(command + " - " + Terminal.getCommandMap().get(CommandManager.exist(command)).getDesc()));
             screen.sendMessage("\n小提示：输入\"help <命令>\"可以查看该命令的详细用法哦\n");
             return;
         }
@@ -49,9 +50,9 @@ public class HelpCommand extends CommandManager {
         if (existCommand != null) {
             screen.sendMessage("#---------- 命令 '" + existCommand.split(":")[1] + "' 的帮助 ----------#");
             screen.sendMessage("主命令：" + existCommand.split(":")[1] + " (" + existCommand + ")");
-            screen.sendMessage("说明：" + CommandManager.getCommands().get(existCommand).getDesc());
-            screen.sendMessage("用法：" + CommandManager.getCommands().get(existCommand).getUsage());
-            screen.sendMessage(CommandManager.getCommands().get(existCommand).getAliases() != null ? "别称：" + Arrays.asList(CommandManager.getCommands().get(existCommand).getAliases()).toString() : "别称：无");
+            screen.sendMessage("说明：" + Terminal.getCommandMap().get(existCommand).getDesc());
+            screen.sendMessage("用法：" + Terminal.getCommandMap().get(existCommand).getUsage());
+            screen.sendMessage(Terminal.getCommandMap().get(existCommand).getAliases() != null ? "别称：" + Arrays.asList(Terminal.getCommandMap().get(existCommand).getAliases()).toString() : "别称：无");
         } else {
             screen.sendMessage("查询失败，命令 " + args[1] + " 不存在！");
         }

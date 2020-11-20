@@ -19,11 +19,11 @@ public class SystemCommand extends CommandManager {
             switch (args[1].toLowerCase()) {
                 case "help":
                     screen.sendMessage("查看系统信息：/system info");
-                    //screen.sendMessage("修改当前/其他用户密码：/system changepassword [user] <newPassword>");
                     screen.sendMessage("执行你当前系统的系统命令：/system runCmd <command>");
                     break;
                 case "info":
-                    screen.sendMessage("\n系统：" + prop.getProperty("os.name") + " (" + prop.getProperty("java.vm.name") + ")");
+                    screen.sendMessage("\n操作系统：" + prop.getProperty("os.name"));
+                    screen.sendMessage("Java信息：" + prop.getProperty("java.vm.name") + " (" + prop.getProperty("java.runtime.version") + ")");
                     screen.sendMessage("用户名：" + prop.getProperty("user.name"));
                     screen.sendMessage("执行其他系统操作请输入命令 \"system help\"\n");
                     break;

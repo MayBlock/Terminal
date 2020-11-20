@@ -90,8 +90,26 @@ public class PluginManager {
             }
             if (apiVersion == null) {
                 screen.sendMessage(Prefix.PLUGIN_MANAGER_WARN.getPrefix() + " 插件 " + name + " 在plugin.yml中未定义API版本！");
-            } else if (Integer.parseInt(apiVersion) != Terminal.getOptions().getApiVersion()) {
-                screen.sendMessage(Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 的API版本已不受支持，请联系开发者更新！");
+            } else try {
+                String[] api = apiVersion.split("-");
+                boolean b = false;
+                if (api.length == 1) {
+                    if (Integer.parseInt(api[0]) == Terminal.getOptions().getApiVersion()) {
+                        b = true;
+                    }
+                } else for (int i = Integer.parseInt(api[0]); i < Integer.parseInt(api[1]); i++) {
+                    if (Terminal.getOptions().getApiVersion() == i) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    screen.sendMessage(Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 的API版本已不受支持，请联系开发者更新！");
+                    loadFailed++;
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                screen.sendMessage(Prefix.PLUGIN_MANAGER_ERROR.getPrefix() + " 插件 " + name + " 的API版本号不符合规范！");
                 loadFailed++;
                 return;
             }

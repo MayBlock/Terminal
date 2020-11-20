@@ -25,18 +25,16 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class GraphicalScreen extends JFrame implements Screen {
 
     private static JTextPane text;
     private static JTextField input;
-    private JLabel announcement;
+    private JLabel announcement = null;
     private JLabel copyright;
     private JLabel version;
     private JScrollPane scrollPane;
@@ -121,7 +119,11 @@ public class GraphicalScreen extends JFrame implements Screen {
             title.setBounds(20, 20, 150, 20);
             add(title);
 
-            announcement = new JLabel("公告：" + JsonUtils.getStringJson("https://api.newcraft.cn/message/announcement.php", "message", "announcement", true), JLabel.CENTER);
+            try {
+                announcement = new JLabel("公告：" + JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString(), JLabel.CENTER);
+            } catch (IOException e) {
+                sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+            }
             announcement.setForeground(Color.RED);
             announcement.setFont(new Font("宋体", Font.BOLD, 14));
             add(announcement);

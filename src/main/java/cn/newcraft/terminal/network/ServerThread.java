@@ -12,23 +12,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerThread extends Thread implements Server {
 
-    private Socket socket;
-    private ServerSocket serverSocket;
-    private Map<Integer, Sender> senderMap = new HashMap<>();
-    private ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConcurrent());
+    private static Socket socket;
+    private static Thread heartThread;
+    private static Thread listenThread;
+    private static ServerSocket serverSocket;
+    private static Map<Integer, Sender> senderMap = new ConcurrentHashMap<>();
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConcurrent());
     private static boolean enabled;
 
     @Override
     public void run() {
         int id = Sender.spawnNewId();
-        System.out.println("ID: " + id + " connected to terminal!");
         /** Init Connect **/
         byte[] channel;
         InputStream inputStream = null;
@@ -93,11 +94,11 @@ public class ServerThread extends Thread implements Server {
                 serverSocket = new ServerSocket(Terminal.getPort());
                 while (true) {
                     socket = serverSocket.accept();
-                    Terminal.getServer().getThread().start();
+                    new ServerThread().start();
                 }
             } catch (SocketException ignored) {
             } catch (IOException e) {
-                e.printStackTrace();
+                Terminal.printException(ServerThread.class, e);
             }
         });
     }
@@ -105,30 +106,34 @@ public class ServerThread extends Thread implements Server {
     private Thread heartThread() {
         return new Thread(() -> {
             while (true) {
-                if (!senderMap.isEmpty()) {
-                    for (Sender sender : senderMap.values()) {
-                        try {
-                            if (sender.getTimeoutCount() >= 5) {
-                                sender.disconnect("Time out");
-                                continue;
-                            }
-                            sender.sendPacket(new HeartbeatPacket());
-                            sender.setTimeoutCount(sender.getTimeoutCount() + 1);
-                            if (Terminal.isDebug()) {
-                                Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 发送心跳包");
-                            }
-                        } catch (IOException | InvocationTargetException | IllegalAccessException e) {
+                try {
+                    if (!senderMap.isEmpty()) {
+                        for (Sender sender : senderMap.values()) {
                             try {
-                                sender.disconnect(e.getMessage());
-                            } catch (IOException | InvocationTargetException | IllegalAccessException ignored) {
+                                if (sender.getTimeoutCount() >= 5) {
+                                    sender.disconnect("Time out");
+                                    continue;
+                                }
+                                sender.sendPacket(new HeartbeatPacket());
+                                sender.setTimeoutCount(sender.getTimeoutCount() + 1);
+                                if (Terminal.isDebug()) {
+                                    Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 发送心跳包");
+                                }
+                            } catch (IOException | InvocationTargetException | IllegalAccessException e) {
+                                try {
+                                    sender.disconnect(e.getMessage());
+                                } catch (IOException | InvocationTargetException | IllegalAccessException ignored) {
+                                }
                             }
                         }
                     }
-                }
-                try {
-                    Thread.sleep(ServerConfig.cfg.getYml().getInt("server.heart_packet_delay"));
-                } catch (InterruptedException e) {
-                    Terminal.printException(this.getClass(), e);
+                    try {
+                        Thread.sleep(ServerConfig.cfg.getYml().getInt("server.heart_packet_delay"));
+                    } catch (InterruptedException e) {
+                        Terminal.printException(ServerThread.class, e);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -145,28 +150,29 @@ public class ServerThread extends Thread implements Server {
     }
 
     @Override
-    public boolean onServer() {
+    public void onServer() {
         if (Terminal.isInternetEnabled()) {
             if (!enabled) {
-                this.listenThread().start();
-                this.heartThread().start();
+                listenThread = this.listenThread();
+                heartThread = this.heartThread();
+                listenThread.start();
+                heartThread.start();
                 enabled = true;
-                return true;
+                return;
             }
             Terminal.getScreen().sendMessage(Prefix.TERMINAL_WARN.getPrefix() + " 由于您当前的设备尚未联网，服务器监听将不会启动，直到您的设备进行联网并重启终端！");
         }
-        return false;
     }
 
     @Override
-    public boolean shutdown() {
+    public void shutdown() {
         if (enabled) {
             enabled = false;
             Sender.disconnectAll();
             try {
                 senderMap.clear();
-                this.listenThread().stop();
-                this.heartThread().stop();
+                listenThread.stop();
+                heartThread.stop();
                 if (socket != null) {
                     socket.close();
                 }
@@ -174,9 +180,7 @@ public class ServerThread extends Thread implements Server {
             } catch (IOException e) {
                 Terminal.printException(this.getClass(), e);
             }
-            return true;
         }
-        return false;
     }
 
     @Override

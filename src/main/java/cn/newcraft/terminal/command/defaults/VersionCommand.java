@@ -1,6 +1,7 @@
-package cn.newcraft.terminal.command;
+package cn.newcraft.terminal.command.defaults;
 
-import cn.newcraft.terminal.console.Options;
+import cn.newcraft.terminal.Options;
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.screen.Screen;
 
 public class VersionCommand extends CommandManager {

@@ -17,7 +17,7 @@ public class HeartbeatPacket implements Packet {
         ByteArrayDataOutput b = ByteStreams.newDataOutput();
         b.writeUTF("TEST_CONNECT");
         try {
-            sender.sendByte(b.toByteArray(), false);
+            sender.sendByte(b.toByteArray(), sender.getSocket().getOutputStream());
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }

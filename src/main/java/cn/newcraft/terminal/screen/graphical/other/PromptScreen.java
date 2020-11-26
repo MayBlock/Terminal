@@ -2,7 +2,7 @@ package cn.newcraft.terminal.screen.graphical.other;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.screen.ScreenEvent;
+import cn.newcraft.terminal.event.screen.ScreenEvent;
 
 import javax.swing.*;
 import java.awt.*;

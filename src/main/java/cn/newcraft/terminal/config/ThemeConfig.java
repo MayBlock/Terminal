@@ -1,6 +1,6 @@
 package cn.newcraft.terminal.config;
 
-import cn.newcraft.terminal.console.Theme;
+import cn.newcraft.terminal.theme.Theme;
 
 public class ThemeConfig extends ConfigManager {
 

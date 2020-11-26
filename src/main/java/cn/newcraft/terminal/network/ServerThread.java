@@ -2,9 +2,10 @@ package cn.newcraft.terminal.network;
 
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.event.network.NetworkEvent;
 import cn.newcraft.terminal.network.packet.HeartbeatPacket;
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.Prefix;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -27,24 +28,48 @@ public class ServerThread extends Thread implements Server {
     private static ExecutorService threadPool = Executors.newFixedThreadPool(Terminal.getOptions().getMaxConcurrent());
     private static boolean enabled;
 
+    public ServerThread(String name) {
+        super(name);
+    }
+
     @Override
     public void run() {
         int id = Sender.spawnNewId();
         /** Init Connect **/
-        byte[] channel;
-        InputStream inputStream = null;
+        byte[] channel = null;
+        InputStream inputStream;
         try {
             inputStream = socket.getInputStream();
         } catch (IOException e) {
-            Terminal.printException(this.getClass(), e);
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                Terminal.printException(this.getClass(), ex);
+            }
+            return;
         }
         while (true) {
-            ObjectInputStream ois;
+            ObjectInputStream ois = null;
             try {
                 ois = new ObjectInputStream(new BufferedInputStream(inputStream));
                 int chancelLength = ois.read();
+                if (chancelLength == -1) {
+                    socket.close();
+                    return;
+                }
                 channel = new byte[chancelLength];
                 ois.read(channel);
+            } catch (StreamCorruptedException e) {
+                try {
+                    int chancelLength = inputStream.read();
+                    if (chancelLength == -1) {
+                        socket.close();
+                        return;
+                    }
+                    channel = new byte[chancelLength];
+                    inputStream.read(channel);
+                } catch (IOException ignored) {
+                }
             } catch (Exception e) {
                 try {
                     socket.close();
@@ -55,8 +80,14 @@ public class ServerThread extends Thread implements Server {
             }
             try {
                 /* ClientConnectEvent */
+                Sender sender = null;
                 if (senderMap.get(id) == null) {
-                    NetworkEvent.ClientConnectEvent connectEvent = new NetworkEvent.ClientConnectEvent(new String(channel), socket);
+                    NetworkEvent.ClientConnectEvent connectEvent;
+                    if (channel != null) {
+                        connectEvent = new NetworkEvent.ClientConnectEvent(id, new String(channel), socket);
+                    } else {
+                        connectEvent = new NetworkEvent.ClientConnectEvent(id, "", socket);
+                    }
                     Event.callEvent(connectEvent);
                     if (connectEvent.isCancelled()) {
                         socket.close();
@@ -64,11 +95,17 @@ public class ServerThread extends Thread implements Server {
                     }
                     /* ClientConnectedEvent */
                     senderMap.put(id, new Sender(socket, id));
-                    Sender sender = senderMap.get(id);
+                    sender = senderMap.get(id);
                     Event.callEvent(new NetworkEvent.ClientConnectedEvent(sender));
                     Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + sender.getCanonicalName() + " 与终端连接！");
                 }
-                threadPool.submit(new ServerInputRunnable(senderMap.get(id), ois.readObject()));
+                if (ois != null && sender != null) {
+                    threadPool.submit(new ServerInputRunnable(sender, ois.readObject()));
+                } else if (sender != null) {
+                    threadPool.submit(new ServerInputRunnable(sender, inputStream));
+                } else {
+                    socket.close();
+                }
             } catch (IOException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
                 if (e.getMessage().equalsIgnoreCase("Socket closed")) {
                     return;
@@ -94,7 +131,7 @@ public class ServerThread extends Thread implements Server {
                 serverSocket = new ServerSocket(Terminal.getPort());
                 while (true) {
                     socket = serverSocket.accept();
-                    new ServerThread().start();
+                    new Thread(Terminal.getServer().getThread()).start();
                 }
             } catch (SocketException ignored) {
             } catch (IOException e) {
@@ -110,12 +147,12 @@ public class ServerThread extends Thread implements Server {
                     if (!senderMap.isEmpty()) {
                         for (Sender sender : senderMap.values()) {
                             try {
-                                if (sender.getTimeoutCount() >= 5) {
+                                if (sender.getTimeout() >= 5) {
                                     sender.disconnect("Time out");
                                     continue;
                                 }
                                 sender.sendPacket(new HeartbeatPacket());
-                                sender.setTimeoutCount(sender.getTimeoutCount() + 1);
+                                sender.setTimeout(sender.getTimeout() + 1);
                                 if (Terminal.isDebug()) {
                                     Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 发送心跳包");
                                 }
@@ -204,6 +241,11 @@ class ServerInputRunnable implements Runnable {
         this.input = input;
     }
 
+    public ServerInputRunnable(Sender sender, InputStream input) {
+        this.sender = sender;
+        this.input = input;
+    }
+
     @Override
     public void run() {
         if (input == null) {
@@ -217,7 +259,7 @@ class ServerInputRunnable implements Runnable {
             }
             e.printStackTrace();
         }
-        sender.setTimeoutCount(0);
+        sender.setTimeout(0);
         if (Terminal.isDebug()) {
             Terminal.getScreen().sendMessage(Prefix.SERVER_THREAD.getPrefix() + " " + Prefix.DEBUG.getPrefix() + " " + sender.getCanonicalName() + " 与终端交互");
             if (input instanceof String || input instanceof Integer || input instanceof Long) {

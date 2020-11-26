@@ -1,18 +1,15 @@
 package cn.newcraft.terminal;
 
 import cn.newcraft.terminal.command.CommandManager;
+import cn.newcraft.terminal.command.SendCommand;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
-import cn.newcraft.terminal.console.Theme;
-import cn.newcraft.terminal.internal.Initialization;
-import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.console.SendCommand;
-import cn.newcraft.terminal.console.Options;
 import cn.newcraft.terminal.network.Server;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.screen.TextColor;
+import cn.newcraft.terminal.theme.Theme;
 import cn.newcraft.terminal.update.Update;
 import cn.newcraft.terminal.util.Method;
 import org.apache.logging.log4j.LogManager;
@@ -102,10 +99,6 @@ public class Terminal {
         this.update = update;
     }
 
-    public void setInternet(boolean b) {
-        this.internet = b;
-    }
-
     public void setServer(Server server) {
         this.server = server;
     }
@@ -118,11 +111,18 @@ public class Terminal {
         debug = b;
     }
 
+    protected void setInternet(boolean b) {
+        internet = b;
+    }
+
     public synchronized static void dispatchCommand(String command) {
         new SendCommand(command.split(" "));
     }
 
-    public static void main(String[] str) {
+    public static void main(String[] args) {
+        for (String s : args) {
+            System.out.println(s);
+        }
         terminal = new Terminal();
         try {
             ServerConfig.init();
@@ -170,7 +170,7 @@ public class Terminal {
                 try {
                     Method.runCmd(ServerConfig.cfg.getYml().getString("server.reboot_script")
                             .replace("{path}", new File("").getAbsolutePath())
-                            .replace("{name}", Terminal.getProgramName()));
+                            .replace("{name}", programName));
                 } catch (IOException ex) {
                     printException(Terminal.class, ex);
                 }
@@ -192,7 +192,7 @@ public class Terminal {
                 try {
                     Method.runCmd(script
                             .replace("{path}", new File("").getAbsolutePath())
-                            .replace("{name}", Terminal.getProgramName()));
+                            .replace("{name}", programName));
                 } catch (IOException ex) {
                     printException(Terminal.class, ex);
                 }
@@ -225,7 +225,11 @@ public class Terminal {
         ex.printStackTrace(ps);
         try {
             String output = os.toString("UTF-8");
-            Terminal.getScreen().sendMessage(TextColor.RED + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
+            if (Terminal.getScreen() != null) {
+                Terminal.getScreen().sendMessage("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output);
+            } else {
+                System.err.println(TextColor.codeTo("\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生错误，以下为错误报告\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 错误名称：" + ex.getMessage() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生的类：" + clazz.getName() + "\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 发生时间：" + Method.getCurrentTime(Terminal.getOptions().getTimeZone()) + "\n\n" + Prefix.TERMINAL_ERROR.getPrefix() + " 异常输出：\n" + output, false));
+            }
         } catch (UnsupportedEncodingException ignored) {
         }
     }
@@ -236,12 +240,12 @@ public class Terminal {
         }
         if (screen == null) {
             for (String reason : reasons) {
-                System.err.println(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
+                System.err.println(TextColor.codeTo(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason, false));
             }
         } else {
             screen.setComponentEnabled(false);
             for (String reason : reasons) {
-                screen.sendMessage(TextColor.RED + Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
+                screen.sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
             }
         }
     }

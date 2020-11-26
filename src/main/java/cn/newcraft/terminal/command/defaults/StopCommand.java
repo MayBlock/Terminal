@@ -1,6 +1,7 @@
-package cn.newcraft.terminal.command;
+package cn.newcraft.terminal.command.defaults;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.screen.Screen;
 
 public class StopCommand extends CommandManager {

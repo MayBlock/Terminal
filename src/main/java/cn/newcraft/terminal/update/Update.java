@@ -1,8 +1,10 @@
 package cn.newcraft.terminal.update;
 
+import java.io.IOException;
+
 public interface Update {
 
-    void refreshUpdate();
+    void refreshUpdate() throws IOException, NullPointerException;
 
     void checkUpdate(boolean ret);
 

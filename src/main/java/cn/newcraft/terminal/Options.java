@@ -1,15 +1,16 @@
-package cn.newcraft.terminal.console;
+package cn.newcraft.terminal;
 
 import cn.newcraft.terminal.config.ServerConfig;
+import cn.newcraft.terminal.theme.Theme;
 
 import java.net.URL;
 import java.util.TimeZone;
 
 public class Options {
 
-    private String version = "1.3.1";
-    private String canonicalVersion = "1.3.1.201120_release";
-    private int apiVersion = 4;
+    private String version = "1.4.0";
+    private String canonicalVersion = "1.4.0.201126_release";
+    private int apiVersion = 5;
     private TimeZone timeZone = TimeZone.getDefault();
 
     public String getVersion() {

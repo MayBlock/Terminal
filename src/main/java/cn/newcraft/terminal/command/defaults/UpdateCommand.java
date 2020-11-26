@@ -1,8 +1,12 @@
-package cn.newcraft.terminal.command;
+package cn.newcraft.terminal.command.defaults;
 
+import cn.newcraft.terminal.Prefix;
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.update.Update;
+
+import java.io.IOException;
 
 public class UpdateCommand extends CommandManager {
 
@@ -28,8 +32,12 @@ public class UpdateCommand extends CommandManager {
             case "check":
                 screen.sendMessage("检查更新...");
                 new Thread(() -> {
-                    update.refreshUpdate();
-                    update.checkUpdate(true);
+                    try {
+                        update.refreshUpdate();
+                        update.checkUpdate(true);
+                    } catch (IOException | NullPointerException e) {
+                        Terminal.getScreen().sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " 检查更新失败，请检查网络连接是否正常！");
+                    }
                 }).start();
                 break;
             case "latest":

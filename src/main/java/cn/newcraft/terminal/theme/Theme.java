@@ -1,10 +1,10 @@
-package cn.newcraft.terminal.console;
+package cn.newcraft.terminal.theme;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.screen.Screen;
+import cn.newcraft.terminal.event.console.ConsoleEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 
 import javax.swing.*;

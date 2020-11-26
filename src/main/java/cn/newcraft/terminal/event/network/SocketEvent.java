@@ -1,7 +1,8 @@
-package cn.newcraft.terminal.network;
+package cn.newcraft.terminal.event.network;
 
 import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.network.Sender;
 import cn.newcraft.terminal.network.packet.Packet;
 
 public class SocketEvent extends Event {

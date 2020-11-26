@@ -1,7 +1,8 @@
-package cn.newcraft.terminal.screen;
+package cn.newcraft.terminal.event.screen;
 
 import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
+import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 
 public class ScreenEvent extends Event {

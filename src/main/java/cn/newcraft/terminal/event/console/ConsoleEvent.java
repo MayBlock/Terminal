@@ -1,6 +1,7 @@
-package cn.newcraft.terminal.console;
+package cn.newcraft.terminal.event.console;
 
 import cn.newcraft.terminal.Terminal;
+import cn.newcraft.terminal.theme.Theme;
 import cn.newcraft.terminal.event.Cancellable;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.util.Method;

@@ -1,9 +1,9 @@
 package cn.newcraft.terminal.screen.graphical;
 
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.console.ConsoleEvent;
+import cn.newcraft.terminal.event.console.ConsoleEvent;
 import cn.newcraft.terminal.screen.TextColor;
-import cn.newcraft.terminal.screen.ScreenEvent;
+import cn.newcraft.terminal.event.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.console.ConsoleScreen;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.graphical.module.Button;
@@ -15,9 +15,9 @@ import cn.newcraft.terminal.util.Method;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.config.ThemeConfig;
-import cn.newcraft.terminal.internal.Initialization;
-import cn.newcraft.terminal.console.Prefix;
-import cn.newcraft.terminal.console.Theme;
+import cn.newcraft.terminal.Initialization;
+import cn.newcraft.terminal.Prefix;
+import cn.newcraft.terminal.theme.Theme;
 import cn.newcraft.terminal.util.JsonUtils;
 import com.google.common.collect.Lists;
 
@@ -32,9 +32,9 @@ import java.util.List;
 
 public class GraphicalScreen extends JFrame implements Screen {
 
-    private static JTextPane text;
-    private static JTextField input;
-    private JLabel announcement = null;
+    private JTextPane text;
+    private JTextField input;
+    private JLabel announcement = new JLabel("公告：尚未连接至互联网！", JLabel.CENTER);
     private JLabel copyright;
     private JLabel version;
     private JScrollPane scrollPane;
@@ -119,10 +119,12 @@ public class GraphicalScreen extends JFrame implements Screen {
             title.setBounds(20, 20, 150, 20);
             add(title);
 
-            try {
-                announcement = new JLabel("公告：" + JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString(), JLabel.CENTER);
-            } catch (IOException e) {
-                sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+            if (Terminal.isInternetEnabled()) {
+                try {
+                    announcement = new JLabel("公告：" + JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString(), JLabel.CENTER);
+                } catch (IOException e) {
+                    sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+                }
             }
             announcement.setForeground(Color.RED);
             announcement.setFont(new Font("宋体", Font.BOLD, 14));

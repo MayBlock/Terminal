@@ -2,7 +2,7 @@ package cn.newcraft.terminal.network.packet;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.network.NetworkEvent;
+import cn.newcraft.terminal.event.network.NetworkEvent;
 import cn.newcraft.terminal.network.Sender;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -37,7 +37,7 @@ public class DisconnectPacket implements Packet {
         b.writeUTF("DISCONNECT");
         b.writeUTF(reason);
         try {
-            sender.sendByte(b.toByteArray(), false);
+            sender.sendByte(b.toByteArray(), sender.getSocket().getOutputStream());
         } catch (InvocationTargetException | IllegalAccessException e) {
             Terminal.printException(this.getClass(), e);
         }

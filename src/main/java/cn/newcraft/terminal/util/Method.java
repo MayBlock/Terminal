@@ -107,12 +107,9 @@ public class Method {
         out.flush();
     }
 
-    @Deprecated
-    public static void sendByte(Socket socket, String chancel, Object output) throws IOException {
-        ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        out.write(chancel.getBytes().length);
-        out.write(chancel.getBytes());
-        out.writeObject(output);
+    public static void sendStream(Socket socket, byte[] output) throws IOException {
+        OutputStream out = socket.getOutputStream();
+        out.write(output, 0, output.length);
         out.flush();
     }
 

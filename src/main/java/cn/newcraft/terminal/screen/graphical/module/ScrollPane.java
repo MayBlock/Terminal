@@ -1,6 +1,6 @@
 package cn.newcraft.terminal.screen.graphical.module;
 
-import cn.newcraft.terminal.console.Theme;
+import cn.newcraft.terminal.theme.Theme;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;

@@ -85,7 +85,7 @@ public class JsonUtils {
      *
      * @return 返回JsonElement对象
      */
-    public static JsonElement getJson(JsonElement element, String... paths) {
+    private static JsonElement getJson(JsonElement element, String... paths) {
         JsonElement ret = null;
         if (element.isJsonObject()) {
             for (String path : paths) {

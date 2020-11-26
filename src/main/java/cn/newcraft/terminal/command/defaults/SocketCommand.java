@@ -1,25 +1,17 @@
-package cn.newcraft.terminal.command;
+package cn.newcraft.terminal.command.defaults;
 
 import cn.newcraft.terminal.Terminal;
-import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.Prefix;
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.operate.OperateManager;
 import cn.newcraft.terminal.screen.Screen;
-import cn.newcraft.terminal.network.Sender;
 import cn.newcraft.terminal.screen.TextColor;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 
 public class SocketCommand extends CommandManager {
 
     public SocketCommand() {
         super("socket", "发送数据至现以连接至终端的远程客户端", "socket help");
     }
-
-    private HashMap<Integer, ByteArrayDataOutput> bytes = new HashMap<>();
 
     @Override
     public void onCommand(Screen screen, String[] args) {
@@ -33,8 +25,6 @@ public class SocketCommand extends CommandManager {
                     screen.sendMessage(getCommand() + " active - 查看当前服务器监听是否正常开启");
                     screen.sendMessage(getCommand() + " start/shutdown/reboot - 启动/关闭/重启服务器监听");
                     screen.sendMessage(getCommand() + " [id] <operate> - 执行指定操作");
-                    screen.sendMessage(getCommand() + " <id> add <byte> - 添加自定义Byte数据");
-                    screen.sendMessage(getCommand() + " <id> send - 向客户端发送已添加的Byte数据 [以ByteArrayDataOutput形式发送]");
                     screen.sendMessage("");
                     break;
                 case "operate":
@@ -105,64 +95,6 @@ public class SocketCommand extends CommandManager {
                         return;
                     }
                     manager.onOperate(screen, null);
-                    screen.sendMessage("操作 " + manager.getName() + " 已执行完毕！");
-            }
-            return;
-        }
-        if (args.length >= 3) {
-            Sender sender;
-            try {
-                sender = Sender.getSender(Integer.parseInt(args[1]));
-                if (sender == null) {
-                    screen.sendMessage(TextColor.RED + "名为ID " + args[1] + " 的客户端不存在！");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                screen.sendMessage(TextColor.RED + "你输入的不是一个正确的ID！");
-                return;
-            }
-            switch (args[2]) {
-                case "add":
-                    ByteArrayDataOutput b = bytes.get(sender.getId()) == null ? ByteStreams.newDataOutput() : bytes.get(sender.getId());
-                    if (args.length >= 4) {
-                        StringBuilder text = new StringBuilder();
-                        for (int i = 3; i < args.length; i++) {
-                            text.append(args[i]).append(" ");
-                        }
-                        String string = text.toString().substring(0, text.toString().length() - 1);
-                        b.writeUTF(string);
-                        bytes.put(sender.getId(), b);
-                        screen.sendMessage("已成功添加数据：" + string);
-                        screen.sendMessage("可继续添加数据，也可以使用send进行发送！");
-                    } else {
-                        screen.sendMessage("用法：" + getCommand() + " <id> add <byte>");
-                    }
-                    break;
-                case "send":
-                    if (bytes.get(sender.getId()) == null) {
-                        screen.sendMessage("你还尚未添加任何数据！");
-                        screen.sendMessage("请输入 \"" + getCommand() + " <id> add <byte>\" 来添加数据！");
-                        break;
-                    }
-                    try {
-                        sender.sendByte(bytes.get(sender.getId()).toByteArray(), false);
-                        screen.sendMessage("已成功发送至 " + sender.getCanonicalName() + " 客户端");
-                        bytes.remove(sender.getId());
-                    } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                        Terminal.printException(this.getClass(), e);
-                    }
-                    break;
-                default:
-                    OperateManager manager = Terminal.getOperateMap().get(args[2]);
-                    if (manager == null) {
-                        screen.sendMessage(TextColor.RED + "操作 " + args[2] + " 不存在！");
-                        break;
-                    }
-                    if (!manager.isTarget()) {
-                        screen.sendMessage(TextColor.RED + "该操作无法针对目标执行！");
-                        break;
-                    }
-                    manager.onOperate(screen, sender);
                     screen.sendMessage("操作 " + manager.getName() + " 已执行完毕！");
             }
             return;

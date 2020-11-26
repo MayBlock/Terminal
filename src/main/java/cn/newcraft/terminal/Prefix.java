@@ -1,4 +1,4 @@
-package cn.newcraft.terminal.console;
+package cn.newcraft.terminal;
 
 import cn.newcraft.terminal.screen.TextColor;
 

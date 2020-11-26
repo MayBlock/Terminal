@@ -1,6 +1,6 @@
-package cn.newcraft.terminal.internal;
+package cn.newcraft.terminal;
 
-import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.command.defaults.*;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.exception.UnknownException;
 import cn.newcraft.terminal.network.ServerListener;
@@ -14,14 +14,12 @@ import cn.newcraft.terminal.screen.graphical.other.LoadScreen;
 import cn.newcraft.terminal.update.console.ConsoleUpdate;
 import cn.newcraft.terminal.update.graphical.GraphicalUpdate;
 import cn.newcraft.terminal.util.Method;
-import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.*;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.plugin.Plugin;
 import cn.newcraft.terminal.plugin.PluginManager;
 import cn.newcraft.terminal.network.ServerThread;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -56,7 +54,7 @@ public class Initialization {
         }
     }
 
-    public void initScreen() {
+    protected void initScreen() {
         try {
             String defaultScreen = ServerConfig.cfg.getYml().getString("server.default_screen");
             if (defaultScreen == null) {
@@ -81,7 +79,7 @@ public class Initialization {
         }
     }
 
-    public void initTerminal() {
+    protected void initTerminal() {
         try {
             Terminal.getScreen().setComponentEnabled(false);
             Terminal.getTerminal().setDebug(ServerConfig.cfg.getYml().getBoolean("server.debug"));
@@ -123,7 +121,7 @@ public class Initialization {
             OperateManager.regOperate(new DisconnectOperate.Target());
             OperateManager.regOperate(new DisconnectOperate.All());
             TimeZone.setDefault(TimeZone.getTimeZone(ServerConfig.cfg.getYml().getString("server.timezone")));
-            Terminal.getTerminal().setServer(new ServerThread());
+            Terminal.getTerminal().setServer(new ServerThread("Server Thread"));
             if (Terminal.isInternetEnabled()) {
                 Terminal.getServer().onServer();
                 if (!Terminal.getServer().isEnabled()) {
@@ -142,8 +140,12 @@ public class Initialization {
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 你可输入命令 \"help\" 获取命令帮助");
             Terminal.getScreen().sendMessage(Prefix.TERMINAL.getPrefix() + " 输入命令 \"stop\" 可以安全关闭Terminal！");
             new Thread(() -> {
-                Terminal.getUpdate().refreshUpdate();
-                Terminal.getUpdate().checkUpdate(false);
+                try {
+                    Terminal.getUpdate().refreshUpdate();
+                    Terminal.getUpdate().checkUpdate(false);
+                } catch (IOException | NullPointerException e) {
+                    Terminal.getScreen().sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " 检查更新失败，请检查网络连接是否正常！");
+                }
             }).start();
             Terminal.getScreen().onInitComplete();
         } catch (Exception e) {
@@ -157,20 +159,26 @@ public class Initialization {
         }
     }
 
-    private void initConsoleScreen() throws IOException {
+    private void initConsoleScreen() {
         Terminal terminal = Terminal.getTerminal();
-        if (Method.isConnect()) {
-            terminal.setInternet(true);
+        try {
+            if (Method.isConnect()) {
+                terminal.setInternet(true);
+            }
+        } catch (IOException ignored) {
         }
         terminal.setScreen(new ConsoleScreen());
         terminal.setUpdate(new ConsoleUpdate());
     }
 
-    private void initGraphicalScreen() throws IOException {
+    private void initGraphicalScreen() {
         Terminal terminal = Terminal.getTerminal();
         new LoadScreen().show("Terminal正在启动中");
-        if (Method.isConnect()) {
-            terminal.setInternet(true);
+        try {
+            if (Method.isConnect()) {
+                terminal.setInternet(true);
+            }
+        } catch (IOException ignored) {
         }
         terminal.setScreen(new GraphicalScreen());
         terminal.setUpdate(new GraphicalUpdate());

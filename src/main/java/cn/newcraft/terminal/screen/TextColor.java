@@ -1,6 +1,6 @@
 package cn.newcraft.terminal.screen;
 
-import cn.newcraft.terminal.console.Theme;
+import cn.newcraft.terminal.theme.Theme;
 
 import java.awt.*;
 

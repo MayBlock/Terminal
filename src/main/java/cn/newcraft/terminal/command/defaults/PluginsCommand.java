@@ -1,5 +1,6 @@
-package cn.newcraft.terminal.command;
+package cn.newcraft.terminal.command.defaults;
 
+import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.config.ServerConfig;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.plugin.PluginManager;

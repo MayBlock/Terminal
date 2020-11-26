@@ -2,11 +2,11 @@ package cn.newcraft.terminal.screen.console;
 
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.event.Event;
-import cn.newcraft.terminal.internal.Initialization;
-import cn.newcraft.terminal.console.Prefix;
+import cn.newcraft.terminal.Initialization;
+import cn.newcraft.terminal.Prefix;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.TextColor;
-import cn.newcraft.terminal.screen.ScreenEvent;
+import cn.newcraft.terminal.event.screen.ScreenEvent;
 import cn.newcraft.terminal.screen.graphical.GraphicalScreen;
 import cn.newcraft.terminal.util.JsonUtils;
 import org.jline.reader.*;
@@ -21,7 +21,7 @@ public class ConsoleScreen extends Thread implements Screen {
     private boolean inputScreenEnabled = false;
     private boolean showMessageEnabled = true;
     private boolean showMessagePaneEnabled = true;
-    private String announcement = null;
+    private String announcement = "尚未连接至互联网！";
 
     public void setInputScreenEnabled(boolean b) {
         this.inputScreenEnabled = b;
@@ -72,11 +72,13 @@ public class ConsoleScreen extends Thread implements Screen {
 
     @Override
     public void onInitComplete() {
-        try {
-            announcement = JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString();
-            sendMessage("-------------------------\n公告：" + announcement + "\n-------------------------");
-        } catch (IOException e) {
-            sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+        if (Terminal.isInternetEnabled()) {
+            try {
+                announcement = JsonUtils.getJsonURL("https://api.newcraft.cn/message/announcement.php", "message", "announcement").getAsString();
+                sendMessage("-------------------------\n公告：" + announcement + "\n-------------------------");
+            } catch (IOException e) {
+                sendMessage("获取公告失败！ （错误：" + e.toString() + "）");
+            }
         }
         System.out.print("> ");
     }

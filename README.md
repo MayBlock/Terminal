@@ -8,7 +8,7 @@
 <dependency>
     <groupId>cn.newcraft.terminal</groupId>
     <artifactId>Terminal</artifactId>
-    <version>1.3.0.201114_release</version>
+    <version>1.4.1.211210_release</version>
 </dependency>
 ```
 ### Grade
@@ -22,7 +22,7 @@ allprojects {
 
 <!-- 2.添加依赖 -->
 dependencies {
-	implementation 'cn.newcraft.terminal:Terminal:1.3.0.201114_release'
+	implementation 'cn.newcraft.terminal:Terminal:1.4.1.211210_release'
 }
 ```
 

@@ -11,18 +11,26 @@
     <version>1.4.1.211210_release</version>
 </dependency>
 ```
-### Grade
+### Gradle Groovy
 ```groovy
-<!-- 1.将Maven仓库添加到build.gradle中 -->
-allprojects {
-	repositories {
-		maven { url 'http://repo1.maven.org/maven2' }
-	}
+
+repositories {
+    maven { url 'http://repo1.maven.org/maven2' }
 }
 
-<!-- 2.添加依赖 -->
 dependencies {
-	implementation 'cn.newcraft.terminal:Terminal:1.4.1.211210_release'
+    implementation 'cn.newcraft.terminal:Terminal:1.4.1.211210_release'
+}
+```
+### Gradle DSL
+```kotlin
+
+repositories {
+    maven ("http://repo1.maven.org/maven2")
+}
+
+dependencies {
+    implementation ("cn.newcraft.terminal:Terminal:1.4.1.211210_release")
 }
 ```
 

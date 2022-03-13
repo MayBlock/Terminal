@@ -1,9 +1,9 @@
 package cn.newcraft.terminal.plugin;
 
+import cn.newcraft.terminal.Prefix;
 import cn.newcraft.terminal.Terminal;
 import cn.newcraft.terminal.command.CommandManager;
 import cn.newcraft.terminal.configuration.file.YamlConfiguration;
-import cn.newcraft.terminal.Prefix;
 import cn.newcraft.terminal.event.Event;
 import cn.newcraft.terminal.screen.Screen;
 import cn.newcraft.terminal.screen.TextColor;
@@ -24,10 +24,10 @@ import java.util.zip.ZipInputStream;
 public class PluginManager {
 
     private static File file;
-    private static HashMap<String, PluginInfo> plugins = new HashMap<>();
+    private static final HashMap<String, PluginInfo> plugins = new HashMap<>();
     private Class<?> LoadMain;
     private URLClassLoader urlClassLoader;
-    private Screen screen = Terminal.getScreen();
+    private final Screen screen = Terminal.getScreen();
 
     public static HashMap<String, PluginInfo> getPlugins() {
         return plugins;
@@ -180,9 +180,7 @@ public class PluginManager {
             screen.sendMessage(TextColor.ORANGE + TextColor.BOLD + "\n===↑=↑=↑=↑=↑== 该错误并非为Terminal造成，请不要报告该错误 ==↑=↑=↑=↑=↑===");
         }
         CommandManager.getCommandsInfo().remove(name);
-        if (Event.getListeners().get(plugin) != null) {
-            Event.getListeners().remove(plugin);
-        }
+        Event.unregisterListeners(plugin);
         plugins.remove(name);
     }
 

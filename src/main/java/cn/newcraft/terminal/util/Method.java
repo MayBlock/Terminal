@@ -23,7 +23,7 @@ public class Method {
     }
 
     public static boolean isConnect() throws IOException {
-        return JsonUtils.getJsonURL("https://api.newcraft.cn/verify/internet.php", "internet", "active").getAsBoolean();
+        return true;
     }
 
     public static void runCmd(String command) throws IOException {

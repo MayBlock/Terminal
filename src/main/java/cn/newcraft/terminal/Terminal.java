@@ -238,11 +238,10 @@ public class Terminal {
         if (server != null && server.isEnabled()) {
             server.shutdown();
         }
-        if (screen == null) {
-            for (String reason : reasons) {
-                System.err.println(TextColor.codeTo(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason, false));
-            }
-        } else {
+        for (String reason : reasons) {
+            System.err.println(TextColor.codeTo(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason, false));
+        }
+        if (screen != null) {
             screen.setComponentEnabled(false);
             for (String reason : reasons) {
                 screen.sendMessage(Prefix.TERMINAL_ERROR.getPrefix() + " " + reason);
